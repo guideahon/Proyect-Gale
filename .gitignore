@@ -23,6 +23,12 @@ __pycache__/
 *.pyc
 .venv/
 
+# UID files generados por Godot 4.x
+*.uid
+
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Agent tooling
+.llamacode/
