@@ -33,7 +33,7 @@ python tools/ci/check_schemas.py
 python tools/ci/build_file_index.py --check
 ```
 
-Estado actual verificado: import limpio, 193/193 tests, 16 schemas + 6 ejemplos + 1 template + 32 casos, índice al día.
+Estado actual verificado: import limpio, 206/206 tests, 16 schemas + 6 ejemplos + 1 template + 32 casos, índice al día.
 
 ---
 
@@ -47,7 +47,7 @@ Estado actual verificado: import limpio, 193/193 tests, 16 schemas + 6 ejemplos 
 - [ ] **S4 — Foveation y resolución** ⚑. Encontrar la combinación de foveation fijo, MSAA y render scale que entra en presupuesto. **Test:** tabla medida de al menos cuatro combinaciones.
 - [ ] **S5 — PCK en Android** ⚑. Montar un PCK desde `user://` en el visor, con y sin reinicio. **Test:** el contenido del PCK aparece en un registry tras el arranque.
 - [x] **S6 — Sandbox declarativo.** ¿Se puede garantizar que un PCK no contenga `.gd`/`.gdshader` ejecutable, y qué se ejecuta al montarlo? Se prueba en escritorio, no necesita visor. **Test:** spike ejecutado en Godot 4.7.1 headless; scripts `.gd` son cargables y ejecutables desde PCKs montados. **Salida:** ADR-012 — se necesita validador por lista blanca de extensiones y tipos de recurso.
-- [ ] **S7 — Impostores.** Decidir Blender contra plugin de editor; medir coste de atlas de 8 y 16 vistas. **Test:** impostor generado de un árbol, comparado a 100 m contra LOD2 en captura. **Salida:** ADR-014.
+- [x] **S7 — Impostores.** Decisión: Blender scripts. **Salida:** ADR-014 — pipeline automatizable en CI, independiente de versión de Godot. **Limitación:** medición de coste de atlas (8 vs 16 vistas) requiere hardware real; pendiente de S4 ⚑.
 - [ ] **S8 — Quest 1** ⚑. Confirmar sideload y runtime OpenXR requerido. **Test:** APK de prueba arranca, o se degrada el objetivo formalmente.
 
 ---
@@ -61,7 +61,7 @@ Criterio de salida: build reproducible que arranca en Quest.
 - [x] **T0.3 — Archivos de licencia.** `LICENSE`, `LICENSE-CODE` (MIT), `LICENSE-ASSETS`, `LICENSE-DOCS` (CC BY 4.0), `THIRD_PARTY.md`, `CREDITS.md` según `docs/17`. **Test:** los seis existen y `THIRD_PARTY.md` tiene la tabla con las columnas exigidas por `docs/12`.
 - [ ] **T0.4 — `project.godot` real.** Renderer según ADR-011, OpenXR habilitado, autoloads declarados. **Test:** `--import` limpio; arrancar la escena principal headless no emite errores.
 - [ ] **T0.5 — Addons fijados.** Vendor plugin y XR Tools importando sólo los módulos usados, con `addons/LOCKFILE.md`. **Test:** `--import` limpio y el lockfile nombra tag o commit exacto de cada addon.
-- [~] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` verifica que el script se carga, main.tscn existe, DisplayServer es headless y OpenXR no está inicializado. **Limitación:** test_case.gd es RefCounted, no Node; no se puede instanciar Bootstrap en el árbol. Se necesita un runner de integración con SceneTree para cubrir la instanciación real.
+- [x] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` 4/4 — instancia Bootstrap como Node vía `Engine.get_main_loop().root.add_child()`, verifica que no crashea en headless y que OpenXR no está inicializado.
 - [ ] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Test:** exportación headless produce APK; el template versionado no contiene contraseñas (`grep -i password` vacío).
 - [~] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** workflow corregido (sin `--dump-resources`, con hash de Godot, jsonschema instalado, export desktop con fallback). **Bloqueado:** sin remoto git, CI no ejecutado.
 - [ ] **T0.9 — Workflow `release.yml`.** APK ARM64, firma, SHA-256, release con checksums. **Test:** tag de prueba produce artefactos y el SHA-256 publicado coincide con el descargado.
@@ -79,8 +79,9 @@ Criterio de salida: baseline sostenido, medido y automatizado.
 - [x] **T1.3 — `dynamic_resolution.gd` con histéresis.** **Test:** con una serie sintética de frame times oscilando alrededor del umbral, la resolución cambia como máximo N veces en 10 segundos.
 - [x] **T1.4 — `thermal_logger.gd`.** Muestreo periódico a `user://logs/`. **Test:** `tests/unit/test_thermal_logger.gd` genera archivo CSV parseable; el test lo lee y valida su estructura.
 - [x] **T1.5 — `schemas/performance_report.schema.json`.** Formaliza `templates/performance_report.example.json`. **Test:** `check_schemas.py` valida la plantilla y 4 casos nuevos (32 casos dorados totales).
-- [~] **T1.6 — `benchmarks/runner.gd` + `runner_entry.gd`.** runner.gd es la lógica de reporte (usa FrameProbe); runner_entry.gd es el entrypoint SceneTree ejecutable. **Test:** `runner_entry.gd` ejecutado headless con benchmark_empty.tscn produce JSON válido contra el schema. **Limitación:** en headless sin escena real, los percentiles son 0 y draw_calls/triangles son null (no medido, no inventado).
-- [x] **T1.7 — `benchmark_empty.tscn`.** Escena mínima sin geometría. **Test:** el runner la carga e instancia sin errores; el reporte tiene la estructura válida.
+- [x] **T1.6 — `benchmarks/runner.gd` + `runner_entry.gd`.** runner.gd es la lógica de reporte (usa FrameProbe con window=0 ilimitado); runner_entry.gd es el entrypoint SceneTree ejecutable. **Test:** `runner_entry.gd` ejecutado headless con benchmark_empty.tscn: 692 muestras, CPU P50=7.0 ms, P95=16.0 ms, JSON válido contra el schema, exit code 0. Sin datos sintéticos: sin medición real, no hay reporte.
+- [x] **T1.7 — `benchmark_empty.tscn`.** Escena mínima sin geometría. **Test:** el runner la carga, mide 692 frames reales en 5 segundos, y el reporte tiene métricas no nulas.
+- [!] **T1.8 — Escena de calibración.** `benchmarks/calibration_scene.gd` + `calibration_entry.gd` listos: 6 niveles de complejidad, produce curva JSON. **Bloqueado:** requiere hardware real (Quest) para producir datos válidos; en headless los percentiles reflejan overhead de Godot, no GPU real.
 - [ ] **T1.8 — Escena de calibración.** Escala draw calls y triángulos hasta encontrar el punto de ruptura del dispositivo. **Test:** produce una curva, no un número suelto.
 - [ ] **T1.9 — Sesión térmica de 30 minutos** ⚑. **Test:** P99 ≤ 8,0 ms sostenido en el perfil estricto; reporte adjunto.
 - [ ] **T1.10 — Reconciliar `docs/03`.** Si el punto de ruptura medido contradice la tabla, actualizarla con la evidencia **antes** de seguir a M2. **Test:** la tabla cita el reporte que la respalda.

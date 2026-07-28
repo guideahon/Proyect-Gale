@@ -8,6 +8,8 @@
 # RenderingServer.get_rendering_info() cuando está disponible; en
 # modo headless o con renderer sin soporte devuelven null (no medido).
 #
+# window_size=0 significa ilimitado: retiene todas las muestras.
+#
 # Uso típico como autoload `PerformanceService`:
 #
 #     var probe := FrameProbe.new()
@@ -18,6 +20,7 @@ class_name FrameProbe
 extends RefCounted
 
 # Ventana de muestras para percentiles (ajustable).
+# 0 = ilimitado (retiene todas las muestras).
 var _window_size: int = 120
 
 # Series independientes de CPU y GPU.
@@ -37,13 +40,14 @@ func _init(window_size: int = 120, budget_ms: float = 8.33) -> void:
 
 
 ## Agrega una muestra de frame time con CPU y GPU por separado.
+## Si window_size == 0, no hay límite de muestras.
 func add_sample(cpu_ms: float, gpu_ms: float) -> void:
 	_cpu_samples.append(cpu_ms)
 	_gpu_samples.append(gpu_ms)
 
-	if _cpu_samples.size() > _window_size:
+	if _window_size > 0 and _cpu_samples.size() > _window_size:
 		_cpu_samples.remove_at(0)
-	if _gpu_samples.size() > _window_size:
+	if _window_size > 0 and _gpu_samples.size() > _window_size:
 		_gpu_samples.remove_at(0)
 
 	if max(cpu_ms, gpu_ms) > _budget_ms:

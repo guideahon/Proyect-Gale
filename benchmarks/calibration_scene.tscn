@@ -1,0 +1,6 @@
+[gd_scene load_steps=1]
+
+[ext_resource type="Script" path="res://benchmarks/calibration_scene.gd" id="1_calib"]
+
+[node name="CalibrationScene" type="Node"]
+script = ExtResource("1_calib")

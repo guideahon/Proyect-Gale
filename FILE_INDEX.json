@@ -84,6 +84,21 @@
       "sha256": "eab8d3e31001063b2b08968d95298ed7264320f2fb27e11bcdbb456f23d62336"
     },
     {
+      "path": "benchmarks/calibration_entry.gd",
+      "bytes": 768,
+      "sha256": "06de4434b3fde29a6c57c84f634471d547e656fbcffe8c3cc0e680928dcf6e2a"
+    },
+    {
+      "path": "benchmarks/calibration_scene.gd",
+      "bytes": 2792,
+      "sha256": "8e5366faa7298040de31a613240bb098fc2ae20f7677a27a20455fbe8cb5ff79"
+    },
+    {
+      "path": "benchmarks/calibration_scene.tscn",
+      "bytes": 188,
+      "sha256": "aa765b74dd145d61efecc4b7fb29a5388c770da9f03b20710322850bda5b672d"
+    },
+    {
       "path": "benchmarks/runner.gd",
       "bytes": 2130,
       "sha256": "ebc609c759e8be6e85dd557cccf22a04edc3900c774903ae7c0be2bce3224117"
@@ -95,8 +110,8 @@
     },
     {
       "path": "benchmarks/runner_entry.gd",
-      "bytes": 2239,
-      "sha256": "d41ceeb51085eab6048651f61e57c35b1a522f65ca310edf7cb33663c7bcb4cd"
+      "bytes": 2378,
+      "sha256": "49d6e6e283e0ca0cedc3b2be0264585c7c20823f524c5a7fc9c3db88c9f0a7ce"
     },
     {
       "path": "core/mods/semver.gd",
@@ -120,8 +135,8 @@
     },
     {
       "path": "core/perf/frame_probe.gd",
-      "bytes": 4367,
-      "sha256": "066a7e5dc2aaa61c6610479a6c998303655c43b9e3052ff6acf0cfd9fadaea79"
+      "bytes": 4574,
+      "sha256": "48c8b3c07dbd7606b0cbe6de40f342e55314f3dbbf2f56754252268e71f776a3"
     },
     {
       "path": "core/perf/frame_probe.gd.uid",
@@ -135,8 +150,8 @@
     },
     {
       "path": "core/perf/thermal_logger.gd",
-      "bytes": 3336,
-      "sha256": "5b98e5f38e01191feab8673708116f78a56020c93e9f670835f55b5a25e8e2da"
+      "bytes": 3286,
+      "sha256": "db208890e2a4b47a08c60ef3fc001c16c620846ce5af0e134c8a940c02cc4a31"
     },
     {
       "path": "core/perf/thermal_logger.gd.uid",
@@ -242,6 +257,11 @@
       "path": "docs/19_SEGURIDAD_DE_MODS.md",
       "bytes": 1615,
       "sha256": "06cc3c434bb8ace25349eb479db4e907d44397ac3c34ff7383371dcb09c8d1d0"
+    },
+    {
+      "path": "docs/20_ADR-014_IMPOSTORES.md",
+      "bytes": 2032,
+      "sha256": "b640de958f279c63567dd6b536559db8a4f40bc17763ea265b8fc720abd220d0"
     },
     {
       "path": "docs/20_REGISTRO_DE_DECISIONES.md",
@@ -495,8 +515,8 @@
     },
     {
       "path": "tests/unit/test_bootstrap.gd",
-      "bytes": 2051,
-      "sha256": "4978f6333b829d88f13ffe757b0bf5c8ac1b6acd0c0a50607b7011aadc56507c"
+      "bytes": 2221,
+      "sha256": "8a6aba2396a472ff3d12e9662b2cacbd6f53aee25e01044d74bc934b75a5e60b"
     },
     {
       "path": "tests/unit/test_bootstrap.gd.uid",
@@ -515,8 +535,8 @@
     },
     {
       "path": "tests/unit/test_frame_probe.gd",
-      "bytes": 4721,
-      "sha256": "078d1e34d7601b1cd368bd763ea18a2cb6b9074e0cc1f787b02c591c149492c8"
+      "bytes": 5321,
+      "sha256": "fae6c7ec21d20b17fc3f3e6e79f948e6315c063835c06245f141eb8fb9ccea8f"
     },
     {
       "path": "tests/unit/test_frame_probe.gd.uid",
@@ -525,8 +545,8 @@
     },
     {
       "path": "tests/unit/test_profile_manager.gd",
-      "bytes": 4051,
-      "sha256": "e4df0a03f0bbd542da0cbaece973c494ede8f78596ec0bf764ef52fd297d1e36"
+      "bytes": 4035,
+      "sha256": "3392622df6c00e742711a63f8226d7b236b253bf83f2e1cdb4298f6797ca1820"
     },
     {
       "path": "tests/unit/test_semver.gd",

@@ -3,6 +3,7 @@
 ## Calcula percentiles sobre series sintéticas de valor conocido.
 ## Verifica que CPU y GPU se mantienen separados.
 ## Verifica que draw_calls/triangles/texture_memory son null en headless.
+## Verifica que window_size=0 retiene todas las muestras (ilimitado).
 extends "res://tests/framework/test_case.gd"
 
 const FrameProbe := preload("res://core/perf/frame_probe.gd")
@@ -12,6 +13,7 @@ func run() -> void:
 	_test_percentile_edge_cases()
 	_test_probe_separate_cpu_gpu()
 	_test_probe_window_limit()
+	_test_probe_window_unlimited()
 	_test_probe_dropped_frames()
 	_test_probe_report_structure()
 	_test_probe_rendering_info_null_in_headless()
@@ -74,6 +76,21 @@ func _test_probe_window_limit() -> void:
 	check_approx(report.gpu_p50, 5.0, 0.01, "GPU P50 de últimas 3")
 
 
+func _test_probe_window_unlimited() -> void:
+	# window_size=0 = ilimitado: retiene todas las muestras.
+	var probe := FrameProbe.new(0)
+
+	for i in range(100):
+		probe.add_sample(float(i + 1), float(i + 1))
+
+	var report := probe.get_report()
+	check(report.sample_count, 100, "100 muestras retenidas con window=0")
+	# P50 de 1..100 = 50.5
+	check_approx(report.cpu_p50, 50.5, 0.01, "CPU P50 de 100 muestras")
+	# P95 de 1..100 ≈ 95.05
+	check_approx(report.cpu_p95, 95.05, 0.1, "CPU P95 de 100 muestras")
+
+
 func _test_probe_dropped_frames() -> void:
 	var probe := FrameProbe.new(10, 8.0)
 
@@ -109,7 +126,7 @@ func _test_probe_rendering_info_null_in_headless() -> void:
 	probe.add_sample(5.0, 6.0)
 	var report := probe.get_report()
 
-	# En headless, RenderingServer.get_rendering_info() devuelve vacío.
+	# En headless, RenderingServer.get_rendering_info() devuelve 0.
 	# draw_calls, visible_triangles, texture_memory deben ser null.
 	check(report.draw_calls, null, "draw_calls es null en headless")
 	check(report.visible_triangles, null, "visible_triangles es null en headless")

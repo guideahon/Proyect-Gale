@@ -95,7 +95,6 @@ func log_sample(cpu_ms: float, gpu_ms: float, temp_celsius: float = -1.0, force:
 ## Fuerza un flush del archivo actual.
 func _flush() -> void:
 	if _current_file != null:
-		_current_file.store_string("")  # trigger flush
 		_current_file.flush()
 
 
