@@ -1,0 +1,6 @@
+[gd_scene load_steps=1]
+
+[ext_resource type="Script" path="res://benchmarks/benchmark_empty.gd" id="1_empty"]
+
+[node name="BenchmarkEmpty" type="Node"]
+script = ExtResource("1_empty")

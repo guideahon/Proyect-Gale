@@ -15,8 +15,8 @@
     },
     {
       "path": ".github/workflows/pr.yml",
-      "bytes": 2789,
-      "sha256": "db80194b261b5187a5a302ebf07b7c7ee2b31f4fa821b074ecc32f2da15dd208"
+      "bytes": 2990,
+      "sha256": "2be98b9aa377f3c26d998bb41852d22c041e75741d271fa1dd4bbc187cc3d277"
     },
     {
       "path": ".gitignore",
@@ -74,9 +74,29 @@
       "sha256": "60d0007d86463733d5fe92facaaab35eae32c2317784274cecea590b5d69aa9f"
     },
     {
+      "path": "benchmarks/benchmark_empty.gd",
+      "bytes": 212,
+      "sha256": "f6b24213db92eadc50c22c36bc9a9c6f7feb890e693f36d96d8429ceaad66ed3"
+    },
+    {
+      "path": "benchmarks/benchmark_empty.tscn",
+      "bytes": 184,
+      "sha256": "eab8d3e31001063b2b08968d95298ed7264320f2fb27e11bcdbb456f23d62336"
+    },
+    {
       "path": "benchmarks/runner.gd",
-      "bytes": 3204,
-      "sha256": "4175c82a0efe5a18d7b1a8870df651d95e725cc85adfe725b7db6d215da0b364"
+      "bytes": 2130,
+      "sha256": "ebc609c759e8be6e85dd557cccf22a04edc3900c774903ae7c0be2bce3224117"
+    },
+    {
+      "path": "benchmarks/runner.gd.uid",
+      "bytes": 20,
+      "sha256": "9f8886ab963d8dbe32f87a8b59237a7ae428fd076728e1ec6fed9354cdd79063"
+    },
+    {
+      "path": "benchmarks/runner_entry.gd",
+      "bytes": 2239,
+      "sha256": "d41ceeb51085eab6048651f61e57c35b1a522f65ca310edf7cb33663c7bcb4cd"
     },
     {
       "path": "core/mods/semver.gd",
@@ -100,8 +120,8 @@
     },
     {
       "path": "core/perf/frame_probe.gd",
-      "bytes": 3286,
-      "sha256": "4029d7ba4aaa1126e0ed6714dacdc9a11754c9f6ad09815dd001cc468b5b50a3"
+      "bytes": 4367,
+      "sha256": "066a7e5dc2aaa61c6610479a6c998303655c43b9e3052ff6acf0cfd9fadaea79"
     },
     {
       "path": "core/perf/frame_probe.gd.uid",
@@ -109,9 +129,19 @@
       "sha256": "318f90775744464235d38a15b3cf62d6cffabe36f7cacfddc645c6b63cea46fb"
     },
     {
+      "path": "core/perf/profile_manager.gd",
+      "bytes": 3005,
+      "sha256": "061fdeac93883fd9dc0934970e61dc1d70bc2b554e1d85b761d9193e12942b6b"
+    },
+    {
       "path": "core/perf/thermal_logger.gd",
-      "bytes": 2342,
-      "sha256": "49383c6e3c9b432e9eb309342be054bb72d1b70612d0711317f53adbf7cb0ac0"
+      "bytes": 3336,
+      "sha256": "5b98e5f38e01191feab8673708116f78a56020c93e9f670835f55b5a25e8e2da"
+    },
+    {
+      "path": "core/perf/thermal_logger.gd.uid",
+      "bytes": 20,
+      "sha256": "f97d684b7959a5753598439ffe3befc522bc9e8f331693b21ef1993d7519957b"
     },
     {
       "path": "docs/00_README.md",
@@ -285,8 +315,8 @@
     },
     {
       "path": "game/autoload/bootstrap.gd",
-      "bytes": 2033,
-      "sha256": "f4d8ee0737ae53cb18127da072fb1989de4377724c87ee821c4265236f83f66c"
+      "bytes": 2047,
+      "sha256": "b8516aad6f34b3eacf72eb30960d1162cae9ec7948eefadb06f381130f574dd5"
     },
     {
       "path": "game/autoload/bootstrap.gd.uid",
@@ -301,7 +331,7 @@
     {
       "path": "project.godot",
       "bytes": 622,
-      "sha256": "0e32e052ce5a7e746c2c9b2553a8d11262d2d7845319d18b0e9a43813ca2a090"
+      "sha256": "2b36b7898c1948ca66966285ee1a0bd613eba06bc0db7e5a7ca20b935c946e56"
     },
     {
       "path": "schemas/ability.schema.json",
@@ -429,6 +459,11 @@
       "sha256": "1a14127032921556cb68847ec3942f541645e1c5216ea19b992c722a77d50f74"
     },
     {
+      "path": "tests/spike_s6/check_pckpacker.gd.uid",
+      "bytes": 20,
+      "sha256": "6935e4434873bc92250b7205bcf6aac45bb816adf6102720d956f8cfa3a516b3"
+    },
+    {
       "path": "tests/spike_s6/create_malicious_pck.py",
       "bytes": 1904,
       "sha256": "a9ffc3b17591dbd59a0cc1d40a3fb8f19b0d9935fb00609790d2714ab3aac03a"
@@ -450,8 +485,8 @@
     },
     {
       "path": "tests/spike_s6/test_sandbox.gd",
-      "bytes": 4107,
-      "sha256": "9a70cd05d88557087432c92ceaf4f9d49121c94ad8763b0c13562f4317784e04"
+      "bytes": 4096,
+      "sha256": "332c0c6d79f6b830f9dbac8ad817166eb9d4a8db9b8002dc5fff5795e6ea1000"
     },
     {
       "path": "tests/spike_s6/test_sandbox.gd.uid",
@@ -460,8 +495,8 @@
     },
     {
       "path": "tests/unit/test_bootstrap.gd",
-      "bytes": 2040,
-      "sha256": "dcb89069a51816b9e7792486f15ac78ec3748c29d6841e2bd5e471111bacf953"
+      "bytes": 2051,
+      "sha256": "4978f6333b829d88f13ffe757b0bf5c8ac1b6acd0c0a50607b7011aadc56507c"
     },
     {
       "path": "tests/unit/test_bootstrap.gd.uid",
@@ -480,13 +515,18 @@
     },
     {
       "path": "tests/unit/test_frame_probe.gd",
-      "bytes": 4089,
-      "sha256": "a670e27a5b75ee9db793e57f000aab535fdad0668d28d8bc68fe3d56c840e63a"
+      "bytes": 4721,
+      "sha256": "078d1e34d7601b1cd368bd763ea18a2cb6b9074e0cc1f787b02c591c149492c8"
     },
     {
       "path": "tests/unit/test_frame_probe.gd.uid",
       "bytes": 19,
       "sha256": "abbbfa5187a0869d013ea6cf2099973b6190c37cab3f09647bcc8f665b9cb91a"
+    },
+    {
+      "path": "tests/unit/test_profile_manager.gd",
+      "bytes": 4051,
+      "sha256": "e4df0a03f0bbd542da0cbaece973c494ede8f78596ec0bf764ef52fd297d1e36"
     },
     {
       "path": "tests/unit/test_semver.gd",
@@ -500,8 +540,13 @@
     },
     {
       "path": "tests/unit/test_thermal_logger.gd",
-      "bytes": 3049,
-      "sha256": "15870a39f63e35e35bf7487e9ed82d69c9fd7776a7f36030c525c61c97b17419"
+      "bytes": 5081,
+      "sha256": "5d1b990e58ee4301599b5787831361b8b91abc75c947e7f979ecef597fd02615"
+    },
+    {
+      "path": "tests/unit/test_thermal_logger.gd.uid",
+      "bytes": 19,
+      "sha256": "033bcee170f8188b70b57bb97f34b60615a3a6bce756876e31063e78feae52e4"
     },
     {
       "path": "tools/ci/build_file_index.py",
@@ -510,8 +555,8 @@
     },
     {
       "path": "tools/ci/check_schemas.py",
-      "bytes": 3952,
-      "sha256": "3b418f0b76271dc9b749bedcc86a70256bbc7583d56cb8bc594434e88ef29896"
+      "bytes": 4970,
+      "sha256": "54e4767293d263f20cdabbbd1f82cc1a2c9892074a2778dd0b0b3b004a770c97"
     }
   ]
 }

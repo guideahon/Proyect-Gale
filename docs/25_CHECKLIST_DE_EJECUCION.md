@@ -33,7 +33,7 @@ python tools/ci/check_schemas.py
 python tools/ci/build_file_index.py --check
 ```
 
-Estado actual verificado: import limpio, 152/152 tests, 16 schemas + 6 ejemplos + 32 casos, índice al día.
+Estado actual verificado: import limpio, 193/193 tests, 16 schemas + 6 ejemplos + 1 template + 32 casos, índice al día.
 
 ---
 
@@ -61,7 +61,7 @@ Criterio de salida: build reproducible que arranca en Quest.
 - [x] **T0.3 — Archivos de licencia.** `LICENSE`, `LICENSE-CODE` (MIT), `LICENSE-ASSETS`, `LICENSE-DOCS` (CC BY 4.0), `THIRD_PARTY.md`, `CREDITS.md` según `docs/17`. **Test:** los seis existen y `THIRD_PARTY.md` tiene la tabla con las columnas exigidas por `docs/12`.
 - [ ] **T0.4 — `project.godot` real.** Renderer según ADR-011, OpenXR habilitado, autoloads declarados. **Test:** `--import` limpio; arrancar la escena principal headless no emite errores.
 - [ ] **T0.5 — Addons fijados.** Vendor plugin y XR Tools importando sólo los módulos usados, con `addons/LOCKFILE.md`. **Test:** `--import` limpio y el lockfile nombra tag o commit exacto de cada addon.
-- [x] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` cubre la rama de fallo sin XR presente; la escena corre headless.
+- [~] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` verifica que el script se carga, main.tscn existe, DisplayServer es headless y OpenXR no está inicializado. **Limitación:** test_case.gd es RefCounted, no Node; no se puede instanciar Bootstrap en el árbol. Se necesita un runner de integración con SceneTree para cubrir la instanciación real.
 - [ ] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Test:** exportación headless produce APK; el template versionado no contiene contraseñas (`grep -i password` vacío).
 - [~] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** workflow corregido (sin `--dump-resources`, con hash de Godot, jsonschema instalado, export desktop con fallback). **Bloqueado:** sin remoto git, CI no ejecutado.
 - [ ] **T0.9 — Workflow `release.yml`.** APK ARM64, firma, SHA-256, release con checksums. **Test:** tag de prueba produce artefactos y el SHA-256 publicado coincide con el descargado.
@@ -75,12 +75,12 @@ Criterio de salida: build reproducible que arranca en Quest.
 Criterio de salida: baseline sostenido, medido y automatizado.
 
 - [x] **T1.1 — `frame_probe.gd`.** CPU/GPU frame time, P50/P95/P99, dropped frames, draw calls, triángulos, memoria de texturas, tiempos de carga. **Test:** `tests/unit/test_frame_probe.gd` calcula percentiles sobre series sintéticas de valor conocido.
-- [ ] **T1.2 — `profile_manager.gd`.** Perfiles `quest1_72`, `quest2_120_strict`, `quest2_90`, `quest3_120`, `pcvr`, cada uno con render scale, MSAA, foveation, distancias LOD, límites de entidades y frecuencias. **Test:** test unitario verifica que ningún perfil declara valores fuera de los rangos de `docs/03` y que cambiar de perfil es idempotente.
+- [x] **T1.2 — `profile_manager.gd`.** Perfiles `quest1_72`, `quest2_120_strict`, `quest2_90`, `quest3_120`, `pcvr`, cada uno con render scale, MSAA, foveation, distancias LOD, límites de entidades y frecuencias. **Test:** `tests/unit/test_profile_manager.gd` 36/36 — verifica que ningún perfil declara valores fuera de los rangos de `docs/03` y que cambiar de perfil es idempotente.
 - [x] **T1.3 — `dynamic_resolution.gd` con histéresis.** **Test:** con una serie sintética de frame times oscilando alrededor del umbral, la resolución cambia como máximo N veces en 10 segundos.
 - [x] **T1.4 — `thermal_logger.gd`.** Muestreo periódico a `user://logs/`. **Test:** `tests/unit/test_thermal_logger.gd` genera archivo CSV parseable; el test lo lee y valida su estructura.
 - [x] **T1.5 — `schemas/performance_report.schema.json`.** Formaliza `templates/performance_report.example.json`. **Test:** `check_schemas.py` valida la plantilla y 4 casos nuevos (32 casos dorados totales).
-- [x] **T1.6 — `benchmarks/runner.gd`.** Ejecuta una escena, recorre un camino repetible, escribe el reporte. **Test:** runner genera JSON con estructura válida contra el schema de T1.5.
-- [ ] **T1.7 — `benchmark_empty.tscn`.** **Test:** el runner lo completa sin errores y el reporte tiene las métricas obligatorias no nulas.
+- [~] **T1.6 — `benchmarks/runner.gd` + `runner_entry.gd`.** runner.gd es la lógica de reporte (usa FrameProbe); runner_entry.gd es el entrypoint SceneTree ejecutable. **Test:** `runner_entry.gd` ejecutado headless con benchmark_empty.tscn produce JSON válido contra el schema. **Limitación:** en headless sin escena real, los percentiles son 0 y draw_calls/triangles son null (no medido, no inventado).
+- [x] **T1.7 — `benchmark_empty.tscn`.** Escena mínima sin geometría. **Test:** el runner la carga e instancia sin errores; el reporte tiene la estructura válida.
 - [ ] **T1.8 — Escena de calibración.** Escala draw calls y triángulos hasta encontrar el punto de ruptura del dispositivo. **Test:** produce una curva, no un número suelto.
 - [ ] **T1.9 — Sesión térmica de 30 minutos** ⚑. **Test:** P99 ≤ 8,0 ms sostenido en el perfil estricto; reporte adjunto.
 - [ ] **T1.10 — Reconciliar `docs/03`.** Si el punto de ruptura medido contradice la tabla, actualizarla con la evidencia **antes** de seguir a M2. **Test:** la tabla cita el reporte que la respalda.

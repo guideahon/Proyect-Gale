@@ -4,9 +4,9 @@
 # de cada uno, dropped frames. Diseñado para correr a frecuencia de
 # pantalla sin perturbar el presupuesto.
 #
-# Contadores adicionales (draw calls, triángulos, memoria de texturas)
-# se leen de RenderingServer cuando está disponible; en modo headless
-# devuelven 0.
+# draw_calls, visible_triangles y texture_memory se leen de
+# RenderingServer.get_rendering_info() cuando está disponible; en
+# modo headless o con renderer sin soporte devuelven null (no medido).
 #
 # Uso típico como autoload `PerformanceService`:
 #
@@ -61,9 +61,13 @@ func get_gpu_percentiles() -> Dictionary:
 
 
 ## Reporte completo del estado actual.
+## draw_calls, visible_triangles y texture_memory son null cuando no se
+## pueden medir (headless, renderer sin soporte, etc.).
 func get_report() -> Dictionary:
 	var cpu_p := get_cpu_percentiles()
 	var gpu_p := get_gpu_percentiles()
+	var rendering_info := _get_rendering_info()
+
 	return {
 		"sample_count": _cpu_samples.size(),
 		"cpu_p50": cpu_p.p50,
@@ -74,9 +78,9 @@ func get_report() -> Dictionary:
 		"gpu_p99": gpu_p.p99,
 		"dropped_frames": _dropped_frames,
 		"budget_ms": _budget_ms,
-		"draw_calls": RenderingServer.get_rendering_device().get_graphics_buffer_memory_usage() if _has_rendering_device() else 0,
-		"visible_triangles": 0,
-		"texture_memory": 0,
+		"draw_calls": rendering_info.draw_calls,
+		"visible_triangles": rendering_info.triangles,
+		"texture_memory": rendering_info.texture_mem,
 	}
 
 
@@ -85,6 +89,30 @@ func reset() -> void:
 	_cpu_samples.clear()
 	_gpu_samples.clear()
 	_dropped_frames = 0
+
+
+## Intenta leer RenderingServer.get_rendering_info(). Devuelve nulls si no
+## está disponible (headless, renderer sin soporte, etc.).
+func _get_rendering_info() -> Dictionary:
+	var draw_calls: Variant = null
+	var triangles: Variant = null
+	var texture_mem: Variant = null
+
+	# get_rendering_info() requiere un índice en Godot 4.7.1.
+	# En headless pueden devolver valores inválidos; verificamos.
+	draw_calls = RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME)
+	triangles = RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME)
+	texture_mem = RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TEXTURE_MEM_USED)
+
+	# Si todos son 0 en headless, marcar como no medido.
+	if draw_calls == 0 and triangles == 0 and texture_mem == 0:
+		return {"draw_calls": null, "triangles": null, "texture_mem": null}
+
+	return {
+		"draw_calls": draw_calls,
+		"triangles": triangles,
+		"texture_mem": texture_mem,
+	}
 
 
 ## Calcula percentiles sobre una serie.
@@ -117,7 +145,3 @@ func _percentiles_for(samples: Array[float]) -> Dictionary:
 		"p95": percentile(sorted, 0.95),
 		"p99": percentile(sorted, 0.99),
 	}
-
-
-func _has_rendering_device() -> bool:
-	return RenderingServer.get_rendering_device() != null

@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Valida los JSON Schemas, el mod de ejemplo y los casos dorados.
+"""Valida los JSON Schemas, el mod de ejemplo, templates y los casos dorados.
 
-    python tools/ci/check_schemas.py
+python tools/ci/check_schemas.py
 
-Comprueba tres cosas:
+Comprueba cuatro cosas:
 
 1. cada archivo de `schemas/` es un JSON Schema Draft 2020-12 válido;
 2. cada archivo de `examples/` valida contra el schema que le corresponde por
    convención de nombre (`*.weapon.json` -> `weapon.schema.json`);
-3. cada caso de `tests/data/schema_cases.json` valida o falla según lo declarado.
+3. cada archivo de `templates/*.example.json` valida contra su schema;
+4. cada caso de `tests/data/schema_cases.json` valida o falla según lo declarado.
 
 PROVISORIO. Sólo verifica forma, no reglas de juego: no resuelve IDs entre
 registries, no comprueba presupuestos agregados ni dependencias. Esa validación
@@ -30,6 +31,7 @@ except ImportError:
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 SCHEMA_DIR = ROOT / "schemas"
 CASES_FILE = ROOT / "tests" / "data" / "schema_cases.json"
+TEMPLATES_DIR = ROOT / "templates"
 
 # Archivos de ejemplo cuyo nombre no sigue la convención `*.<tipo>.json`.
 EXPLICIT_EXAMPLES = {
@@ -57,6 +59,10 @@ def schema_for(path: pathlib.Path) -> str:
     if path.name in EXPLICIT_EXAMPLES:
         return EXPLICIT_EXAMPLES[path.name]
     parts = path.name.split(".")
+    # *.example.json -> el schema es el segmento antes de "example"
+    if parts[-2] == "example":
+        return parts[-3] if len(parts) >= 3 else ""
+    # *.weapon.json -> el schema es el segmento antes de "weapon"
     if len(parts) >= 3:
         return parts[-2]
     return ""
@@ -93,6 +99,22 @@ def main() -> int:
     if example_count == 0:
         failures.append("no se encontró ningún ejemplo para validar")
 
+    print("\ntemplates:")
+    template_count = 0
+    for path in sorted(TEMPLATES_DIR.glob("*.example.json")):
+        name = schema_for(path)
+        if not name:
+            continue
+        if name not in schemas:
+            # No es un error: algunos templates no tienen schema (ej. asset_manifest).
+            print("  skip %s -> no schema '%s'" % (path.name, name))
+            continue
+        document = json.loads(path.read_text(encoding="utf-8"))
+        validate(schemas[name], document, str(path.relative_to(ROOT)), True)
+        template_count += 1
+    if template_count == 0:
+        print("  (no hay templates/*.example.json con schema)")
+
     print("\ncasos dorados:")
     cases = json.loads(CASES_FILE.read_text(encoding="utf-8"))["cases"]
     for case in cases:
@@ -106,7 +128,7 @@ def main() -> int:
     if failures:
         print("FALLÓ: %d problema(s)" % len(failures), file=sys.stderr)
         return 1
-    print("OK: %d schemas, %d ejemplos, %d casos" % (len(schemas), example_count, len(cases)))
+    print("OK: %d schemas, %d ejemplos, %d templates, %d casos" % (len(schemas), example_count, template_count, len(cases)))
     return 0
 
 

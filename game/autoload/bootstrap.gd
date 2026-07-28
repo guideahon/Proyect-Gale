@@ -4,8 +4,8 @@
 # muestra un mensaje legible y termina sin crashear. Si tiene éxito, carga
 # la escena principal.
 #
-# En modo headless (tests) saltea la inicialización de XR y carga la escena
-# directamente.
+# En modo headless (tests) retorna sin hacer nada; los scripts headless
+# manejan su propio ciclo de vida.
 
 extends Node
 

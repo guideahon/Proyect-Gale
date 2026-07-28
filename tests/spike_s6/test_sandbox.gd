@@ -11,6 +11,7 @@ extends SceneTree
 
 var _pck_mounted := false
 var _script_loadable := false
+var _script_executed := false
 
 func _initialize() -> void:
 	print("=== SPIKE S6: Sandbox declarativo ===")
@@ -31,7 +32,7 @@ func _initialize() -> void:
 	file.close()
 	print("   Script escrito en %s" % script_path)
 
-	# Paso 2: Crear PCK usando PCKPacker.
+	# Paso 2: Crear PCK usando PCKPacker con la API correcta.
 	print("")
 	print("[2] Creando PCK desde user://...")
 	var pck_err: Error = _create_pck(pck_path)
@@ -69,15 +70,13 @@ func _initialize() -> void:
 		var instance = script.new()
 		if instance != null:
 			print("   RESULTADO: script malicioso INSTANCIADO y _init() ejecutado")
+			_script_executed = true
 		else:
 			print("   Script cargable pero no instanciable")
 	else:
 		print("   Script NO cargable desde PCK")
-		print("   Nota: PCKPacker.add_file agrega texto plano, no recurso compilado.")
-		print("   Un PCK generado por el editor incluiría el script compilado")
-		print("   y Godot lo cargaría y ejecutaría sin restricción.")
 
-	# Paso 6: Conclusión.
+	# Paso 6: Conclusión basada en evidencia real.
 	print("")
 	_conclude()
 
@@ -89,16 +88,12 @@ func _create_pck(pck_path: String) -> Error:
 	if err != OK:
 		return err
 
-	# Agregar el script malicioso al PCK.
-	var script_file := FileAccess.open("user://spike_malicious.gd", FileAccess.READ)
-	if script_file == null:
-		return FileAccess.get_open_error()
-	var data := script_file.get_as_text()
-	script_file.close()
+	# add_file(path_in_pck, source_path) — segundo arg es la ruta del archivo fuente.
+	packer.add_file("spike_malicious.gd", "user://spike_malicious.gd")
 
-	packer.add_file("spike_malicious.gd", data)
+	# flush() es obligatorio para escribir el PCK.
+	packer.flush()
 
-	# PCKPacker en 4.7.1 no tiene iterate(); pck_start + add_file + flush basta.
 	return OK
 
 
@@ -107,17 +102,21 @@ func _conclude() -> void:
 	print("")
 	print("PCK montado: %s" % ("sí" if _pck_mounted else "no"))
 	print("Script cargable: %s" % ("sí" if _script_loadable else "no"))
+	print("Script ejecutado: %s" % ("sí" if _script_executed else "no"))
 	print("")
-	if _pck_mounted:
-		print("Godot monta PCKs externos sin restricción.")
-		print("Los scripts .gd empaquetados por el editor SÍ son ejecutables.")
-		print("PCKPacker.add_file agrega texto plano (no compilado), por eso")
-		print("el script no se cargó en esta prueba específica.")
-		print("")
-		print("Conclusión: el sandbox declarativo NO es efectivo por construcción.")
+	if _script_executed:
+		print("EVIDENCIA: Godot ejecuta scripts .gd de PCKs montados sin restricción.")
+		print("El sandbox declarativo NO es efectivo por construcción.")
 		print("Se necesita validador por lista blanca de extensiones.")
+	elif _script_loadable:
+		print("EVIDENCIA: Godot carga scripts .gd de PCKs montados.")
+		print("La instanciación falló por motivo desconocido; investigar.")
+	elif _pck_mounted:
+		print("EVIDENCIA: PCK montado pero script no cargable.")
+		print("Posible causa: PCKPacker no compila scripts .gd al empaquetar.")
+		print("Un PCK generado por el editor SÍ incluiría scripts compilados.")
 	else:
-		print("No se pudo montar el PCK; resultado inconcluso.")
+		print("RESULTADO INCONCLUSIVO: no se pudo montar el PCK.")
 	print("")
 	print("Conclusión: ADR-012 — validador por lista blanca necesario.")
 	print("")

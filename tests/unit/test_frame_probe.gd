@@ -2,6 +2,7 @@
 ##
 ## Calcula percentiles sobre series sintéticas de valor conocido.
 ## Verifica que CPU y GPU se mantienen separados.
+## Verifica que draw_calls/triangles/texture_memory son null en headless.
 extends "res://tests/framework/test_case.gd"
 
 const FrameProbe := preload("res://core/perf/frame_probe.gd")
@@ -13,6 +14,7 @@ func run() -> void:
 	_test_probe_window_limit()
 	_test_probe_dropped_frames()
 	_test_probe_report_structure()
+	_test_probe_rendering_info_null_in_headless()
 	_test_probe_reset()
 
 
@@ -100,6 +102,18 @@ func _test_probe_report_structure() -> void:
 	check_ok(report.has("draw_calls"), "reporte tiene draw_calls")
 	check_ok(report.has("visible_triangles"), "reporte tiene visible_triangles")
 	check_ok(report.has("texture_memory"), "reporte tiene texture_memory")
+
+
+func _test_probe_rendering_info_null_in_headless() -> void:
+	var probe := FrameProbe.new()
+	probe.add_sample(5.0, 6.0)
+	var report := probe.get_report()
+
+	# En headless, RenderingServer.get_rendering_info() devuelve vacío.
+	# draw_calls, visible_triangles, texture_memory deben ser null.
+	check(report.draw_calls, null, "draw_calls es null en headless")
+	check(report.visible_triangles, null, "visible_triangles es null en headless")
+	check(report.texture_memory, null, "texture_memory es null en headless")
 
 
 func _test_probe_reset() -> void:

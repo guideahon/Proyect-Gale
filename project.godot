@@ -2,7 +2,7 @@
 ;
 ; Sólo lo necesario para importar el proyecto y ejecutar tests headless:
 ;
-;     godot --headless --script tests/unit/test_semver.gd
+;     godot --headless --path . --script tests/run_all.gd
 ;
 ; El renderer, OpenXR, los perfiles de rendimiento y el preset de exportación
 ; Android se fijan en M0, después de cerrar ADR-011. Ver docs/23.
