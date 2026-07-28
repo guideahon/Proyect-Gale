@@ -1,0 +1,16 @@
+# Licencias del Proyecto Gale
+
+Este repositorio contiene código, arte, documentación y assets externos
+bajo licencias distintas. Cada categoría se detalla en un archivo propio.
+
+| Categoría | Licencia | Archivo |
+|---|---|---|
+| Código fuente (GDScript, Python, shell) | MIT | `LICENSE-CODE` |
+| Shaders propios | MIT | `LICENSE-CODE` |
+| Documentación y especificación | CC BY 4.0 | `LICENSE-DOCS` |
+| Arte original | CC BY 4.0 | `LICENSE-ASSETS` |
+| Assets externos | Licencia original | `THIRD_PARTY.md` |
+| Créditos | — | `CREDITS.md` |
+
+Los mods comunitarios usan la licencia elegida por su autor, declarada
+obligatoriamente en `manifest.json`.

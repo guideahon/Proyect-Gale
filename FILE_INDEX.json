@@ -14,14 +14,54 @@
       "sha256": "ab3c1b99eb6c9c6468629a0fa4890c8dc8afa8c20e8ecc157ff43598501512fb"
     },
     {
+      "path": ".llamacode/agent_events.jsonl",
+      "bytes": 72587,
+      "sha256": "3215d614475b9172ca6f172567be49bd81ed2f2e7de53fa2fdc4e8d3fd5d4730"
+    },
+    {
+      "path": ".llamacode/memory.jsonl",
+      "bytes": 740,
+      "sha256": "aea9a7de71c72c73dcee087a18bca9e36bec9190efcafe4d7a4f46ee94126849"
+    },
+    {
       "path": "AGENTS.md",
       "bytes": 9707,
       "sha256": "c9512ec6ec2a84c8a429f660d496f47d1486cabf4b288f998c1abb0ed67f9153"
     },
     {
+      "path": "CREDITS.md",
+      "bytes": 342,
+      "sha256": "1b1a296641512caba7746ba755f26c2db7806e34b3430e25e1ba36e40e33407e"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 660,
+      "sha256": "644b68ec3b619df1fb9bdbc3fa5aa6a86635bf7402f3f532b2a6f69577128382"
+    },
+    {
+      "path": "LICENSE-ASSETS",
+      "bytes": 2294,
+      "sha256": "6b6e2cf051f4774ec40497eae9c87fa73d98a98c52e20afd9c92f0a633415a1e"
+    },
+    {
+      "path": "LICENSE-CODE",
+      "bytes": 1091,
+      "sha256": "9df93794d8bff273f38be2446ec2e48f394016fa81f653f1089a21d3fbcb7b14"
+    },
+    {
+      "path": "LICENSE-DOCS",
+      "bytes": 1311,
+      "sha256": "7206bff828f11efeeb46e1a4d66713a8d50466e9d07e283e5a0a883f3988953e"
+    },
+    {
       "path": "README.md",
       "bytes": 527,
       "sha256": "4c529124ae07488745ee05d98a14cc94393a6d8c61700aca7420bd52bb4ff4eb"
+    },
+    {
+      "path": "THIRD_PARTY.md",
+      "bytes": 590,
+      "sha256": "f95fff146ed835b4217253f1bf4e2910e771df0fa69b178bd844b50c3cee41e9"
     },
     {
       "path": "VERSION_BASELINE.md",
