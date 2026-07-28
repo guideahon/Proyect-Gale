@@ -20,18 +20,8 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 598,
-      "sha256": "ab3c1b99eb6c9c6468629a0fa4890c8dc8afa8c20e8ecc157ff43598501512fb"
-    },
-    {
-      "path": ".llamacode/agent_events.jsonl",
-      "bytes": 281074,
-      "sha256": "750681fcb640adf535aa6c69e4ab09fd4993dbc0c856b2c4eadf5397f0a1b256"
-    },
-    {
-      "path": ".llamacode/memory.jsonl",
-      "bytes": 740,
-      "sha256": "aea9a7de71c72c73dcee087a18bca9e36bec9190efcafe4d7a4f46ee94126849"
+      "bytes": 627,
+      "sha256": "8712a63d9c0a4a74a73bdb2d1bdd02713d252c21626755f86487654ed7d3c4da"
     },
     {
       "path": "AGENTS.md",
@@ -214,14 +204,9 @@
       "sha256": "06cc3c434bb8ace25349eb479db4e907d44397ac3c34ff7383371dcb09c8d1d0"
     },
     {
-      "path": "docs/20/ADR-012.md",
-      "bytes": 2820,
-      "sha256": "4703b6433ca15243d7c6702209a692a1fb10164257a9b4e237982c02d1952f24"
-    },
-    {
       "path": "docs/20_REGISTRO_DE_DECISIONES.md",
-      "bytes": 2023,
-      "sha256": "04553f59288c5032affa8f726b9f5079be9440f4e2d89ba68f291d555fad0df6"
+      "bytes": 2687,
+      "sha256": "9ebf2cfb2f0c6277723b31eb09eba6da8672ea471968243f337ad35edd85cfaa"
     },
     {
       "path": "docs/21_REFERENCIAS_TECNICAS.md",
@@ -490,8 +475,8 @@
     },
     {
       "path": "tools/ci/build_file_index.py",
-      "bytes": 3149,
-      "sha256": "e861af3e6f3b8ecb8e87453594ba8c85ad85b823d912f381bf3032c55bba2691"
+      "bytes": 3177,
+      "sha256": "86b0a489d03d9dc3930db92fc5c992af17bbb774bf036ba178bc4a58099c9dc4"
     },
     {
       "path": "tools/ci/check_schemas.py",

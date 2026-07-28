@@ -51,6 +51,14 @@ Simplifica redistribución, forks y ModKit.
 **Estado:** aceptada.  
 La documentación distingue objetivo, presupuesto y garantía medida.
 
+## ADR-012 — Alcance real de la garantía del modo declarativo
+
+**Estado:** aceptada.  
+**Cierra:** Spike S6.  
+**Motivo:** Godot 4.7.1 carga y ejecuta scripts `.gd` de PCKs montados sin restricción. No existe mecanismo nativo para bloquear la ejecución de scripts en un PCK sin deshabilitar scripts por completo.  
+**Decisión:** validador por lista blanca de extensiones y tipos de recurso. El validador de paquetes (`core/mods/package_reader.gd`, T3.5) debe rechazar `.gd`, `.gdshader`, `.gdnlib`, `.cgf` y escenas con scripts adjuntos antes de montar.  
+**Revisión:** si Godot añade un sandbox nativo o una bandera para deshabilitar scripts por origen.
+
 ## ADR-015 — Firma RSA sobre payload canónico
 
 **Estado:** aceptada provisionalmente.  

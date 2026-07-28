@@ -21,7 +21,7 @@ PROJECT = "Proyecto Gale"
 DOCUMENTATION_VERSION = "0.2"
 
 # Directorios que nunca entran al índice.
-SKIP_DIRS = {".git", ".godot", ".import", "exports", "__pycache__", ".venv", "node_modules"}
+SKIP_DIRS = {".git", ".godot", ".import", "exports", "__pycache__", ".venv", "node_modules", ".llamacode"}
 # Archivos que nunca entran al índice.
 SKIP_FILES = {"FILE_INDEX.json", ".DS_Store"}
 # Extensiones de artefactos de build y binarios que no se versionan.
@@ -83,7 +83,7 @@ def main() -> int:
         print("FILE_INDEX.json desactualizado: correr tools/ci/build_file_index.py", file=sys.stderr)
         return 1
 
-    INDEX.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    INDEX.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     print("FILE_INDEX.json: %d archivos" % len(index["files"]))
     return 0
 
