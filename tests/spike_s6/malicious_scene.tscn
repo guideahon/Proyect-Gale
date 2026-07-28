@@ -1,0 +1,6 @@
+[gd_scene load_steps=2]
+[ext_resource type="Script" id="1" path="res://malicious.gd"]
+
+[node type="Node"]
+name = "MaliciousNode"
+script = ExtResource("1")

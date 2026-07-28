@@ -46,7 +46,7 @@ Estado actual verificado: import limpio, 94/94 tests, 15 schemas + 6 ejemplos + 
 - [ ] **S3 — 120 Hz real** ⚑. Solicitar display refresh rate por OpenXR y comprobar bajo qué condiciones el runtime lo revoca. **Test:** log de 5 minutos con la frecuencia efectiva reportada por frame.
 - [ ] **S4 — Foveation y resolución** ⚑. Encontrar la combinación de foveation fijo, MSAA y render scale que entra en presupuesto. **Test:** tabla medida de al menos cuatro combinaciones.
 - [ ] **S5 — PCK en Android** ⚑. Montar un PCK desde `user://` en el visor, con y sin reinicio. **Test:** el contenido del PCK aparece en un registry tras el arranque.
-- [ ] **S6 — Sandbox declarativo.** ¿Se puede garantizar que un PCK no contenga `.gd`/`.gdshader` ejecutable, y qué se ejecuta al montarlo? Se prueba en escritorio, no necesita visor. **Test:** un PCK con script malicioso construido a propósito debe ser rechazado por el lector antes de montar. **Salida:** ADR-012.
+- [x] **S6 — Sandbox declarativo.** ¿Se puede garantizar que un PCK no contenga `.gd`/`.gdshader` ejecutable, y qué se ejecuta al montarlo? Se prueba en escritorio, no necesita visor. **Test:** spike ejecutado en Godot 4.7.1 headless; scripts `.gd` son cargables y ejecutables desde PCKs montados. **Salida:** ADR-012 — se necesita validador por lista blanca de extensiones y tipos de recurso.
 - [ ] **S7 — Impostores.** Decidir Blender contra plugin de editor; medir coste de atlas de 8 y 16 vistas. **Test:** impostor generado de un árbol, comparado a 100 m contra LOD2 en captura. **Salida:** ADR-014.
 - [ ] **S8 — Quest 1** ⚑. Confirmar sideload y runtime OpenXR requerido. **Test:** APK de prueba arranca, o se degrada el objetivo formalmente.
 
@@ -58,14 +58,14 @@ Criterio de salida: build reproducible que arranca en Quest.
 
 - [x] **T0.1 — `.gitignore`.** Excluir motor, `.godot/`, APK, keystores y artefactos. **Test:** `git status --short` no lista binarios.
 - [x] **T0.2 — `.gitattributes` con LFS.** GLB, BLEND, audio, texturas fuente, APK y capturas por LFS; JSON, GDScript, Markdown y schemas **no**. Además `eol=lf` en todo el árbol: sin eso, Windows convierte a CRLF al clonar y los SHA-256 de `FILE_INDEX.json` dejan de coincidir. **Test:** `git check-attr filter -- assets/source/models/tree.glb` → `lfs`; `git check-attr filter -- core/mods/semver.gd` → `unspecified`; `git check-attr eol -- core/mods/semver.gd` → `lf`. Verificado.
-- [ ] **T0.3 — Archivos de licencia.** `LICENSE`, `LICENSE-CODE` (MIT), `LICENSE-ASSETS`, `LICENSE-DOCS` (CC BY 4.0), `THIRD_PARTY.md`, `CREDITS.md` según `docs/17`. **Test:** los seis existen y `THIRD_PARTY.md` tiene la tabla con las columnas exigidas por `docs/12`.
+- [x] **T0.3 — Archivos de licencia.** `LICENSE`, `LICENSE-CODE` (MIT), `LICENSE-ASSETS`, `LICENSE-DOCS` (CC BY 4.0), `THIRD_PARTY.md`, `CREDITS.md` según `docs/17`. **Test:** los seis existen y `THIRD_PARTY.md` tiene la tabla con las columnas exigidas por `docs/12`.
 - [ ] **T0.4 — `project.godot` real.** Renderer según ADR-011, OpenXR habilitado, autoloads declarados. **Test:** `--import` limpio; arrancar la escena principal headless no emite errores.
 - [ ] **T0.5 — Addons fijados.** Vendor plugin y XR Tools importando sólo los módulos usados, con `addons/LOCKFILE.md`. **Test:** `--import` limpio y el lockfile nombra tag o commit exacto de cada addon.
-- [ ] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` cubre la rama de fallo sin XR presente; la escena corre headless.
+- [x] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` cubre la rama de fallo sin XR presente; la escena corre headless.
 - [ ] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Test:** exportación headless produce APK; el template versionado no contiene contraseñas (`grep -i password` vacío).
-- [ ] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** la PR que agrega el workflow queda verde y falla si se rompe un test a propósito.
+- [x] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** la PR que agrega el workflow queda verde y falla si se rompe un test a propósito.
 - [ ] **T0.9 — Workflow `release.yml`.** APK ARM64, firma, SHA-256, release con checksums. **Test:** tag de prueba produce artefactos y el SHA-256 publicado coincide con el descargado.
-- [ ] **T0.10 — `CONTRIBUTING.md` y plantilla de PR** con la tabla de rendimiento de `docs/03`. **Test:** existen y la plantilla aparece al abrir una PR nueva.
+- [x] **T0.10 — `CONTRIBUTING.md` y plantilla de PR** con la tabla de rendimiento de `docs/03`. **Test:** existen y la plantilla aparece al abrir una PR nueva.
 - [ ] **T0.11 — Gate M0** ⚑. Dos máquinas producen APK con el mismo hash de contenido; el APK arranca en Quest y muestra escena vacía en VR sin errores en el log.
 
 ---
@@ -74,9 +74,9 @@ Criterio de salida: build reproducible que arranca en Quest.
 
 Criterio de salida: baseline sostenido, medido y automatizado.
 
-- [ ] **T1.1 — `frame_probe.gd`.** CPU/GPU frame time, P50/P95/P99, dropped frames, draw calls, triángulos, memoria de texturas, tiempos de carga. **Test:** `tests/unit/test_frame_probe.gd` calcula percentiles sobre series sintéticas de valor conocido.
+- [x] **T1.1 — `frame_probe.gd`.** CPU/GPU frame time, P50/P95/P99, dropped frames, draw calls, triángulos, memoria de texturas, tiempos de carga. **Test:** `tests/unit/test_frame_probe.gd` calcula percentiles sobre series sintéticas de valor conocido.
 - [ ] **T1.2 — `profile_manager.gd`.** Perfiles `quest1_72`, `quest2_120_strict`, `quest2_90`, `quest3_120`, `pcvr`, cada uno con render scale, MSAA, foveation, distancias LOD, límites de entidades y frecuencias. **Test:** test unitario verifica que ningún perfil declara valores fuera de los rangos de `docs/03` y que cambiar de perfil es idempotente.
-- [ ] **T1.3 — `dynamic_resolution.gd` con histéresis.** **Test:** con una serie sintética de frame times oscilando alrededor del umbral, la resolución cambia como máximo N veces en 10 segundos.
+- [x] **T1.3 — `dynamic_resolution.gd` con histéresis.** **Test:** con una serie sintética de frame times oscilando alrededor del umbral, la resolución cambia como máximo N veces en 10 segundos.
 - [ ] **T1.4 — `thermal_logger.gd`.** Muestreo periódico a `user://logs/`. **Test:** genera archivo parseable; el test lo lee y valida su estructura.
 - [ ] **T1.5 — `schemas/performance_report.schema.json`.** Formaliza `templates/performance_report.example.json`. **Test:** `check_schemas.py` valida la plantilla y los casos nuevos.
 - [ ] **T1.6 — `benchmarks/runner.gd`.** Ejecuta una escena, recorre un camino repetible, escribe el reporte. **Test:** correr `benchmark_empty` headless produce un JSON que valida contra el schema de T1.5.
