@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.dev/schemas/performance_report.schema.json",
+  "title": "Performance Report",
+  "description": "Reporte de rendimiento de una escena de benchmark. Usado por benchmarks/runner.gd y templates/performance_report.example.json.",
+  "type": "object",
+  "required": ["scene", "device", "refresh_rate_hz", "duration_minutes", "cpu_ms", "gpu_ms", "draw_calls_p95", "visible_triangles_p95", "dropped_frames"],
+  "additionalProperties": false,
+  "properties": {
+    "scene": {
+      "type": "string",
+      "description": "Nombre de la escena de benchmark.",
+      "enum": ["benchmark_empty", "benchmark_ocean", "benchmark_forest", "benchmark_village", "benchmark_combat", "benchmark_streaming", "benchmark_worst_case"]
+    },
+    "device": {
+      "type": "string",
+      "description": "Dispositivo donde se ejecutó el benchmark."
+    },
+    "refresh_rate_hz": {
+      "type": "integer",
+      "description": "Frecuencia de refresco del display en Hz.",
+      "enum": [72, 90, 120]
+    },
+    "duration_minutes": {
+      "type": "number",
+      "description": "Duración de la sesión en minutos.",
+      "minimum": 1,
+      "maximum": 120
+    },
+    "cpu_ms": {
+      "type": "object",
+      "description": "Percentiles de CPU frame time en ms.",
+      "required": ["p50", "p95", "p99"],
+      "additionalProperties": false,
+      "properties": {
+        "p50": { "type": "number", "minimum": 0 },
+        "p95": { "type": "number", "minimum": 0 },
+        "p99": { "type": "number", "minimum": 0 }
+      }
+    },
+    "gpu_ms": {
+      "type": "object",
+      "description": "Percentiles de GPU frame time en ms.",
+      "required": ["p50", "p95", "p99"],
+      "additionalProperties": false,
+      "properties": {
+        "p50": { "type": "number", "minimum": 0 },
+        "p95": { "type": "number", "minimum": 0 },
+        "p99": { "type": "number", "minimum": 0 }
+      }
+    },
+    "draw_calls_p95": {
+      "type": "integer",
+      "description": "Draw calls en P95.",
+      "minimum": 0
+    },
+    "visible_triangles_p95": {
+      "type": "integer",
+      "description": "Triángulos visibles en P95.",
+      "minimum": 0
+    },
+    "dropped_frames": {
+      "type": "integer",
+      "description": "Cantidad de frames que superaron el presupuesto.",
+      "minimum": 0
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notas adicionales sobre la medición."
+    }
+  }
+}

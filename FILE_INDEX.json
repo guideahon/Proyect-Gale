@@ -74,6 +74,11 @@
       "sha256": "60d0007d86463733d5fe92facaaab35eae32c2317784274cecea590b5d69aa9f"
     },
     {
+      "path": "benchmarks/runner.gd",
+      "bytes": 3204,
+      "sha256": "4175c82a0efe5a18d7b1a8870df651d95e725cc85adfe725b7db6d215da0b364"
+    },
+    {
       "path": "core/mods/semver.gd",
       "bytes": 15782,
       "sha256": "537a45199bb5157edd04b29838a7dd451c09ebb54ee2e65149016c8b3b246160"
@@ -102,6 +107,11 @@
       "path": "core/perf/frame_probe.gd.uid",
       "bytes": 19,
       "sha256": "318f90775744464235d38a15b3cf62d6cffabe36f7cacfddc645c6b63cea46fb"
+    },
+    {
+      "path": "core/perf/thermal_logger.gd",
+      "bytes": 2342,
+      "sha256": "49383c6e3c9b432e9eb309342be054bb72d1b70612d0711317f53adbf7cb0ac0"
     },
     {
       "path": "docs/00_README.md",
@@ -230,8 +240,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 23695,
-      "sha256": "947f0571762dc13780d2f8ef426d99acb97aea1a89a01c1e05e7bfe8446b40f6"
+      "bytes": 23741,
+      "sha256": "4d0a7eb40776ec12c3f56b2e2472b9d079f466f088600fb9e15e66aa7c7fce9f"
     },
     {
       "path": "examples/sample_mod/README.md",
@@ -339,6 +349,11 @@
       "sha256": "37db0e045626eccc83f0a513122d18b350c1d8fbf7dbf346aa6a637d33be71fd"
     },
     {
+      "path": "schemas/performance_report.schema.json",
+      "bytes": 2482,
+      "sha256": "91816ddc288d0d11823d32f39ee85df858c625ea89f75f6d506494e857bb2046"
+    },
+    {
       "path": "schemas/quest.schema.json",
       "bytes": 820,
       "sha256": "0f0fe0ff84e3695f00bcca6452dbcef2cec95cf4d8d95618b927237410d0df4c"
@@ -385,8 +400,8 @@
     },
     {
       "path": "tests/data/schema_cases.json",
-      "bytes": 12387,
-      "sha256": "6eefb37da53afe05f7fa5fec90bf530aee21bacf5e51ac3e19519e35d6db4cdd"
+      "bytes": 14108,
+      "sha256": "c1c0b49805a896c23c65b08839bd2ffd341760f3e95824c82667dde47a315aa8"
     },
     {
       "path": "tests/framework/test_case.gd",
@@ -482,6 +497,11 @@
       "path": "tests/unit/test_semver.gd.uid",
       "bytes": 20,
       "sha256": "5a265d8cf97e6fcca2eb1b040ed323d680214caf5c854e68c7e875fb4e7f7c9b"
+    },
+    {
+      "path": "tests/unit/test_thermal_logger.gd",
+      "bytes": 3049,
+      "sha256": "15870a39f63e35e35bf7487e9ed82d69c9fd7776a7f36030c525c61c97b17419"
     },
     {
       "path": "tools/ci/build_file_index.py",

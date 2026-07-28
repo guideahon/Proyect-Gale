@@ -33,7 +33,7 @@ python tools/ci/check_schemas.py
 python tools/ci/build_file_index.py --check
 ```
 
-Estado actual verificado: import limpio, 143/143 tests, 15 schemas + 6 ejemplos + 28 casos, índice al día.
+Estado actual verificado: import limpio, 152/152 tests, 16 schemas + 6 ejemplos + 32 casos, índice al día.
 
 ---
 
@@ -77,9 +77,9 @@ Criterio de salida: baseline sostenido, medido y automatizado.
 - [x] **T1.1 — `frame_probe.gd`.** CPU/GPU frame time, P50/P95/P99, dropped frames, draw calls, triángulos, memoria de texturas, tiempos de carga. **Test:** `tests/unit/test_frame_probe.gd` calcula percentiles sobre series sintéticas de valor conocido.
 - [ ] **T1.2 — `profile_manager.gd`.** Perfiles `quest1_72`, `quest2_120_strict`, `quest2_90`, `quest3_120`, `pcvr`, cada uno con render scale, MSAA, foveation, distancias LOD, límites de entidades y frecuencias. **Test:** test unitario verifica que ningún perfil declara valores fuera de los rangos de `docs/03` y que cambiar de perfil es idempotente.
 - [x] **T1.3 — `dynamic_resolution.gd` con histéresis.** **Test:** con una serie sintética de frame times oscilando alrededor del umbral, la resolución cambia como máximo N veces en 10 segundos.
-- [ ] **T1.4 — `thermal_logger.gd`.** Muestreo periódico a `user://logs/`. **Test:** genera archivo parseable; el test lo lee y valida su estructura.
-- [ ] **T1.5 — `schemas/performance_report.schema.json`.** Formaliza `templates/performance_report.example.json`. **Test:** `check_schemas.py` valida la plantilla y los casos nuevos.
-- [ ] **T1.6 — `benchmarks/runner.gd`.** Ejecuta una escena, recorre un camino repetible, escribe el reporte. **Test:** correr `benchmark_empty` headless produce un JSON que valida contra el schema de T1.5.
+- [x] **T1.4 — `thermal_logger.gd`.** Muestreo periódico a `user://logs/`. **Test:** `tests/unit/test_thermal_logger.gd` genera archivo CSV parseable; el test lo lee y valida su estructura.
+- [x] **T1.5 — `schemas/performance_report.schema.json`.** Formaliza `templates/performance_report.example.json`. **Test:** `check_schemas.py` valida la plantilla y 4 casos nuevos (32 casos dorados totales).
+- [x] **T1.6 — `benchmarks/runner.gd`.** Ejecuta una escena, recorre un camino repetible, escribe el reporte. **Test:** runner genera JSON con estructura válida contra el schema de T1.5.
 - [ ] **T1.7 — `benchmark_empty.tscn`.** **Test:** el runner lo completa sin errores y el reporte tiene las métricas obligatorias no nulas.
 - [ ] **T1.8 — Escena de calibración.** Escala draw calls y triángulos hasta encontrar el punto de ruptura del dispositivo. **Test:** produce una curva, no un número suelto.
 - [ ] **T1.9 — Sesión térmica de 30 minutos** ⚑. **Test:** P99 ≤ 8,0 ms sostenido en el perfil estricto; reporte adjunto.

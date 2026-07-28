@@ -448,6 +448,63 @@
       }
     },
     {
+      "label": "performance_report válido",
+      "schema": "performance_report",
+      "valid": true,
+      "document": {
+        "scene": "benchmark_forest",
+        "device": "Quest 2",
+        "refresh_rate_hz": 120,
+        "duration_minutes": 30,
+        "cpu_ms": {"p50": 5.4, "p95": 6.3, "p99": 7.6},
+        "gpu_ms": {"p50": 5.8, "p95": 6.6, "p99": 7.9},
+        "draw_calls_p95": 71,
+        "visible_triangles_p95": 146000,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "label": "performance_report sin campos obligatorios",
+      "schema": "performance_report",
+      "valid": false,
+      "document": {
+        "scene": "benchmark_forest",
+        "device": "Quest 2"
+      }
+    },
+    {
+      "label": "performance_report con escena inventada",
+      "schema": "performance_report",
+      "valid": false,
+      "document": {
+        "scene": "benchmark_inventada",
+        "device": "Quest 2",
+        "refresh_rate_hz": 120,
+        "duration_minutes": 30,
+        "cpu_ms": {"p50": 5.4, "p95": 6.3, "p99": 7.6},
+        "gpu_ms": {"p50": 5.8, "p95": 6.6, "p99": 7.9},
+        "draw_calls_p95": 71,
+        "visible_triangles_p95": 146000,
+        "dropped_frames": 0
+      }
+    },
+    {
+      "label": "performance_report con refresh_rate inválido",
+      "schema": "performance_report",
+      "valid": false,
+      "document": {
+        "scene": "benchmark_forest",
+        "device": "Quest 2",
+        "refresh_rate_hz": 60,
+        "duration_minutes": 30,
+        "cpu_ms": {"p50": 5.4, "p95": 6.3, "p99": 7.6},
+        "gpu_ms": {"p50": 5.8, "p95": 6.6, "p99": 7.9},
+        "draw_calls_p95": 71,
+        "visible_triangles_p95": 146000,
+        "dropped_frames": 0
+      }
+    },
+    {
       "label": "signature con ruta absoluta de Windows",
       "schema": "signature",
       "valid": false,
