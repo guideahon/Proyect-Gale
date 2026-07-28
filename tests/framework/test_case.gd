@@ -37,6 +37,14 @@ func check_ok(condition: bool, label: String) -> void:
 	check(condition, true, label)
 
 
+## Compara floats con tolerancia.
+func check_approx(actual: float, expected: float, tolerance: float, label: String) -> void:
+	if abs(actual - expected) <= tolerance:
+		passed += 1
+		return
+	failed += 1
+	failures.append("%s\n         esperado: %s ± %s\n         obtenido: %s" % [label, str(expected), str(tolerance), str(actual)])
+
 ## Falla siempre. Útil para marcar ramas que no deberían alcanzarse.
 func fail(label: String) -> void:
 	failed += 1

@@ -25,8 +25,8 @@
     },
     {
       "path": ".llamacode/agent_events.jsonl",
-      "bytes": 153939,
-      "sha256": "08a7c0d5ee29c21a34e9f9f48d81bd8ec1b2658d0479db7a8b63902357d70643"
+      "bytes": 203332,
+      "sha256": "f26c5adb0dbec8fea8ddc9f0b3cce4fd2fe7739ce5302f96f38ce90fb7d9def7"
     },
     {
       "path": ".llamacode/memory.jsonl",
@@ -92,6 +92,11 @@
       "path": "core/mods/semver.gd.uid",
       "bytes": 20,
       "sha256": "123dc34e4203ec4dd5d18e8b9011c746a823e81f74d37fcdc7629ae3179801b4"
+    },
+    {
+      "path": "core/perf/frame_probe.gd",
+      "bytes": 2398,
+      "sha256": "e093fbc1d7d1118f6e03c421cd799e10c192b62dad379c14376dc41685bed15d"
     },
     {
       "path": "docs/00_README.md",
@@ -380,8 +385,8 @@
     },
     {
       "path": "tests/framework/test_case.gd",
-      "bytes": 1786,
-      "sha256": "f8563c2172cbbb3ffd962ffff3abc5d0cd69332f4854b32353f54109cab42fd1"
+      "bytes": 2119,
+      "sha256": "bc5ebcb6e73aab1cca0ee4dd73926c72810da962c38bd123262cef58cb9514dc"
     },
     {
       "path": "tests/framework/test_case.gd.uid",
@@ -407,6 +412,11 @@
       "path": "tests/unit/test_bootstrap.gd.uid",
       "bytes": 19,
       "sha256": "d2a6feb1a03112bb8a990099443f1ecb2e6ed6b2f5bd69adae6a25bcce7cab9f"
+    },
+    {
+      "path": "tests/unit/test_frame_probe.gd",
+      "bytes": 3494,
+      "sha256": "a553346e21bb6e05ac495d5d7fffcbf44578c9b57d04fc9f4360d462376bff6d"
     },
     {
       "path": "tests/unit/test_semver.gd",
