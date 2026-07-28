@@ -15,8 +15,8 @@
     },
     {
       "path": ".llamacode/agent_events.jsonl",
-      "bytes": 72587,
-      "sha256": "3215d614475b9172ca6f172567be49bd81ed2f2e7de53fa2fdc4e8d3fd5d4730"
+      "bytes": 130934,
+      "sha256": "1034e65497bce664c40bc1eb61ef22cee0f989a13cb4d5ac457fffd6c782756b"
     },
     {
       "path": ".llamacode/memory.jsonl",
@@ -249,6 +249,21 @@
       "sha256": "bebd9e3ec982e67abb91d33ac3fbaf6ff8ea626b71c5becf0c60c994699b46c0"
     },
     {
+      "path": "game/autoload/bootstrap.gd",
+      "bytes": 1730,
+      "sha256": "f1a1efa0d1e1aee22bb35b6b6d403f9d4674403c2c42142aca98d3fa8d05ae4e"
+    },
+    {
+      "path": "game/autoload/bootstrap.gd.uid",
+      "bytes": 20,
+      "sha256": "882f6590d98e6848028bf6b7e401fb26cf3847acc0158330574db88c9ad7558d"
+    },
+    {
+      "path": "game/scenes/main.tscn",
+      "bytes": 58,
+      "sha256": "8a080d27fa24ac41c46bd7ec6517ab28fb19365e55ae7f5a58f8763ac35993b3"
+    },
+    {
       "path": "project.godot",
       "bytes": 563,
       "sha256": "4f2039f038208f42fce5f470e0618c5cff8a2bbedd91a2851874121297f2a6d1"
@@ -367,6 +382,16 @@
       "path": "tests/run_all.gd.uid",
       "bytes": 20,
       "sha256": "ed848d4f415ff0539fbdc6f359654e1b9539a048e06ffd3e265a621c39982ac0"
+    },
+    {
+      "path": "tests/unit/test_bootstrap.gd",
+      "bytes": 808,
+      "sha256": "0a5fdd04257be73906a2041027863e29f01f6a909e7e16270552a74cc9f1c8d6"
+    },
+    {
+      "path": "tests/unit/test_bootstrap.gd.uid",
+      "bytes": 19,
+      "sha256": "d2a6feb1a03112bb8a990099443f1ecb2e6ed6b2f5bd69adae6a25bcce7cab9f"
     },
     {
       "path": "tests/unit/test_semver.gd",
