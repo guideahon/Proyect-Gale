@@ -9,14 +9,19 @@
       "sha256": "c3c6f9f49bcb7cf616dc4e21ef027068128c1ac6630b395040813cc62b53e31e"
     },
     {
+      "path": ".github/workflows/pr.yml",
+      "bytes": 1749,
+      "sha256": "1d67ca351d17e3300e9bd4e2d11f520cf70b59bfb080a24fbf9858ab43fb62be"
+    },
+    {
       "path": ".gitignore",
       "bytes": 598,
       "sha256": "ab3c1b99eb6c9c6468629a0fa4890c8dc8afa8c20e8ecc157ff43598501512fb"
     },
     {
       "path": ".llamacode/agent_events.jsonl",
-      "bytes": 130934,
-      "sha256": "1034e65497bce664c40bc1eb61ef22cee0f989a13cb4d5ac457fffd6c782756b"
+      "bytes": 143313,
+      "sha256": "873fc7dff3524fde5fd4c154d0e5d3ea4108c82d254c02157870e158ec3d7334"
     },
     {
       "path": ".llamacode/memory.jsonl",

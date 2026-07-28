@@ -1,0 +1,59 @@
+name: PR — batería de regresión
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Godot
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: godot/bin/
+          key: godot-4.7.1-stable
+
+      - name: Download Godot (if not cached)
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p godot/bin
+          curl -fSL -o godot/bin/Godot_v4.7.1-stable_linux.x86_64.zip \
+            "https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_linux.x86_64.zip"
+          unzip -q godot/bin/Godot_v4.7.1-stable_linux.x86_64.zip -d godot/bin/
+          mv godot/bin/Godot_v4.7.1-stable_linux.*/Godot_v4.7.1-stable_linux.x86_64 godot/bin/Godot
+          chmod +x godot/bin/Godot
+
+      - name: Import project
+        run: |
+          godot/bin/Godot --headless --path . --import
+
+      - name: Run unit tests
+        run: |
+          godot/bin/Godot --headless --path . --script tests/run_all.gd
+
+      - name: Check schemas
+        run: |
+          python tools/ci/check_schemas.py
+
+      - name: Check file index
+        run: |
+          python tools/ci/build_file_index.py --check
+
+      - name: Check for missing resources
+        run: |
+          godot/bin/Godot --headless --path . --dump-resources 2>&1 | tee /tmp/missing_resources.txt
+          # Falla si hay líneas que mencionen "missing" o "MISSING"
+          if grep -qi "missing" /tmp/missing_resources.txt; then
+            echo "::error::Recursos faltantes detectados"
+            exit 1
+          fi
