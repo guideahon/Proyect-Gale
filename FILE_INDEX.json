@@ -9,6 +9,11 @@
       "sha256": "c3c6f9f49bcb7cf616dc4e21ef027068128c1ac6630b395040813cc62b53e31e"
     },
     {
+      "path": ".github/pull_request_template.md",
+      "bytes": 945,
+      "sha256": "795890d1535827460d4bcea0c8f8c901a8f2323040cfcae9b864b5d66f7071b5"
+    },
+    {
       "path": ".github/workflows/pr.yml",
       "bytes": 1749,
       "sha256": "1d67ca351d17e3300e9bd4e2d11f520cf70b59bfb080a24fbf9858ab43fb62be"
@@ -20,8 +25,8 @@
     },
     {
       "path": ".llamacode/agent_events.jsonl",
-      "bytes": 143313,
-      "sha256": "873fc7dff3524fde5fd4c154d0e5d3ea4108c82d254c02157870e158ec3d7334"
+      "bytes": 153939,
+      "sha256": "08a7c0d5ee29c21a34e9f9f48d81bd8ec1b2658d0479db7a8b63902357d70643"
     },
     {
       "path": ".llamacode/memory.jsonl",
@@ -32,6 +37,11 @@
       "path": "AGENTS.md",
       "bytes": 9707,
       "sha256": "c9512ec6ec2a84c8a429f660d496f47d1486cabf4b288f998c1abb0ed67f9153"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 2271,
+      "sha256": "789db894e4e3160f0756919130cd041344dcf1391c535a040959309799fa7efc"
     },
     {
       "path": "CREDITS.md",
