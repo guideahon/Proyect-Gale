@@ -1,0 +1,19 @@
+{
+  "id": "tree_round_01",
+  "source_pack": "Example Pack",
+  "creator": "Example Creator",
+  "license": "CC0-1.0",
+  "source_url": "https://example.invalid",
+  "source_hash": "sha256:replace-me",
+  "modifications": [
+    "palette remap",
+    "LOD generation",
+    "custom collider"
+  ],
+  "lod0_triangles": 920,
+  "lod1_triangles": 380,
+  "lod2_triangles": 96,
+  "impostor": true,
+  "collision": "capsule",
+  "atlas": "nature_a"
+}

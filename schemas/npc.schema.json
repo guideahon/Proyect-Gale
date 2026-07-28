@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.example/schemas/npc.schema.json",
+  "title": "NPC Definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "display_name_key",
+    "scene"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "display_name_key": {
+      "type": "string"
+    },
+    "scene": {
+      "type": "string"
+    },
+    "dialogue": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "quests_offered": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+      },
+      "uniqueItems": true
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "talk",
+          "trade",
+          "give_item",
+          "rest",
+          "teach_ability",
+          "repair",
+          "travel"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "schedule": {
+      "type": "array",
+      "description": "Rutina simple por franja horaria. No es simulación de agenda completa.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "from_hour",
+          "waypoint"
+        ],
+        "properties": {
+          "from_hour": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMaximum": 24
+          },
+          "waypoint": {
+            "type": "string"
+          },
+          "animation": {
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "IDLE",
+              "WALK",
+              "WORK",
+              "SIT",
+              "SLEEP"
+            ]
+          }
+        }
+      }
+    },
+    "home_sector": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "ai_tick_hz": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 5,
+      "description": "Patrulla y rutina de NPC: 5–10 Hz. Simulación distante: 1–2 Hz."
+    },
+    "essential": {
+      "type": "boolean",
+      "default": false,
+      "description": "Un NPC esencial no puede quedar en estado irrecuperable para una misión activa."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "voice_profile": {
+      "type": "string"
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lod0_triangles": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4500,
+          "description": "Presupuesto de docs/03 para NPC: 2.500–4.500."
+        },
+        "materials": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1
+        },
+        "texture_px": {
+          "type": "integer",
+          "maximum": 512
+        }
+      }
+    },
+    "performance_cost": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

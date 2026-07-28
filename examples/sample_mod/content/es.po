@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Language: es\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "item.storm_sword.name"
+msgstr "Espada de la tormenta"
+
+msgid "dialogue.fisher.start"
+msgstr "El mar está extraño hoy."
+
+msgid "dialogue.fisher.ask_island"
+msgstr "¿Qué sabés de la isla?"
+
+msgid "dialogue.fisher.island"
+msgstr "Buscá la cueva bajo el acantilado."
+
+msgid "dialogue.fisher.end"
+msgstr "Que el viento te acompañe."
+
+msgid "dialogue.leave"
+msgstr "Hasta luego."
+
+msgid "quest.lost_compass.title"
+msgstr "La brújula perdida"

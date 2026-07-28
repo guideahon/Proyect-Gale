@@ -1,0 +1,28 @@
+{
+  "format_version": 1,
+  "id": "example.storm_island",
+  "name": "Storm Island Example",
+  "author": "Project Gale",
+  "version": "0.1.0",
+  "game_version": ">=0.1.0 <1.0.0",
+  "mod_api": "^1.0",
+  "type": "content",
+  "entrypoint": "res://mods/example.storm_island/register.tres",
+  "dependencies": [
+    {
+      "id": "official.base",
+      "version": ">=0.1.0"
+    }
+  ],
+  "optional_dependencies": [],
+  "conflicts": [],
+  "load_after": [
+    "official.campaign"
+  ],
+  "performance_profile": "quest_compatible",
+  "license": "CC0-1.0",
+  "content_roots": [
+    "content/"
+  ],
+  "permissions": []
+}

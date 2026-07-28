@@ -1,0 +1,30 @@
+{
+  "id": "example.storm_island:lightning_slash",
+  "trigger": "on_hit",
+  "cooldown": 1.5,
+  "cost": {
+    "stamina": 15
+  },
+  "conditions": [
+    {
+      "type": "target_has_tag",
+      "tag": "damageable"
+    }
+  ],
+  "actions": [
+    {
+      "type": "deal_damage",
+      "amount": 20,
+      "damage_type": "electric"
+    },
+    {
+      "type": "apply_status",
+      "status": "official:electrified",
+      "duration": 3
+    },
+    {
+      "type": "play_effect",
+      "effect": "official:lightning_arc"
+    }
+  ]
+}

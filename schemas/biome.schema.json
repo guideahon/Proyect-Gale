@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.example/schemas/biome.schema.json",
+  "title": "Biome Definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "display_name_key"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "display_name_key": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Parámetros de entorno. Sin clima volumétrico ni reflexiones reales.",
+      "properties": {
+        "sky_top_color": {
+          "$ref": "#/$defs/color"
+        },
+        "sky_horizon_color": {
+          "$ref": "#/$defs/color"
+        },
+        "ambient_color": {
+          "$ref": "#/$defs/color"
+        },
+        "ambient_energy": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sun_color": {
+          "$ref": "#/$defs/color"
+        },
+        "sun_energy": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sun_angle_deg": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "fog_enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "fog_color": {
+          "$ref": "#/$defs/color"
+        },
+        "fog_start": {
+          "type": "number",
+          "minimum": 0
+        },
+        "fog_end": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "palette_ramp": {
+      "type": "string",
+      "description": "Textura de rampa toon. Un mod cambia parámetros y rampas, nunca la familia de shader."
+    },
+    "wind": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "direction_deg": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 360
+        },
+        "strength": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "gust_period": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "vegetation": {
+      "type": "array",
+      "description": "Conjuntos de MultiMesh por sector. Nunca un MultiMesh por isla.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mesh_set",
+          "density"
+        ],
+        "properties": {
+          "mesh_set": {
+            "type": "string"
+          },
+          "density": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Instancias por metro cuadrado."
+          },
+          "slope_max_deg": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 90
+          },
+          "altitude_min": {
+            "type": "number"
+          },
+          "altitude_max": {
+            "type": "number"
+          },
+          "impostor_distance": {
+            "type": "number",
+            "minimum": 0
+          },
+          "collision": {
+            "enum": [
+              "none",
+              "capsule",
+              "cylinder",
+              "convex",
+              "box"
+            ],
+            "default": "none"
+          }
+        }
+      }
+    },
+    "ground_materials": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4,
+      "description": "Límite bajo para conservar batching y draw calls."
+    },
+    "ambient_audio": {
+      "type": "string"
+    },
+    "music_profile": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "spawn_tables": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+      }
+    },
+    "environment_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+$"
+      },
+      "uniqueItems": true,
+      "description": "Consumidos por la condición declarativa environment_tag."
+    }
+  },
+  "$defs": {
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$"
+    }
+  }
+}

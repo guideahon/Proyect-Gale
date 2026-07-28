@@ -1,0 +1,28 @@
+# Caché de importación de Godot: se regenera, nunca se versiona.
+.godot/
+.import/
+*.import
+
+# Binarios del motor y de exportación. El motor se fija por versión en
+# VERSION_BASELINE.md, no por copia en el repositorio.
+Godot_v*
+*.exe
+*.apk
+*.aab
+*.keystore
+*.jks
+exports/
+
+# Godot escribe la contraseña del keystore dentro de export_presets.cfg.
+# M0 debe versionar `export_presets.template.cfg` sin credenciales y hacer que
+# el CI lo complete desde secretos; sin eso la build reproducible no cierra.
+export_presets.cfg
+
+# Herramientas
+__pycache__/
+*.pyc
+.venv/
+
+# Sistema
+.DS_Store
+Thumbs.db

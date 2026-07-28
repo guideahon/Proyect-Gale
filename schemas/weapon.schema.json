@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Weapon Definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "display_name_key",
+    "weapon_type",
+    "damage",
+    "max_effective_velocity"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "display_name_key": {
+      "type": "string"
+    },
+    "weapon_type": {
+      "enum": [
+        "sword",
+        "shield",
+        "bow",
+        "staff",
+        "tool"
+      ]
+    },
+    "scene": {
+      "type": "string"
+    },
+    "damage": {
+      "type": "number",
+      "minimum": 0
+    },
+    "mass_feel": {
+      "type": "number",
+      "minimum": 0
+    },
+    "max_effective_velocity": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "cooldown": {
+      "type": "number",
+      "minimum": 0
+    },
+    "abilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audio_profile": {
+      "type": "string"
+    },
+    "performance_cost": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

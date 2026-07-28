@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.example/schemas/item.schema.json",
+  "title": "Item Definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "display_name_key",
+    "category"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "display_name_key": {
+      "type": "string"
+    },
+    "description_key": {
+      "type": "string"
+    },
+    "category": {
+      "enum": [
+        "consumable",
+        "material",
+        "equipment",
+        "tool",
+        "key",
+        "quest",
+        "ammo",
+        "currency"
+      ]
+    },
+    "icon": {
+      "type": "string"
+    },
+    "scene": {
+      "type": "string",
+      "description": "Escena del objeto sostenible en mano. Ausente para objetos abstractos."
+    },
+    "stack_max": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 1
+    },
+    "inventory_slots": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 1,
+      "description": "0 para objetos que no ocupan espacio, como llaves de misión."
+    },
+    "mass_feel": {
+      "type": "number",
+      "minimum": 0
+    },
+    "two_handed": {
+      "type": "boolean",
+      "default": false
+    },
+    "droppable": {
+      "type": "boolean",
+      "default": true
+    },
+    "persistent_state": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string",
+          "boolean"
+        ]
+      },
+      "description": "Estado inicial serializado por instancia, por ejemplo durability."
+    },
+    "use_ability": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "audio_profile": {
+      "type": "string"
+    },
+    "performance_cost": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

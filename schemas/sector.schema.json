@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.example/schemas/sector.schema.json",
+  "title": "Sector Definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "island",
+    "grid"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "island": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "grid": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Coordenada de sector [x, z]. El nombre visible sigue el formato 04_07."
+    },
+    "size": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "default": 64,
+      "description": "Lado del sector en metros. Valor inicial del proyecto: 64."
+    },
+    "packed_scene": {
+      "type": "string",
+      "description": "Escena o PCK precompilado del sector. Alternativa al contenido declarativo de abajo."
+    },
+    "terrain_mesh": {
+      "type": "string"
+    },
+    "collision_mesh": {
+      "type": "string",
+      "description": "Malla de colisión sectorizada. No se usa la malla visual como colisión."
+    },
+    "multimesh_sets": {
+      "type": "array",
+      "description": "Un conjunto por tipo y nivel de LOD, siempre dentro del sector.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "mesh",
+          "lod"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "mesh": {
+            "type": "string"
+          },
+          "lod": {
+            "enum": [
+              "lod0",
+              "lod1",
+              "lod2",
+              "impostor"
+            ]
+          },
+          "instance_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "transforms": {
+            "type": "string",
+            "description": "Recurso binario con las transformaciones. No se serializan miles de matrices en JSON."
+          },
+          "visibility_range": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "cast_shadow": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    },
+    "props": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "definition",
+          "position"
+        ],
+        "properties": {
+          "definition": {
+            "type": "string",
+            "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+          },
+          "position": {
+            "$ref": "#/$defs/vec3"
+          },
+          "rotation": {
+            "$ref": "#/$defs/vec3"
+          },
+          "scale": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "default": 1
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9_]+$"
+            },
+            "description": "Etiquetas sistémicas: climbable, flammable, conductive, cuttable, wind_affected."
+          },
+          "instance_id": {
+            "type": "string",
+            "description": "Identificador estable. Necesario para persistir estado entre partidas."
+          }
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "description": "Colocaciones fijas. El contenido aleatorio va por spawn table.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "definition",
+          "position"
+        ],
+        "properties": {
+          "definition": {
+            "type": "string",
+            "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+          },
+          "position": {
+            "$ref": "#/$defs/vec3"
+          },
+          "rotation": {
+            "$ref": "#/$defs/vec3"
+          },
+          "initial_state": {
+            "enum": [
+              "SLEEP",
+              "IDLE",
+              "PATROL"
+            ],
+            "default": "IDLE"
+          },
+          "patrol_route": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/vec3"
+            }
+          },
+          "instance_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "navigation_chunk": {
+      "type": "string"
+    },
+    "occluders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Oclusión sólo en pueblos, cuevas, santuarios y calles. No en mar ni llanuras."
+    },
+    "hlod_group": {
+      "type": "string",
+      "description": "HLOD regional que representa este sector cuando está lejano."
+    },
+    "ambient_audio": {
+      "type": "string"
+    },
+    "biome": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "peak_visible_triangles",
+        "peak_draw_calls"
+      ],
+      "properties": {
+        "peak_visible_triangles": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "peak_draw_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "texture_memory_mb": {
+          "type": "number",
+          "minimum": 0
+        },
+        "active_entities": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "active_rigid_bodies": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "collision_triangles": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "$defs": {
+    "vec3": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    }
+  }
+}

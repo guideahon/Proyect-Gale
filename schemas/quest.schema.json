@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quest Definition",
+  "type": "object",
+  "required": [
+    "id",
+    "title_key",
+    "stages"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title_key": {
+      "type": "string"
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "objectives"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "objectives": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "rewards": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "example.storm_island:fisher_intro",
+  "speaker": "example.storm_island:old_fisher",
+  "start_node": "start",
+  "nodes": {
+    "start": {
+      "text": "dialogue.fisher.start",
+      "choices": [
+        {
+          "text": "dialogue.fisher.ask_island",
+          "next": "island"
+        },
+        {
+          "text": "dialogue.leave",
+          "next": "end"
+        }
+      ]
+    },
+    "island": {
+      "text": "dialogue.fisher.island",
+      "actions": [
+        {
+          "type": "start_quest",
+          "quest": "example.storm_island:lost_compass"
+        }
+      ],
+      "next": "end"
+    },
+    "end": {
+      "text": "dialogue.fisher.end"
+    }
+  }
+}

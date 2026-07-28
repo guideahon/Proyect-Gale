@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.example/schemas/signature.schema.json",
+  "title": "Gale Mod Signature",
+  "description": "Firma de procedencia de un paquete .gmod. Indica origen, no seguridad. Ver docs/24.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "signature_version",
+    "algorithm",
+    "hash",
+    "files",
+    "payload_sha256"
+  ],
+  "properties": {
+    "signature_version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1
+    },
+    "algorithm": {
+      "enum": [
+        "none",
+        "rsa2048-pkcs1v15-sha256",
+        "rsa4096-pkcs1v15-sha256"
+      ],
+      "description": "`none` produce un manifiesto de integridad sin firma: verifica corrupción, no procedencia."
+    },
+    "hash": {
+      "const": "sha256"
+    },
+    "signed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signer": {
+      "type": "string",
+      "maxLength": 80,
+      "description": "Texto declarado por el autor. No verificado. Nunca se muestra sin indicar el key_id."
+    },
+    "key_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$",
+      "description": "Primeros 16 caracteres hex de SHA-256 sobre la clave pública en DER."
+    },
+    "public_key": {
+      "type": "string",
+      "description": "Clave pública en PEM (SPKI). Se incluye para permitir verificación sin red. No implica confianza."
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Todo archivo del paquete excepto signature.json. Debe cubrir el paquete completo.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "bytes"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "maxLength": 255,
+            "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.-]*(/[A-Za-z0-9_][A-Za-z0-9_.-]*)*$",
+            "description": "Ruta relativa con separador `/`. Prohibidos: rutas absolutas, `\\`, `..`, `.`, segmentos que empiecen con punto y caracteres fuera de [A-Za-z0-9_.-]."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "payload_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 del payload canónico definido en docs/24. Es lo que se firma."
+    },
+    "signature": {
+      "type": "string",
+      "contentEncoding": "base64",
+      "description": "Firma sobre payload_sha256. Obligatoria salvo algorithm = none."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "algorithm": {
+            "const": "none"
+          }
+        },
+        "required": [
+          "algorithm"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "signature"
+              ]
+            },
+            {
+              "required": [
+                "public_key"
+              ]
+            },
+            {
+              "required": [
+                "key_id"
+              ]
+            }
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "signature",
+          "public_key",
+          "key_id",
+          "signed_at"
+        ]
+      }
+    }
+  ]
+}

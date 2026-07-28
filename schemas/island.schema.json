@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Island Definition",
+  "type": "object",
+  "required": [
+    "id",
+    "placement",
+    "far_hlod",
+    "sectors"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "placement": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "requested",
+            "automatic",
+            "fixed_region"
+          ]
+        },
+        "position": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "minimum_distance_from_other_islands": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "far_hlod": {
+      "type": "string"
+    },
+    "medium_hlod": {
+      "type": "string"
+    },
+    "sectors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "navigation_data": {
+      "type": "string"
+    },
+    "spawn_tables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "music_profile": {
+      "type": "string"
+    },
+    "environment_profile": {
+      "type": "string"
+    },
+    "performance": {
+      "type": "object"
+    }
+  }
+}

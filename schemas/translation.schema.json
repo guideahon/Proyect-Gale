@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.example/schemas/translation.schema.json",
+  "title": "Translation Catalog Definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "locale",
+    "catalog"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(_[A-Z]{2})?$",
+      "description": "Código de idioma, opcionalmente con región. Ejemplos: es, es_AR, en, ja."
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Nombre del idioma en ese idioma, para el selector."
+    },
+    "catalog": {
+      "type": "string",
+      "description": "Ruta al archivo PO dentro del mod. Las claves nunca son el texto visible."
+    },
+    "fallback_locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(_[A-Z]{2})?$",
+      "default": "en"
+    },
+    "overrides": {
+      "type": "array",
+      "description": "Catálogos que sobrescriben claves de otro mod. Requiere declarar el mod objetivo.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_mod"
+        ],
+        "properties": {
+          "target_mod": {
+            "type": "string",
+            "pattern": "^[a-z0-9_.-]+\\.[a-z0-9_.-]+$"
+          },
+          "key_prefix": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rtl": {
+      "type": "boolean",
+      "default": false
+    },
+    "font_override": {
+      "type": "string",
+      "description": "Necesario para alfabetos fuera de la fuente base. Cuenta contra el presupuesto de memoria."
+    },
+    "coverage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Fracción de claves traducidas, calculada por el validador. Informativa."
+    }
+  }
+}

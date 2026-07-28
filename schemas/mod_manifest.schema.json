@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.example/schemas/mod_manifest.schema.json",
+  "title": "Project Gale Mod Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format_version",
+    "id",
+    "name",
+    "author",
+    "version",
+    "game_version",
+    "mod_api",
+    "type",
+    "license"
+  ],
+  "properties": {
+    "format_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+\\.[a-z0-9_.-]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "version": {
+      "type": "string"
+    },
+    "game_version": {
+      "type": "string"
+    },
+    "mod_api": {
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "content",
+        "scripted"
+      ]
+    },
+    "entrypoint": {
+      "type": "string"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "optional_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "load_after": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "performance_profile": {
+      "enum": [
+        "quest2_120_certified",
+        "quest_compatible",
+        "developer_unrestricted"
+      ]
+    },
+    "license": {
+      "type": "string"
+    },
+    "homepage": {
+      "type": "string"
+    },
+    "content_roots": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

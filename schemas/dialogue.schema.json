@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dialogue Definition",
+  "type": "object",
+  "required": [
+    "id",
+    "nodes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "speaker": {
+      "type": "string"
+    },
+    "start_node": {
+      "type": "string",
+      "default": "start"
+    },
+    "nodes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "next": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      }
+    }
+  }
+}

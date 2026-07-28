@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-gale.example/schemas/enemy.schema.json",
+  "title": "Enemy Definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "display_name_key",
+    "family",
+    "scene",
+    "health"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+    },
+    "display_name_key": {
+      "type": "string"
+    },
+    "family": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "description": "Familia de enemigo. La versión 1.0 define cinco."
+    },
+    "scene": {
+      "type": "string"
+    },
+    "health": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "poise": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Umbral de daño acumulado que provoca STUN."
+    },
+    "movement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "patrol_speed": {
+          "type": "number",
+          "minimum": 0
+        },
+        "chase_speed": {
+          "type": "number",
+          "minimum": 0
+        },
+        "turn_speed": {
+          "type": "number",
+          "minimum": 0
+        },
+        "can_climb": {
+          "type": "boolean",
+          "default": false
+        },
+        "can_swim": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "perception": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sight_radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sight_angle": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 360
+        },
+        "hearing_radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "alert_time": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lose_target_time": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "attacks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "damage",
+          "range"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "damage": {
+            "type": "number",
+            "minimum": 0
+          },
+          "range": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "windup": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Telegrafía obligatoria. El diseño exige comunicar el ataque."
+          },
+          "recovery": {
+            "type": "number",
+            "minimum": 0
+          },
+          "cooldown": {
+            "type": "number",
+            "minimum": 0
+          },
+          "blockable": {
+            "type": "boolean",
+            "default": true
+          },
+          "parryable": {
+            "type": "boolean",
+            "default": true
+          },
+          "ability": {
+            "type": "string",
+            "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+          },
+          "animation": {
+            "type": "string"
+          },
+          "audio_cue": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "SLEEP",
+          "IDLE",
+          "PATROL",
+          "ALERT",
+          "CHASE",
+          "ATTACK",
+          "STUN",
+          "RETURN",
+          "DEAD"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Subconjunto de la máquina de estados del núcleo. Un mod no define estados nuevos en modo declarativo."
+    },
+    "ai_tick_hz": {
+      "type": "number",
+      "minimum": 5,
+      "maximum": 30,
+      "default": 20,
+      "description": "Combate 15–30 Hz, patrulla 5–10 Hz. Valores fuera de rango se rechazan."
+    },
+    "weaknesses": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "resistances": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "abilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+      }
+    },
+    "drops": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item"
+        ],
+        "properties": {
+          "item": {
+            "type": "string",
+            "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+          },
+          "chance": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
+          },
+          "min_count": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 1
+          },
+          "max_count": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 1
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "audio_profile": {
+      "type": "string"
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lod0_triangles": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4000,
+          "description": "Presupuesto de docs/03 para enemigo común: 2.000–4.000."
+        },
+        "materials": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1
+        },
+        "texture_px": {
+          "type": "integer",
+          "maximum": 512
+        }
+      }
+    },
+    "performance_cost": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

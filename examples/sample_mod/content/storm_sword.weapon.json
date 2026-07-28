@@ -1,0 +1,15 @@
+{
+  "id": "example.storm_island:storm_sword",
+  "display_name_key": "item.storm_sword.name",
+  "weapon_type": "sword",
+  "scene": "res://mods/example.storm_island/scenes/storm_sword.tscn",
+  "damage": 12,
+  "mass_feel": 0.75,
+  "max_effective_velocity": 7.5,
+  "cooldown": 0.2,
+  "abilities": [
+    "example.storm_island:lightning_slash"
+  ],
+  "audio_profile": "official:sword_light",
+  "performance_cost": 2
+}

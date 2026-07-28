@@ -1,0 +1,32 @@
+{
+  "id": "example.storm_island:lost_compass",
+  "title_key": "quest.lost_compass.title",
+  "stages": [
+    {
+      "id": "find_cave",
+      "objectives": [
+        {
+          "type": "enter_location",
+          "location": "example.storm_island:cave_entrance"
+        }
+      ]
+    },
+    {
+      "id": "retrieve_compass",
+      "objectives": [
+        {
+          "type": "acquire_item",
+          "item": "example.storm_island:old_compass",
+          "quantity": 1
+        }
+      ],
+      "rewards": [
+        {
+          "type": "give_item",
+          "item": "example.storm_island:storm_sword",
+          "quantity": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "example.storm_island:storm_island",
+  "placement": {
+    "mode": "requested",
+    "position": [
+      1200,
+      0,
+      -850
+    ],
+    "minimum_distance_from_other_islands": 300
+  },
+  "far_hlod": "res://mods/example.storm_island/maps/far_hlod.tscn",
+  "medium_hlod": "res://mods/example.storm_island/maps/medium_hlod.tscn",
+  "sectors": [
+    "res://mods/example.storm_island/maps/sectors/00_00.pck",
+    "res://mods/example.storm_island/maps/sectors/00_01.pck"
+  ],
+  "navigation_data": "res://mods/example.storm_island/maps/navigation/storm_island.nav",
+  "spawn_tables": [
+    "example.storm_island:coast_spawns"
+  ],
+  "music_profile": "example.storm_island:storm_theme",
+  "environment_profile": "official:ocean_day",
+  "performance": {
+    "peak_visible_triangles": 48000,
+    "peak_draw_calls": 12,
+    "texture_memory_mb": 18,
+    "active_entities": 8,
+    "active_rigid_bodies": 4,
+    "shader_tier": "toon_standard"
+  }
+}
