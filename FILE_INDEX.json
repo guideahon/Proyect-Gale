@@ -85,8 +85,8 @@
     },
     {
       "path": "core/perf/dynamic_resolution.gd",
-      "bytes": 2927,
-      "sha256": "08cb133c49aa407ac18c9979fda6c2fc2fdf636a29df56b076e7d7c4c3fbab34"
+      "bytes": 3305,
+      "sha256": "9536e28aad11db22721ffa2f9deb1c653196fb9fe2899dcfbce55e666399247f"
     },
     {
       "path": "core/perf/dynamic_resolution.gd.uid",
@@ -95,8 +95,8 @@
     },
     {
       "path": "core/perf/frame_probe.gd",
-      "bytes": 2398,
-      "sha256": "e093fbc1d7d1118f6e03c421cd799e10c192b62dad379c14376dc41685bed15d"
+      "bytes": 3286,
+      "sha256": "4029d7ba4aaa1126e0ed6714dacdc9a11754c9f6ad09815dd001cc468b5b50a3"
     },
     {
       "path": "core/perf/frame_probe.gd.uid",
@@ -275,8 +275,8 @@
     },
     {
       "path": "game/autoload/bootstrap.gd",
-      "bytes": 1730,
-      "sha256": "f1a1efa0d1e1aee22bb35b6b6d403f9d4674403c2c42142aca98d3fa8d05ae4e"
+      "bytes": 1996,
+      "sha256": "98f9e029c11d58d25add5fe42f05706349b115bd58166a3026f3c09b47ac4675"
     },
     {
       "path": "game/autoload/bootstrap.gd.uid",
@@ -290,8 +290,8 @@
     },
     {
       "path": "project.godot",
-      "bytes": 563,
-      "sha256": "4f2039f038208f42fce5f470e0618c5cff8a2bbedd91a2851874121297f2a6d1"
+      "bytes": 622,
+      "sha256": "0e32e052ce5a7e746c2c9b2553a8d11262d2d7845319d18b0e9a43813ca2a090"
     },
     {
       "path": "schemas/ability.schema.json",
@@ -435,8 +435,8 @@
     },
     {
       "path": "tests/unit/test_bootstrap.gd",
-      "bytes": 808,
-      "sha256": "0a5fdd04257be73906a2041027863e29f01f6a909e7e16270552a74cc9f1c8d6"
+      "bytes": 2040,
+      "sha256": "dcb89069a51816b9e7792486f15ac78ec3748c29d6841e2bd5e471111bacf953"
     },
     {
       "path": "tests/unit/test_bootstrap.gd.uid",
@@ -445,8 +445,8 @@
     },
     {
       "path": "tests/unit/test_dynamic_resolution.gd",
-      "bytes": 3222,
-      "sha256": "ec26db8fe079edb7ce3a860e625602e949600ad7da693c2094f7d7576d88ba9d"
+      "bytes": 3531,
+      "sha256": "1d7689b7881db2eb0e3d7f184110b7ed8f6e1da4061925621b4142ded4404f20"
     },
     {
       "path": "tests/unit/test_dynamic_resolution.gd.uid",
@@ -455,8 +455,8 @@
     },
     {
       "path": "tests/unit/test_frame_probe.gd",
-      "bytes": 3494,
-      "sha256": "a553346e21bb6e05ac495d5d7fffcbf44578c9b57d04fc9f4360d462376bff6d"
+      "bytes": 4089,
+      "sha256": "a670e27a5b75ee9db793e57f000aab535fdad0668d28d8bc68fe3d56c840e63a"
     },
     {
       "path": "tests/unit/test_frame_probe.gd.uid",

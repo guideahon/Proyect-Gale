@@ -9,14 +9,13 @@
 
 extends Node
 
-
 # Escena principal a cargar tras inicialización exitosa.
 const _MAIN_SCENE := "res://game/scenes/main.tscn"
 
 
 func _ready() -> void:
 	# En modo headless no hay XR: ir directo a la escena principal.
-	if Engine.is_editor_hint() or OS.has_feature("headless"):
+	if Engine.is_editor_hint() or DisplayServer.get_name() == "headless":
 		_load_main()
 		return
 
@@ -41,9 +40,15 @@ func _init_xr() -> void:
 
 
 func _load_main() -> void:
-	var err: Error = get_tree().call_deferred("change_scene_to_file", _MAIN_SCENE)
+	# Verificar que la escena existe antes de intentar cargarla.
+	if not ResourceLoader.exists(_MAIN_SCENE):
+		push_error("Bootstrap: escena principal no encontrada: %s" % _MAIN_SCENE)
+		_exit_with_message("Error: escena principal no encontrada.")
+		return
+
+	var err: Error = get_tree().change_scene_to_file(_MAIN_SCENE)
 	if err != OK:
-		push_error("Bootstrap: no se pudo cargar la escena principal.")
+		push_error("Bootstrap: no se pudo cargar la escena principal (error %d)." % err)
 		_exit_with_message("Error al cargar la escena principal.")
 
 
