@@ -33,7 +33,7 @@ python tools/ci/check_schemas.py
 python tools/ci/build_file_index.py --check
 ```
 
-Estado actual verificado: import limpio, 94/94 tests, 15 schemas + 6 ejemplos + 28 casos, índice al día.
+Estado actual verificado: import limpio, 143/143 tests, 15 schemas + 6 ejemplos + 28 casos, índice al día.
 
 ---
 
@@ -63,7 +63,7 @@ Criterio de salida: build reproducible que arranca en Quest.
 - [ ] **T0.5 — Addons fijados.** Vendor plugin y XR Tools importando sólo los módulos usados, con `addons/LOCKFILE.md`. **Test:** `--import` limpio y el lockfile nombra tag o commit exacto de cada addon.
 - [x] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` cubre la rama de fallo sin XR presente; la escena corre headless.
 - [ ] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Test:** exportación headless produce APK; el template versionado no contiene contraseñas (`grep -i password` vacío).
-- [x] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** la PR que agrega el workflow queda verde y falla si se rompe un test a propósito.
+- [~] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** workflow corregido (sin `--dump-resources`, con hash de Godot, jsonschema instalado, export desktop con fallback). **Bloqueado:** sin remoto git, CI no ejecutado.
 - [ ] **T0.9 — Workflow `release.yml`.** APK ARM64, firma, SHA-256, release con checksums. **Test:** tag de prueba produce artefactos y el SHA-256 publicado coincide con el descargado.
 - [x] **T0.10 — `CONTRIBUTING.md` y plantilla de PR** con la tabla de rendimiento de `docs/03`. **Test:** existen y la plantilla aparece al abrir una PR nueva.
 - [ ] **T0.11 — Gate M0** ⚑. Dos máquinas producen APK con el mismo hash de contenido; el APK arranca en Quest y muestra escena vacía en VR sin errores en el log.

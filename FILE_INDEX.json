@@ -15,8 +15,8 @@
     },
     {
       "path": ".github/workflows/pr.yml",
-      "bytes": 1749,
-      "sha256": "1d67ca351d17e3300e9bd4e2d11f520cf70b59bfb080a24fbf9858ab43fb62be"
+      "bytes": 2789,
+      "sha256": "db80194b261b5187a5a302ebf07b7c7ee2b31f4fa821b074ecc32f2da15dd208"
     },
     {
       "path": ".gitignore",
@@ -65,8 +65,8 @@
     },
     {
       "path": "THIRD_PARTY.md",
-      "bytes": 590,
-      "sha256": "f95fff146ed835b4217253f1bf4e2910e771df0fa69b178bd844b50c3cee41e9"
+      "bytes": 719,
+      "sha256": "a597d39be766d6b48b1712a998363f43eb24a38e0c9449ea1d81101a750c7607"
     },
     {
       "path": "VERSION_BASELINE.md",
@@ -230,8 +230,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 23613,
-      "sha256": "6ded466fbe298b4ad0f18564a512a6d81d6e3f591ae96231bd18ad20476b0472"
+      "bytes": 23695,
+      "sha256": "947f0571762dc13780d2f8ef426d99acb97aea1a89a01c1e05e7bfe8446b40f6"
     },
     {
       "path": "examples/sample_mod/README.md",
@@ -275,8 +275,8 @@
     },
     {
       "path": "game/autoload/bootstrap.gd",
-      "bytes": 1996,
-      "sha256": "98f9e029c11d58d25add5fe42f05706349b115bd58166a3026f3c09b47ac4675"
+      "bytes": 2033,
+      "sha256": "f4d8ee0737ae53cb18127da072fb1989de4377724c87ee821c4265236f83f66c"
     },
     {
       "path": "game/autoload/bootstrap.gd.uid",
@@ -409,6 +409,16 @@
       "sha256": "ed848d4f415ff0539fbdc6f359654e1b9539a048e06ffd3e265a621c39982ac0"
     },
     {
+      "path": "tests/spike_s6/check_pckpacker.gd",
+      "bytes": 177,
+      "sha256": "1a14127032921556cb68847ec3942f541645e1c5216ea19b992c722a77d50f74"
+    },
+    {
+      "path": "tests/spike_s6/create_malicious_pck.py",
+      "bytes": 1904,
+      "sha256": "a9ffc3b17591dbd59a0cc1d40a3fb8f19b0d9935fb00609790d2714ab3aac03a"
+    },
+    {
       "path": "tests/spike_s6/malicious.gd",
       "bytes": 226,
       "sha256": "3b7bf1cdb5e2ef95e9b7de593b21d1d841d53b6124eba55f23d5112487fd4cc6"
@@ -425,8 +435,8 @@
     },
     {
       "path": "tests/spike_s6/test_sandbox.gd",
-      "bytes": 2225,
-      "sha256": "f88460e53b6d8e682bd6089534a739f27fbb6f6fb127f544394853424d855d45"
+      "bytes": 4107,
+      "sha256": "9a70cd05d88557087432c92ceaf4f9d49121c94ad8763b0c13562f4317784e04"
     },
     {
       "path": "tests/spike_s6/test_sandbox.gd.uid",

@@ -14,9 +14,9 @@ const _MAIN_SCENE := "res://game/scenes/main.tscn"
 
 
 func _ready() -> void:
-	# En modo headless no hay XR: ir directo a la escena principal.
+	# En modo headless no hay XR: no cargar escena principal
+	# (los scripts headless manejan su propio ciclo de vida).
 	if Engine.is_editor_hint() or DisplayServer.get_name() == "headless":
-		_load_main()
 		return
 
 	_init_xr()

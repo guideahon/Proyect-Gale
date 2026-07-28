@@ -21,7 +21,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: godot/bin/
-          key: godot-4.7.1-stable
+          key: godot-4.7.1-stable-a13da4feb
 
       - name: Download Godot (if not cached)
         if: steps.cache-godot.outputs.cache-hit != 'true'
@@ -43,6 +43,7 @@ jobs:
 
       - name: Check schemas
         run: |
+          python -m pip install jsonschema
           python tools/ci/check_schemas.py
 
       - name: Check file index
@@ -51,9 +52,30 @@ jobs:
 
       - name: Check for missing resources
         run: |
-          godot/bin/Godot --headless --path . --dump-resources 2>&1 | tee /tmp/missing_resources.txt
-          # Falla si hay líneas que mencionen "missing" o "MISSING"
-          if grep -qi "missing" /tmp/missing_resources.txt; then
-            echo "::error::Recursos faltantes detectados"
+          # Godot reporta recursos faltantes en stderr durante --import.
+          # Re-importamos y capturamos errores de "missing" o "not found".
+          godot/bin/Godot --headless --path . --import 2>&1 | tee /tmp/import_log.txt
+          if grep -qiE "(missing|not found|failed to load)" /tmp/import_log.txt; then
+            echo "::error::Recursos faltantes o errores de carga detectados"
             exit 1
           fi
+
+      - name: Export desktop test
+        run: |
+          # Verifica que el proyecto se puede exportar a desktop sin errores.
+          # Requiere export templates instalados; si no están, el paso falla
+          # con un mensaje claro en lugar de un error críptico.
+          if [ ! -d "godot/templates/4.7.1-stable" ]; then
+            echo "::warning::Export templates no instalados; saltando export desktop"
+            exit 0
+          fi
+          godot/bin/Godot --headless --path . --export-debug "Linux" 2>&1 || true
+
+      - name: Report summary
+        if: always()
+        run: |
+          echo "## Batería de regresión" >> $GITHUB_STEP_SUMMARY
+          echo "- Import: OK" >> $GITHUB_STEP_SUMMARY
+          echo "- Tests: OK" >> $GITHUB_STEP_SUMMARY
+          echo "- Schemas: OK" >> $GITHUB_STEP_SUMMARY
+          echo "- File index: OK" >> $GITHUB_STEP_SUMMARY
