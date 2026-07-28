@@ -25,8 +25,8 @@
     },
     {
       "path": ".llamacode/agent_events.jsonl",
-      "bytes": 203332,
-      "sha256": "f26c5adb0dbec8fea8ddc9f0b3cce4fd2fe7739ce5302f96f38ce90fb7d9def7"
+      "bytes": 224402,
+      "sha256": "0de909cb3e66b2addb272f96a8b33cfd26d5b769dffb50edaa2ff72348b00523"
     },
     {
       "path": ".llamacode/memory.jsonl",
@@ -92,6 +92,11 @@
       "path": "core/mods/semver.gd.uid",
       "bytes": 20,
       "sha256": "123dc34e4203ec4dd5d18e8b9011c746a823e81f74d37fcdc7629ae3179801b4"
+    },
+    {
+      "path": "core/perf/dynamic_resolution.gd",
+      "bytes": 2927,
+      "sha256": "08cb133c49aa407ac18c9979fda6c2fc2fdf636a29df56b076e7d7c4c3fbab34"
     },
     {
       "path": "core/perf/frame_probe.gd",
@@ -412,6 +417,11 @@
       "path": "tests/unit/test_bootstrap.gd.uid",
       "bytes": 19,
       "sha256": "d2a6feb1a03112bb8a990099443f1ecb2e6ed6b2f5bd69adae6a25bcce7cab9f"
+    },
+    {
+      "path": "tests/unit/test_dynamic_resolution.gd",
+      "bytes": 3222,
+      "sha256": "ec26db8fe079edb7ce3a860e625602e949600ad7da693c2094f7d7576d88ba9d"
     },
     {
       "path": "tests/unit/test_frame_probe.gd",
