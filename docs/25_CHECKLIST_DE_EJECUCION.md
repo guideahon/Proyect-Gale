@@ -33,7 +33,7 @@ python tools/ci/check_schemas.py
 python tools/ci/build_file_index.py --check
 ```
 
-Estado actual verificado: import limpio, 206/206 tests, 16 schemas + 6 ejemplos + 1 template + 32 casos, índice al día.
+Estado actual verificado: import limpio, 206/206 tests, 16 schemas + 6 ejemplos + 1 template + 33 casos, índice al día.
 
 ---
 
@@ -47,7 +47,7 @@ Estado actual verificado: import limpio, 206/206 tests, 16 schemas + 6 ejemplos 
 - [ ] **S4 — Foveation y resolución** ⚑. Encontrar la combinación de foveation fijo, MSAA y render scale que entra en presupuesto. **Test:** tabla medida de al menos cuatro combinaciones.
 - [ ] **S5 — PCK en Android** ⚑. Montar un PCK desde `user://` en el visor, con y sin reinicio. **Test:** el contenido del PCK aparece en un registry tras el arranque.
 - [x] **S6 — Sandbox declarativo.** ¿Se puede garantizar que un PCK no contenga `.gd`/`.gdshader` ejecutable, y qué se ejecuta al montarlo? Se prueba en escritorio, no necesita visor. **Test:** spike ejecutado en Godot 4.7.1 headless; scripts `.gd` son cargables y ejecutables desde PCKs montados. **Salida:** ADR-012 — se necesita validador por lista blanca de extensiones y tipos de recurso.
-- [x] **S7 — Impostores.** Decisión: Blender scripts. **Salida:** ADR-014 — pipeline automatizable en CI, independiente de versión de Godot. **Limitación:** medición de coste de atlas (8 vs 16 vistas) requiere hardware real; pendiente de S4 ⚑.
+- [~] **S7 — Impostores.** Decisión: Blender scripts (ADR-014). **Pendiente:** falta asset de prueba (.blend/.glb), generación de atlas y medición de coste (8 vs 16 vistas). Requiere hardware real para la comparación visual a 100 m.
 - [ ] **S8 — Quest 1** ⚑. Confirmar sideload y runtime OpenXR requerido. **Test:** APK de prueba arranca, o se degrada el objetivo formalmente.
 
 ---
@@ -74,15 +74,14 @@ Criterio de salida: build reproducible que arranca en Quest.
 
 Criterio de salida: baseline sostenido, medido y automatizado.
 
-- [x] **T1.1 — `frame_probe.gd`.** CPU/GPU frame time, P50/P95/P99, dropped frames, draw calls, triángulos, memoria de texturas, tiempos de carga. **Test:** `tests/unit/test_frame_probe.gd` calcula percentiles sobre series sintéticas de valor conocido.
+- [x] **T1.1 — `frame_probe.gd`.** CPU/GPU frame time, P50/P95/P99, dropped frames, draw calls, triángulos, memoria de texturas. **Nota:** en headless GPU, draw_calls, triángulos y textura son null (no medible). **Test:** `tests/unit/test_frame_probe.gd` calcula percentiles sobre series sintéticas de valor conocido.
 - [x] **T1.2 — `profile_manager.gd`.** Perfiles `quest1_72`, `quest2_120_strict`, `quest2_90`, `quest3_120`, `pcvr`, cada uno con render scale, MSAA, foveation, distancias LOD, límites de entidades y frecuencias. **Test:** `tests/unit/test_profile_manager.gd` 36/36 — verifica que ningún perfil declara valores fuera de los rangos de `docs/03` y que cambiar de perfil es idempotente.
 - [x] **T1.3 — `dynamic_resolution.gd` con histéresis.** **Test:** con una serie sintética de frame times oscilando alrededor del umbral, la resolución cambia como máximo N veces en 10 segundos.
 - [x] **T1.4 — `thermal_logger.gd`.** Muestreo periódico a `user://logs/`. **Test:** `tests/unit/test_thermal_logger.gd` genera archivo CSV parseable; el test lo lee y valida su estructura.
 - [x] **T1.5 — `schemas/performance_report.schema.json`.** Formaliza `templates/performance_report.example.json`. **Test:** `check_schemas.py` valida la plantilla y 4 casos nuevos (32 casos dorados totales).
-- [x] **T1.6 — `benchmarks/runner.gd` + `runner_entry.gd`.** runner.gd es la lógica de reporte (usa FrameProbe con window=0 ilimitado); runner_entry.gd es el entrypoint SceneTree ejecutable. **Test:** `runner_entry.gd` ejecutado headless con benchmark_empty.tscn: 692 muestras, CPU P50=7.0 ms, P95=16.0 ms, JSON válido contra el schema, exit code 0. Sin datos sintéticos: sin medición real, no hay reporte.
-- [x] **T1.7 — `benchmark_empty.tscn`.** Escena mínima sin geometría. **Test:** el runner la carga, mide 692 frames reales en 5 segundos, y el reporte tiene métricas no nulas.
+- [~] **T1.6 — `benchmarks/runner.gd` + `runner_entry.gd`.** runner.gd es la lógica de reporte (usa FrameProbe con window=0 ilimitado); runner_entry.gd es el entrypoint SceneTree ejecutable. **Pendiente:** validar que el reporte JSON producido pasa contra el schema (G3: gpu_ms null, draw_calls null, duration_minutes < 1).
+- [~] **T1.7 — `benchmark_empty.tscn`.** Escena mínima sin geometría. **Pendiente:** misma validación de schema que T1.6.
 - [!] **T1.8 — Escena de calibración.** `benchmarks/calibration_scene.gd` + `calibration_entry.gd` listos: 6 niveles de complejidad, produce curva JSON. **Bloqueado:** requiere hardware real (Quest) para producir datos válidos; en headless los percentiles reflejan overhead de Godot, no GPU real.
-- [ ] **T1.8 — Escena de calibración.** Escala draw calls y triángulos hasta encontrar el punto de ruptura del dispositivo. **Test:** produce una curva, no un número suelto.
 - [ ] **T1.9 — Sesión térmica de 30 minutos** ⚑. **Test:** P99 ≤ 8,0 ms sostenido en el perfil estricto; reporte adjunto.
 - [ ] **T1.10 — Reconciliar `docs/03`.** Si el punto de ruptura medido contradice la tabla, actualizarla con la evidencia **antes** de seguir a M2. **Test:** la tabla cita el reporte que la respalda.
 

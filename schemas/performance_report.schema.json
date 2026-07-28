@@ -23,8 +23,8 @@
     },
     "duration_minutes": {
       "type": "number",
-      "description": "Duración de la sesión en minutos.",
-      "minimum": 1,
+      "description": "Duración de la sesión en minutos. Smoke tests cortos admitidos.",
+      "minimum": 0.01,
       "maximum": 120
     },
     "cpu_ms": {
@@ -40,24 +40,22 @@
     },
     "gpu_ms": {
       "type": "object",
-      "description": "Percentiles de GPU frame time en ms.",
+      "description": "Percentiles de GPU frame time en ms. null cuando no medible (headless).",
       "required": ["p50", "p95", "p99"],
       "additionalProperties": false,
       "properties": {
-        "p50": { "type": "number", "minimum": 0 },
-        "p95": { "type": "number", "minimum": 0 },
-        "p99": { "type": "number", "minimum": 0 }
+        "p50": { "oneOf": [{ "type": "number", "minimum": 0 }, { "type": "null" }] },
+        "p95": { "oneOf": [{ "type": "number", "minimum": 0 }, { "type": "null" }] },
+        "p99": { "oneOf": [{ "type": "number", "minimum": 0 }, { "type": "null" }] }
       }
     },
     "draw_calls_p95": {
-      "type": "integer",
-      "description": "Draw calls en P95.",
-      "minimum": 0
+      "oneOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+      "description": "Draw calls en P95. null cuando no medible (headless)."
     },
     "visible_triangles_p95": {
-      "type": "integer",
-      "description": "Triángulos visibles en P95.",
-      "minimum": 0
+      "oneOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }],
+      "description": "Triángulos visibles en P95. null cuando no medible (headless)."
     },
     "dropped_frames": {
       "type": "integer",

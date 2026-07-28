@@ -25,6 +25,8 @@ func _test_bootstrap_loads() -> void:
 
 ## Instanciar Bootstrap en headless: _ready() debe retornar sin cargar escena.
 ## Si llegamos acá sin crashear, la rama de headless funciona.
+## Nota: no podemos verificar el contenido de _ready() sin inspeccionar
+## el estado interno de Bootstrap; la ausencia de crash es la garantía.
 func _test_bootstrap_headless_returns_early() -> void:
 	var script: GDScript = load(_BOOTSTRAP_PATH)
 	var bootstrap: Node = script.new()
@@ -36,11 +38,8 @@ func _test_bootstrap_headless_returns_early() -> void:
 	# Dar un frame para que _ready() complete.
 	await Engine.get_main_loop().process_frame
 
-	# Si llegamos acá sin crashear, bootstrap retornó temprano en headless.
-	check_ok(true, "bootstrap no crashea en headless")
-
-	# Verificar que no se cambió la escena.
-	check_ok(bootstrap.is_inside_tree(), "bootstrap sigue en el árbol")
+	# bootstrap sigue en el árbol y no crasheó: rama headless OK.
+	check_ok(bootstrap.is_inside_tree(), "bootstrap sigue en el árbol tras _ready()")
 
 
 ## La escena principal debe existir y ser cargable.

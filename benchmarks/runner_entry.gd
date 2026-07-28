@@ -1,10 +1,13 @@
 ## Entrypoint ejecutable para benchmarks.
 #
 # Uso:
-#     godot --headless --path . --script benchmarks/runner_entry.gd
+#     godot --headless --path . --script benchmarks/runner_entry.gd -- benchmark_forest 10
 #
 # Carga la escena de benchmark, mide frame time real durante
 # duration_seconds, y escribe el reporte JSON.
+#
+# GPU no es medible en headless: el reporte publica null para gpu_ms
+# y documenta la limitación en notes.
 #
 # Si no logra acumular muestras, falla con exit code 1.
 # No genera datos sintéticos: sin medición real, no hay reporte.
@@ -14,8 +17,25 @@ extends SceneTree
 const BenchmarkRunner := preload("res://benchmarks/runner.gd")
 
 func _initialize() -> void:
-	var scene_name := "benchmark_empty"
-	var duration_seconds := 5
+	# Parametrizable por línea de comandos: -- escena duración
+	var scene_name: String = "benchmark_empty"
+	var duration_seconds: int = 5
+
+	var args: PackedStringArray = OS.get_cmdline_args()
+	# Saltar flags del motor y el nombre del script.
+	var i: int = 0
+	while i < args.size():
+		if args[i] == "--script":
+			i += 2  # saltar --script y el nombre del archivo
+			break
+		if args[i].ends_with(".gd"):
+			i += 1  # saltar el nombre del script
+			break
+		i += 1
+	if i < args.size():
+		scene_name = args[i]
+	if i + 1 < args.size():
+		duration_seconds = int(args[i + 1])
 
 	print("=== Benchmark Runner ===")
 	print("Escena: %s" % scene_name)
@@ -41,24 +61,21 @@ func _initialize() -> void:
 		print("Escena instanciada correctamente.")
 	else:
 		print("ERROR: escena no es un Node.")
-		quit(0)
+		quit(1)
 
-	# Medir frames reales.
+	# Medir frames reales con microsegundos para resolución suficiente.
 	print("Midiendo %d segundos..." % duration_seconds)
-	var start_time := Time.get_ticks_msec()
+	var start_time := Time.get_ticks_usec()
 	var frame_count := 0
 
-	while (Time.get_ticks_msec() - start_time) < (duration_seconds * 1000):
-		# Medir CPU frame time.
-		var frame_start := Time.get_ticks_msec()
-		await process_frame
-		var frame_end := Time.get_ticks_msec()
+	while (Time.get_ticks_usec() - start_time) < (duration_seconds * 1_000_000):
+		var frame_start := Time.get_ticks_usec()
+		await Engine.get_main_loop().process_frame
+		var frame_end := Time.get_ticks_usec()
 
-		var cpu_ms := float(frame_end - frame_start)
-		# GPU no medible en headless; usar CPU como proxy.
-		var gpu_ms := cpu_ms
-
-		runner.add_sample(cpu_ms, gpu_ms)
+		var cpu_ms := float(frame_end - frame_start) / 1000.0
+		# GPU no medible en headless: null, no proxy.
+		runner.add_sample(cpu_ms, -1.0)
 		frame_count += 1
 
 	print("Muestras acumuladas: %d" % frame_count)

@@ -505,6 +505,23 @@
       }
     },
     {
+      "label": "performance_report headless con nulls",
+      "schema": "performance_report",
+      "valid": true,
+      "document": {
+        "scene": "benchmark_empty",
+        "device": "headless",
+        "refresh_rate_hz": 120,
+        "duration_minutes": 0.083,
+        "cpu_ms": {"p50": 6.896, "p95": 6.911, "p99": 6.925},
+        "gpu_ms": {"p50": null, "p95": null, "p99": null},
+        "draw_calls_p95": null,
+        "visible_triangles_p95": null,
+        "dropped_frames": 0,
+        "notes": "GPU no medible en headless."
+      }
+    },
+    {
       "label": "signature con ruta absoluta de Windows",
       "schema": "signature",
       "valid": false,

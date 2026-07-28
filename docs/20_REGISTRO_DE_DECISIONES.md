@@ -59,6 +59,13 @@ La documentación distingue objetivo, presupuesto y garantía medida.
 **Decisión:** validador por lista blanca de extensiones y tipos de recurso. El validador de paquetes (`core/mods/package_reader.gd`, T3.5) debe rechazar `.gd`, `.gdshader`, `.gdnlib`, `.cgf` y escenas con scripts adjuntos antes de montar.  
 **Revisión:** si Godot añade un sandbox nativo o una bandera para deshabilitar scripts por origen.
 
+## ADR-014 — Herramienta de impostores: Blender scripts
+
+**Estado:** aceptada.  
+**Motivo:** docs/04 define impostores multivista (100–300 m). Se eligieron scripts de Blender sobre plugin de editor Godot porque son automatizables en CI, independientes de versión de Godot y se integran con el pipeline de assets de docs/11.  
+**Consecuencias:** requiere Blender instalado; pipeline adicional entre modelado y motor.  
+**Validación pendiente:** medición de coste de atlas (8 vs 16 vistas) requiere hardware real (S7 ⚑).
+
 ## ADR-015 — Firma RSA sobre payload canónico
 
 **Estado:** aceptada provisionalmente.  

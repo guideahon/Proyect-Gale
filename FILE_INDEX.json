@@ -100,8 +100,8 @@
     },
     {
       "path": "benchmarks/runner.gd",
-      "bytes": 2130,
-      "sha256": "ebc609c759e8be6e85dd557cccf22a04edc3900c774903ae7c0be2bce3224117"
+      "bytes": 5026,
+      "sha256": "8efebbb58eedabd3e0667f3cff7c869c63cae288b336f068b644d2e2a13f6f28"
     },
     {
       "path": "benchmarks/runner.gd.uid",
@@ -110,8 +110,8 @@
     },
     {
       "path": "benchmarks/runner_entry.gd",
-      "bytes": 2378,
-      "sha256": "49d6e6e283e0ca0cedc3b2be0264585c7c20823f524c5a7fc9c3db88c9f0a7ce"
+      "bytes": 3041,
+      "sha256": "ef62857583e9dac3049bd3153d47d4b1604539d976fdc4ba11a289d67bc6bf23"
     },
     {
       "path": "core/mods/semver.gd",
@@ -259,14 +259,9 @@
       "sha256": "06cc3c434bb8ace25349eb479db4e907d44397ac3c34ff7383371dcb09c8d1d0"
     },
     {
-      "path": "docs/20_ADR-014_IMPOSTORES.md",
-      "bytes": 2032,
-      "sha256": "b640de958f279c63567dd6b536559db8a4f40bc17763ea265b8fc720abd220d0"
-    },
-    {
       "path": "docs/20_REGISTRO_DE_DECISIONES.md",
-      "bytes": 2687,
-      "sha256": "9ebf2cfb2f0c6277723b31eb09eba6da8672ea471968243f337ad35edd85cfaa"
+      "bytes": 3216,
+      "sha256": "55422d6214d2a666231ae7bce2bb186336ce28a485cd91e4ae1e25e1a6ac149a"
     },
     {
       "path": "docs/21_REFERENCIAS_TECNICAS.md",
@@ -290,8 +285,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 24481,
-      "sha256": "e545a360ef267bdef3f4d7638a7c7d206692b9c0038deb4e373be9530422628e"
+      "bytes": 24213,
+      "sha256": "ec9a3cd657dd9e48b31336ed57eec1e1afdbbb9eaa2b3e8a492513ec89f09cd5"
     },
     {
       "path": "examples/sample_mod/README.md",
@@ -400,8 +395,8 @@
     },
     {
       "path": "schemas/performance_report.schema.json",
-      "bytes": 2482,
-      "sha256": "91816ddc288d0d11823d32f39ee85df858c625ea89f75f6d506494e857bb2046"
+      "bytes": 2783,
+      "sha256": "9e1fb70d63e732847c6116ba5a742b169c424de1639820e891c1566f287b210f"
     },
     {
       "path": "schemas/quest.schema.json",
@@ -450,8 +445,8 @@
     },
     {
       "path": "tests/data/schema_cases.json",
-      "bytes": 14108,
-      "sha256": "c1c0b49805a896c23c65b08839bd2ffd341760f3e95824c82667dde47a315aa8"
+      "bytes": 14665,
+      "sha256": "643ec1d99aa03a32cc69ae1d0eb299eb93c078997df6a388827f5f927ceab9e1"
     },
     {
       "path": "tests/framework/test_case.gd",
@@ -515,8 +510,8 @@
     },
     {
       "path": "tests/unit/test_bootstrap.gd",
-      "bytes": 2221,
-      "sha256": "8a6aba2396a472ff3d12e9662b2cacbd6f53aee25e01044d74bc934b75a5e60b"
+      "bytes": 2275,
+      "sha256": "1bb2b61a58043aec80b349494e03c8ee54aa923b7ecabb1bdfbd46595425d15d"
     },
     {
       "path": "tests/unit/test_bootstrap.gd.uid",
