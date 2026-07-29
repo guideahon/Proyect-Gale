@@ -18,6 +18,16 @@ exports/
 # el CI lo complete desde secretos; sin eso la build reproducible no cierra.
 export_presets.cfg
 
+# Plantilla de build Gradle de Android: la instala el editor (o se extrae del
+# .tpz) y pesa cientos de MB. Se regenera; no se versiona.
+android/
+
+# Addons de terceros: 82 MB de binarios por plataforma. Se bajan del release
+# fijado con tools/deploy/fetch_addons.ps1, que verifica el SHA-256.
+# El lockfile sí se versiona: es lo que define qué versión va.
+addons/*
+!addons/LOCKFILE.md
+
 # Herramientas
 __pycache__/
 *.pyc

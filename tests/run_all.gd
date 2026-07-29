@@ -90,6 +90,11 @@ func _discover_all_gd(dir_path: String) -> Array[String]:
 	var dir := DirAccess.open(dir_path)
 	if dir == null:
 		return out
+	# `.gdignore` es la convención de Godot para «esto no es código del
+	# proyecto». La usa el build template de Android, que trae sus propios
+	# tests en GDScript y no compila fuera de su contexto.
+	if FileAccess.file_exists(dir_path.path_join(".gdignore")):
+		return out
 	dir.list_dir_begin()
 	var entry: String = dir.get_next()
 	while not entry.is_empty():

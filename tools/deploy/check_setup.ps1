@@ -52,6 +52,16 @@ $tmpl_detail = if ($hasTemplates) { (Get-ChildItem $templates -Name) -join ", " 
 Report $hasTemplates "export templates" $tmpl_detail `
     "Godot Editor - Manage Export Templates - Download (task S1.b)"
 
+$addon = Join-Path $root "addons\godotopenxrvendors\plugin.gdextension"
+$addon_detail = if (Test-Path $addon) { "godotopenxrvendors present" } else { "not installed" }
+Report (Test-Path $addon) "OpenXR vendors addon" $addon_detail `
+    "run tools/deploy/fetch_addons.ps1 (binaries are not versioned; see addons/LOCKFILE.md)"
+
+$gradleTpl = Join-Path $root "android\build\build.gradle"
+$gradle_detail = if (Test-Path $gradleTpl) { "android/build present" } else { "not installed" }
+Report (Test-Path $gradleTpl) "Gradle build template" $gradle_detail `
+    "Godot Editor - Project - Install Android Build Template (required: the vendor plugin only injects the Meta VR manifest entries via Gradle)"
+
 $presets = Join-Path $root "export_presets.cfg"
 $preset_detail = if (Test-Path $presets) { "export_presets.cfg present" } else { "no export_presets.cfg" }
 Report (Test-Path $presets) "export preset" $preset_detail `

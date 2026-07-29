@@ -13,7 +13,10 @@ PROJECT = "Proyecto Gale"
 DOCUMENTATION_VERSION = "0.2"
 
 SKIP_DIRS = {".git", ".godot", ".import", "exports", "__pycache__", ".venv",
-             "node_modules", ".llamacode", ".playwright-mcp"}
+             "node_modules", ".llamacode", ".playwright-mcp",
+             # No versionados: plantilla Gradle de Android y addons de terceros,
+             # que se obtienen del release fijado en addons/LOCKFILE.md.
+             "android", "addons"}
 SKIP_FILES = {"FILE_INDEX.json", ".DS_Store"}
 SKIP_SUFFIXES = {".pyc", ".apk", ".aab", ".keystore", ".jks", ".import", ".exe", ".zip"}
 

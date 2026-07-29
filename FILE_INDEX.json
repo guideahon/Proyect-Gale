@@ -20,8 +20,8 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 644,
-      "sha256": "347dc95592e5bebf28c4c97e913b712ad038743bcf76fdf9c1056757e2fcc139"
+      "bytes": 1033,
+      "sha256": "7820b587d89312949e4f07a4f4e50f9e4571c325e00be22df8fde748fe83add0"
     },
     {
       "path": "AGENTS.md",
@@ -70,8 +70,8 @@
     },
     {
       "path": "VERSION_BASELINE.md",
-      "bytes": 765,
-      "sha256": "c46d3bd65b64b5e56ac44bc177f108b65d764f4452bf996598899b8d1469faf9"
+      "bytes": 1279,
+      "sha256": "fe2e6b242630288679e7372f64f71979811b980fc7951f7e865a2681e4d0d25b"
     },
     {
       "path": "benchmarks/benchmark_empty.gd",
@@ -390,8 +390,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 24473,
-      "sha256": "5c8841db2b47baea9e0605575d0d0f98a410bd5f6ec7450894436d7c83253ade"
+      "bytes": 25705,
+      "sha256": "f218fe3aebd7ba94c2af9fa3f0ba02b7533eaf27049176b0b3e15a29a10e098a"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -440,13 +440,13 @@
     },
     {
       "path": "export_presets.cfg",
-      "bytes": 1366,
-      "sha256": "5e4347a17e17ee98ea34f690b1d3e3feac7bb8da82420668001c2a91d8fbf472"
+      "bytes": 1230,
+      "sha256": "c83706eb4f41b16b2cd3af921fb581ffccd30c288edcbed0b6dde1c68af9109a"
     },
     {
       "path": "export_presets.template.cfg",
-      "bytes": 1340,
-      "sha256": "e2c65393898d85d7dcb48acbee9bc481ede44606111930783ddd1608e01e3070"
+      "bytes": 1230,
+      "sha256": "c83706eb4f41b16b2cd3af921fb581ffccd30c288edcbed0b6dde1c68af9109a"
     },
     {
       "path": "game/autoload/bootstrap.gd",
@@ -470,8 +470,8 @@
     },
     {
       "path": "project.godot",
-      "bytes": 618,
-      "sha256": "22b62d9604cbf4149ffb43119aaa2914702aae4bc10b3a14fd316116f65658de"
+      "bytes": 1000,
+      "sha256": "f5cd574fb831174e8f8fc48bde251208ad9756a66c8fec4d2f77ed3f973c5710"
     },
     {
       "path": "schemas/ability.schema.json",
@@ -605,8 +605,8 @@
     },
     {
       "path": "tests/run_all.gd",
-      "bytes": 4035,
-      "sha256": "ad8708c0e98da05036b24ecb341ec44a2cf89d60ed69cfd3e04cc84c3edc1374"
+      "bytes": 4310,
+      "sha256": "02bc6a83cfc5d39cd6e749510a1a700ebb383ae862484b6beb14bbfb5ec8b4f3"
     },
     {
       "path": "tests/run_all.gd.uid",
@@ -775,8 +775,8 @@
     },
     {
       "path": "tools/ci/build_file_index.py",
-      "bytes": 2477,
-      "sha256": "6fec01fff654e230ee8e05c43d723cb676fdccfa19a8c9dd5ac5fae9a28dacad"
+      "bytes": 2665,
+      "sha256": "202441c1eb0ee1d751d7533e210ef88130aed9a5b5a6041fb99c184c08693b16"
     },
     {
       "path": "tools/ci/check_schemas.py",
@@ -785,13 +785,18 @@
     },
     {
       "path": "tools/deploy/check_setup.ps1",
-      "bytes": 3748,
-      "sha256": "54426bea22547d65cf28b9408e0c4a091bfe58a4889124175a9da4dfa5f68dd5"
+      "bytes": 4446,
+      "sha256": "e12ba581e01835987e2f16af15f2dba9ae8c0b9d2881182f9240b379668a660c"
     },
     {
       "path": "tools/deploy/deploy_quest.ps1",
       "bytes": 5732,
       "sha256": "9982ae1e5e0cd7208052c823b7936048c3a82527a1f888e873f0478881c77757"
+    },
+    {
+      "path": "tools/deploy/fetch_addons.ps1",
+      "bytes": 2769,
+      "sha256": "2530ea62709b54bd2650dbb73c18f0c84655f4ac294c586057fad564e4e60fce"
     },
     {
       "path": "tools/generate_test_zips.py",
