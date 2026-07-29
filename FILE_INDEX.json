@@ -115,8 +115,8 @@
     },
     {
       "path": "core/mods/schema_validator.gd",
-      "bytes": 9088,
-      "sha256": "e78363b506a568f8f95883e5df1243f6ae6db3ccbd3e5e86b26c08365619858d"
+      "bytes": 8125,
+      "sha256": "39b89bbbe57651e3b3df50dc8b54f3b9f72190827f598121024913b9dec9ab50"
     },
     {
       "path": "core/mods/semver.gd",
@@ -290,8 +290,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 24213,
-      "sha256": "554b3a756a0ffaf96e0d6e376168f68fe80ad8ea4b1f2fd65ed7f9ded4373dc9"
+      "bytes": 24266,
+      "sha256": "ecfc848d3858289f1dcf4822a2e52c67d320961f5ff8d920d2400b57c0641eee"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -555,8 +555,8 @@
     },
     {
       "path": "tests/unit/test_schema_validator.gd",
-      "bytes": 4087,
-      "sha256": "5205579bb08b959f9a52b98725ad1914cb4e1c96ff669714f91251270b948603"
+      "bytes": 5472,
+      "sha256": "2322222d9e718d384019db189d3b1c52594371641a3e395b23531350d5474550"
     },
     {
       "path": "tests/unit/test_semver.gd",

@@ -41,33 +41,6 @@ func validate_by_name(name: String, document: Variant) -> Array[String]:
 	_defs = schema.get("$defs", {})
 	return validate(document)
 
-func run_golden_cases() -> Dictionary:
-	var cases_path := "res://tests/data/schema_cases.json"
-	var file := FileAccess.open(cases_path, FileAccess.READ)
-	if file == null:
-		return {"total": 0, "passed": 0, "failed": 0}
-	var json := JSON.new()
-	json.parse(file.get_as_text())
-	file.close()
-	var cases: Array = json.data.cases
-	var total: int = cases.size()
-	var passed: int = 0
-	var failed: int = 0
-	for case: Dictionary in cases:
-		var schema_name: String = case.schema
-		var document: Variant = case.document
-		var should_pass: bool = case.valid
-		var label: String = case.label
-		var errors: Array[String] = validate_by_name(schema_name, document)
-		var is_valid: bool = errors.is_empty()
-		if is_valid == should_pass:
-			passed += 1
-		else:
-			failed += 1
-			var detail: String = errors[0] if not errors.is_empty() else "validó cuando debía fallar"
-			print("  FALLA %s -> %s" % [label, detail])
-	return {"total": total, "passed": passed, "failed": failed}
-
 func _validate_value(value: Variant, schema: Dictionary) -> void:
 	if schema.is_empty():
 		return

@@ -1,4 +1,7 @@
 ## Tests de `core/mods/schema_validator.gd`.
+##
+## Ejecuta los MISMOS tests/data/schema_cases.json que usa
+## tools/ci/check_schemas.py y verifica idéntico veredicto en los 33 casos.
 extends "res://tests/framework/test_case.gd"
 
 const _SV := preload("res://core/mods/schema_validator.gd")
@@ -15,10 +18,42 @@ func run() -> void:
 	_test_additional_properties()
 	_test_oneOf()
 
+## Los 33 casos dorados deben dar idéntico veredicto al validador Python.
+## Si diverge uno solo, el test falla con el label del caso.
 func _test_golden_cases_all_pass() -> void:
-	var validator := _SV.new()
-	var result := validator.run_golden_cases()
-	check_ok(result.passed >= 32, "al menos 32/33 casos dorados correctos (got %d/%d)" % [result.passed, result.total])
+	var result := _run_golden_cases()
+	check(result.failed, 0, "%d/%d casos dorados correctos; falla: %s" % [
+		result.passed, result.total, result.first_failure])
+
+func _run_golden_cases() -> Dictionary:
+	var cases_path := "res://tests/data/schema_cases.json"
+	var file := FileAccess.open(cases_path, FileAccess.READ)
+	if file == null:
+		return {"total": 0, "passed": 0, "failed": 0, "first_failure": "no se pudo abrir"}
+	var json := JSON.new()
+	json.parse(file.get_as_text())
+	file.close()
+	var cases: Array = json.data.cases
+	var total: int = cases.size()
+	var passed: int = 0
+	var failed: int = 0
+	var first_failure: String = ""
+	for case: Dictionary in cases:
+		var schema_name: String = case.schema
+		var document: Variant = case.document
+		var should_pass: bool = case.valid
+		var label: String = case.label
+		var validator := _SV.new()
+		var errors: Array[String] = validator.validate_by_name(schema_name, document)
+		var is_valid: bool = errors.is_empty()
+		if is_valid == should_pass:
+			passed += 1
+		else:
+			failed += 1
+			if first_failure.is_empty():
+				var detail: String = errors[0] if not errors.is_empty() else "validó cuando debía fallar"
+				first_failure = "%s (%s)" % [label, detail]
+	return {"total": total, "passed": passed, "failed": failed, "first_failure": first_failure}
 
 func _test_validate_by_name_invalid_schema() -> void:
 	var validator := _SV.new()
