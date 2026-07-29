@@ -139,14 +139,29 @@
       "sha256": "3fdc2156de77ad27500113ba8fec8d2059229d72db12cc9e0772dbad11e3a45f"
     },
     {
+      "path": "core/mods/dependency_resolver.gd.uid",
+      "bytes": 19,
+      "sha256": "f9718e57830ffdb5d0c44b58f451cd1f84a1d681d5d1fa2fa9eb78c7c905c506"
+    },
+    {
       "path": "core/mods/manifest_parser.gd",
       "bytes": 2256,
       "sha256": "346508af0c43211238162416aae4305b6815bf54d3972fa8d69ea7fbfe215d0b"
     },
     {
+      "path": "core/mods/manifest_parser.gd.uid",
+      "bytes": 20,
+      "sha256": "f8c4b7de87464a58d63c0cad0e6f06f30e0c4b926f1cc3afeeb72aae0b0fc22c"
+    },
+    {
       "path": "core/mods/package_reader.gd",
       "bytes": 3690,
       "sha256": "ba3d0498424473d6c7f5ae0701e02088fc43eafd9a78d3372429d04dd79ae758"
+    },
+    {
+      "path": "core/mods/package_reader.gd.uid",
+      "bytes": 20,
+      "sha256": "6ba436791fdf7650adc54567b403c62f5a669ae2c2d66d68f347ccb0ba925b27"
     },
     {
       "path": "core/mods/schema_validator.gd",
@@ -335,8 +350,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 24534,
-      "sha256": "d17c466524746f912f64f7d27bf3c352be315c16fecd86771d7fbef39592d708"
+      "bytes": 24818,
+      "sha256": "aa07201bab3e724eea300eda0b0db7c2e9ca6f90a5a4ac4fe4bc15713fc4d238"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -614,6 +629,11 @@
       "sha256": "0bbd555d07ba849f7be8e5b3dd927eaecbc30b951966385a6549de1b4e1b3dcd"
     },
     {
+      "path": "tests/unit/test_dependency_resolver.gd.uid",
+      "bytes": 20,
+      "sha256": "f44a784bc242ca1c3cff90e78c853d1b9e4eeb776f0650d6fd92c478f155123d"
+    },
+    {
       "path": "tests/unit/test_dynamic_resolution.gd",
       "bytes": 3531,
       "sha256": "1d7689b7881db2eb0e3d7f184110b7ed8f6e1da4061925621b4142ded4404f20"
@@ -639,9 +659,19 @@
       "sha256": "2348a8bc87a332aa1756f827502f453f3a4a6cf5d3e29fd593a23cb482e527da"
     },
     {
+      "path": "tests/unit/test_manifest_parser.gd.uid",
+      "bytes": 20,
+      "sha256": "331e84d5c4f081efdc3d8d89a894db99db7eac86f3b161cdd912d3f897a0bea9"
+    },
+    {
       "path": "tests/unit/test_package_reader.gd",
       "bytes": 4787,
       "sha256": "a279e5f167257493aab59589f0d62098d0e7940fd6ea183080fdd170b008e41f"
+    },
+    {
+      "path": "tests/unit/test_package_reader.gd.uid",
+      "bytes": 20,
+      "sha256": "dba81115825420c32cb3045c15481ccf207bdd182b62d3b48d87859c41b0c692"
     },
     {
       "path": "tests/unit/test_profile_manager.gd",

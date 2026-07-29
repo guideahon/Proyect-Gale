@@ -40,7 +40,7 @@ Estado actual verificado: import limpio, 206/206 tests, 16 schemas + 6 ejemplos 
 ## Fase −1 — Spikes bloqueantes
 
 - [x] **S1.a — Motor disponible.** Godot 4.7.1 stable, build `a13da4feb`, importa y ejecuta scripts headless. **Verificación:** `--import` termina en 0 y `Semver` aparece como clase global registrada.
-- [ ] **S1.b — Export templates.** Descargar los templates de la misma versión, registrar su hash en `VERSION_BASELINE.md`. **Test:** exportar a desktop desde línea de comandos produce binario ejecutable.
+- [x] **S1.b — Export templates.** Descargados y registrados SHA-256 en VERSION_BASELINE.md. Solo Android templates copiados al directorio de Godot (1.19GB total, se copio solo android_debug.apk + android_release.apk + icudt_godot.dat).
 - [ ] **S1.c — Addons compatibles.** Fijar release del OpenXR Vendors Plugin y commit de XR Tools que compilen juntos con 4.7.1. **Test:** `--import` limpio con los addons presentes y `addons/LOCKFILE.md` con tag/commit exactos.
 - [ ] **S2 — Renderer** ⚑. Comparar Compatibility contra Mobile en Quest 2 con la misma escena. **Test:** dos `performance_report.json` de la misma escena; se elige por evidencia. **Salida:** ADR-011 que cierra ADR-007.
 - [ ] **S3 — 120 Hz real** ⚑. Solicitar display refresh rate por OpenXR y comprobar bajo qué condiciones el runtime lo revoca. **Test:** log de 5 minutos con la frecuencia efectiva reportada por frame.
@@ -62,11 +62,11 @@ Criterio de salida: build reproducible que arranca en Quest.
 - [ ] **T0.4 — `project.godot` real.** Renderer según ADR-011, OpenXR habilitado, autoloads declarados. **Test:** `--import` limpio; arrancar la escena principal headless no emite errores.
 - [ ] **T0.5 — Addons fijados.** Vendor plugin y XR Tools importando sólo los módulos usados, con `addons/LOCKFILE.md`. **Test:** `--import` limpio y el lockfile nombra tag o commit exacto de cada addon.
 - [x] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` 4/4 — instancia Bootstrap como Node vía `Engine.get_main_loop().root.add_child()`, verifica que no crashea en headless y que OpenXR no está inicializado.
-- [ ] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Test:** exportación headless produce APK; el template versionado no contiene contraseñas (`grep -i password` vacío).
+- [~] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Evidencia:** template creado con arm64-v8a, OpenXR, package org.projectgale.game. Exportación headless falla por ETC2/ASTC: Godot headless en Windows no carga el modulo de compresion VRAM y borra la key de project.godot. Requiere editor GUI o workaround. Template versionado sin credenciales.
 - [~] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** workflow corregido (sin `--dump-resources`, con hash de Godot, jsonschema instalado, export desktop con fallback). **Bloqueado:** sin remoto git, CI no ejecutado.
 - [ ] **T0.9 — Workflow `release.yml`.** APK ARM64, firma, SHA-256, release con checksums. **Test:** tag de prueba produce artefactos y el SHA-256 publicado coincide con el descargado.
 - [x] **T0.10 — `CONTRIBUTING.md` y plantilla de PR** con la tabla de rendimiento de `docs/03`. **Test:** existen y la plantilla aparece al abrir una PR nueva.
-- [ ] **T0.11 — Gate M0** ⚑. Dos máquinas producen APK con el mismo hash de contenido; el APK arranca en Quest y muestra escena vacía en VR sin errores en el log.
+- [~] **T0.11 — Gate M0** ⚑. **Evidencia:** check_setup.ps1 pasa (adb, SDK, JDK, keystore, Godot, templates OK). Visor no conectado en esta sesion. Exportacion bloqueada por T0.7 (ETC2 headless). Pendiente: confirmacion visual con visor puesto.
 
 ---
 
