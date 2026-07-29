@@ -1,4 +1,3 @@
-[gd_scene load_steps=1]
+[gd_scene format=3]
 
-[node type="Node"]
-name = "Main"
+[node name="Main" type="Node3D"]

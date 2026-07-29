@@ -6,10 +6,12 @@ config/name="Project Gale"
 config/description="Aventura VR de mundo abierto, libre y centrada en mods."
 run/main_scene="res://game/scenes/main.tscn"
 config/icon="res://icon.svg"
+config/version="0.1.0"
 
 [autoload]
 
 Bootstrap="*res://game/autoload/bootstrap.gd"
+UpdateService="*res://core/updater/update_service.gd"
 
 [rendering]
 

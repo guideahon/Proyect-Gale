@@ -244,6 +244,26 @@
       "sha256": "f97d684b7959a5753598439ffe3befc522bc9e8f331693b21ef1993d7519957b"
     },
     {
+      "path": "core/updater/update_checker.gd",
+      "bytes": 3241,
+      "sha256": "383e294ab9c19321ba110e033165af274dd23c5cc57335dcb3a43cf7a6b7e518"
+    },
+    {
+      "path": "core/updater/update_checker.gd.uid",
+      "bytes": 19,
+      "sha256": "e57826ce4fe3ce04f3af7989011653713627d16b162392e95751cd6641721518"
+    },
+    {
+      "path": "core/updater/update_service.gd",
+      "bytes": 3255,
+      "sha256": "a6d5d24e3f33a59157e1f87e3f6d2949a38b57a233770c02c17f1e906f88a5e9"
+    },
+    {
+      "path": "core/updater/update_service.gd.uid",
+      "bytes": 20,
+      "sha256": "28c7476e06b8655ac898db2bc43ba6a385112ee23eacf08436b02abe63b2f0b2"
+    },
+    {
       "path": "docs/00_README.md",
       "bytes": 2556,
       "sha256": "50578ffb4a41f9eb231bc88ca58e891e5cb8a44c93f159acda28481585dd0fa7"
@@ -420,8 +440,8 @@
     },
     {
       "path": "export_presets.cfg",
-      "bytes": 1340,
-      "sha256": "e2c65393898d85d7dcb48acbee9bc481ede44606111930783ddd1608e01e3070"
+      "bytes": 1366,
+      "sha256": "5e4347a17e17ee98ea34f690b1d3e3feac7bb8da82420668001c2a91d8fbf472"
     },
     {
       "path": "export_presets.template.cfg",
@@ -440,8 +460,8 @@
     },
     {
       "path": "game/scenes/main.tscn",
-      "bytes": 58,
-      "sha256": "8a080d27fa24ac41c46bd7ec6517ab28fb19365e55ae7f5a58f8763ac35993b3"
+      "bytes": 54,
+      "sha256": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94"
     },
     {
       "path": "icon.svg",
@@ -450,8 +470,8 @@
     },
     {
       "path": "project.godot",
-      "bytes": 541,
-      "sha256": "d3c966feebcf5a98fa5367c9a1a9b7cc185dde368c50d6922e866ef1856ea920"
+      "bytes": 618,
+      "sha256": "22b62d9604cbf4149ffb43119aaa2914702aae4bc10b3a14fd316116f65658de"
     },
     {
       "path": "schemas/ability.schema.json",
@@ -722,6 +742,16 @@
       "path": "tests/unit/test_thermal_logger.gd.uid",
       "bytes": 19,
       "sha256": "033bcee170f8188b70b57bb97f34b60615a3a6bce756876e31063e78feae52e4"
+    },
+    {
+      "path": "tests/unit/test_update_checker.gd",
+      "bytes": 3185,
+      "sha256": "c8af49bab1f31f113cdebd794e1bec70f592b87fb29b0c74d3b3bf09e835a2b4"
+    },
+    {
+      "path": "tests/unit/test_update_checker.gd.uid",
+      "bytes": 20,
+      "sha256": "d0b00d479971076c4ef13a616b04d9a86002ae34a2c79326eaaf64f63c372191"
     },
     {
       "path": "tools/ci/build_file_index.py",
