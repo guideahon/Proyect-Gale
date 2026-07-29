@@ -56,17 +56,34 @@ func _initialize() -> void:
 	quit(1 if total_failed > 0 else 0)
 
 func _precheck_compilation() -> int:
-	# Verifica que todos los .gd se carguen. Godot headless no devuelve null
-	# para scripts con errores de parseo (devuelve GDScript invalido), asi que
-	# este check detecta archivos faltantes o corruptos, no errores de sintaxis.
-	var errors: int = 0
+	# `load()` NO devuelve null ante un error de parseo: devuelve un GDScript
+	# inválido. La señal confiable es `reload()`, que devuelve ERR_PARSE_ERROR (43),
+	# confirmado con `can_instantiate()`.
+	#
+	# Un único archivo roto arrastra a otros: cuando un script no parsea, Godot
+	# invalida la caché de clases globales y todo lo que dependa de ese
+	# `class_name` deja de compilar. Por eso se listan todos los archivos que
+	# fallan y se aclara que unos pueden ser consecuencia de otros.
+	var failed: Array[String] = []
 	var gd_files: Array[String] = _discover_all_gd("res://")
 	for path: String in gd_files:
 		var script: Variant = load(path)
 		if script == null:
-			printerr("PRE-CHECK: no se pudo cargar %s" % path)
-			errors += 1
-	return errors
+			failed.append("%s (no se pudo cargar)" % path)
+			continue
+		if not (script is GDScript):
+			continue
+		var gd: GDScript = script
+		# No usar reload(): recargar scripts en uso los invalida y produce
+		# falsos positivos sobre este mismo runner.
+		if not gd.can_instantiate():
+			failed.append(path)
+
+	for entry: String in failed:
+		printerr("PRE-CHECK: no compila %s" % entry)
+	if failed.size() > 1:
+		printerr("PRE-CHECK: un error de parseo invalida la caché de clases globales; algunos de estos archivos pueden ser consecuencia de otro.")
+	return failed.size()
 
 func _discover_all_gd(dir_path: String) -> Array[String]:
 	var out: Array[String] = []

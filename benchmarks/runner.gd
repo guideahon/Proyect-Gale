@@ -13,11 +13,16 @@
 class_name BenchmarkRunner
 extends RefCounted
 
+# Por ruta, no por `class_name`: las clases globales no resuelven cuando el
+# script corre bajo `--script`, y eso dejó el benchmark sin compilar sin que
+# la batería lo notara.
+const FrameProbeScript := preload("res://core/perf/frame_probe.gd")
+
 var scene_name: String
 var device: String
 var refresh_rate_hz: int
 var duration_seconds: int
-var _probe: FrameProbe
+var _probe: RefCounted
 var _gpu_measurable: bool = false
 
 func _init(
@@ -30,7 +35,7 @@ func _init(
 	self.device = device
 	self.refresh_rate_hz = refresh_rate_hz
 	self.duration_seconds = duration_seconds
-	_probe = FrameProbe.new(0, 1000.0 / refresh_rate_hz)
+	_probe = FrameProbeScript.new(0, 1000.0 / refresh_rate_hz)
 
 func add_sample(cpu_ms: float, gpu_ms: float) -> void:
 	_probe.add_sample(cpu_ms, gpu_ms)
@@ -38,7 +43,7 @@ func add_sample(cpu_ms: float, gpu_ms: float) -> void:
 		_gpu_measurable = true
 
 func generate_report() -> Dictionary:
-	var report := _probe.get_report()
+	var report: Dictionary = _probe.get_report()
 	var gpu_p50: Variant = null
 	var gpu_p95: Variant = null
 	var gpu_p99: Variant = null

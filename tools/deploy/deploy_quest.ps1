@@ -86,17 +86,24 @@ if (-not $SkipBuild) {
     }
 
     New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-    if (Test-Path $apk) { Remove-Item $apk -Force }
+
+    # Exportar a un archivo temporal y reemplazar sólo si salió bien: una
+    # exportación fallida no puede destruir el último APK que sí funcionaba.
+    $apkTmp = Join-Path $outDir "gale.building.apk"
+    if (Test-Path $apkTmp) { Remove-Item $apkTmp -Force }
 
     $mode = if ($Release) { "--export-release" } else { "--export-debug" }
-    & $godot.FullName --headless --path $root $mode $Preset $apk 2>&1 | Out-Host
+    & $godot.FullName --headless --path $root $mode $Preset $apkTmp 2>&1 | Out-Host
 
     if ($LASTEXITCODE -ne 0) {
-        Fail "la exportación devolvió $LASTEXITCODE." "revisá que el preset '$Preset' exista y que los export templates estén instalados (tarea S1.b)"
+        if (Test-Path $apkTmp) { Remove-Item $apkTmp -Force }
+        $kept = if (Test-Path $apk) { " El APK anterior sigue en $apk." } else { "" }
+        Fail "la exportación devolvió $LASTEXITCODE.$kept" "revisá que el preset '$Preset' exista y que los export templates estén instalados (tarea S1.b)"
     }
-    if (-not (Test-Path $apk)) {
-        Fail "la exportación terminó en 0 pero no generó $apk." "revisar la salida de arriba: Godot puede fallar silenciosamente sin templates"
+    if (-not (Test-Path $apkTmp)) {
+        Fail "la exportación terminó en 0 pero no generó el APK." "revisar la salida de arriba: Godot puede fallar silenciosamente sin templates"
     }
+    Move-Item $apkTmp $apk -Force
 
     $sizeMb = [math]::Round((Get-Item $apk).Length / 1MB, 1)
     Write-Host "  APK: $apk ($sizeMb MB)"
