@@ -34,13 +34,7 @@ func _test_openxr_not_initialized_in_headless() -> void:
 		check(xr_interface, null, "OpenXR interfaz es null en headless")
 
 ## R5: el autoload de Bootstrap debe estar declarado en project.godot.
-## Nota: en M0 el autoload se declara una vez que main.tscn existe y no crashea.
-## Hasta entonces, el test verifica que bootstrap.gd sea cargable como script.
 func _test_autoload_declared_in_project_godot() -> void:
 	var settings: String = ProjectSettings.get_setting("autoload/Bootstrap", "")
-	# Si el autoload no está declarado, verificar que el script exista y sea cargable.
-	if settings.is_empty():
-		var script: Variant = load(_BOOTSTRAP_PATH)
-		check_ok(script != null, "bootstrap.gd cargable (autoload pendiente de declarar)")
-	else:
-		check_ok(settings.find("bootstrap.gd") >= 0, "autoload apunta a bootstrap.gd")
+	check_ok(not settings.is_empty(), "autoload Bootstrap declarado en project.godot")
+	check_ok(settings.find("bootstrap.gd") >= 0, "autoload apunta a bootstrap.gd")

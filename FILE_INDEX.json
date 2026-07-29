@@ -20,8 +20,8 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 627,
-      "sha256": "8712a63d9c0a4a74a73bdb2d1bdd02713d252c21626755f86487654ed7d3c4da"
+      "bytes": 644,
+      "sha256": "347dc95592e5bebf28c4c97e913b712ad038743bcf76fdf9c1056757e2fcc139"
     },
     {
       "path": "AGENTS.md",
@@ -144,6 +144,11 @@
       "sha256": "f9718e57830ffdb5d0c44b58f451cd1f84a1d681d5d1fa2fa9eb78c7c905c506"
     },
     {
+      "path": "core/mods/key_store.gd",
+      "bytes": 3145,
+      "sha256": "7cc6b209482bca220d508b58a71d5c83ae900c588771e9bfcb466ba31ae90885"
+    },
+    {
       "path": "core/mods/manifest_parser.gd",
       "bytes": 2256,
       "sha256": "346508af0c43211238162416aae4305b6815bf54d3972fa8d69ea7fbfe215d0b"
@@ -182,6 +187,11 @@
       "path": "core/mods/semver.gd.uid",
       "bytes": 20,
       "sha256": "123dc34e4203ec4dd5d18e8b9011c746a823e81f74d37fcdc7629ae3179801b4"
+    },
+    {
+      "path": "core/mods/signature_verifier.gd",
+      "bytes": 4446,
+      "sha256": "490a6706653ee4ccd6165ad92628fc8d4f50c97f9e207fe33a345a281108f778"
     },
     {
       "path": "core/perf/dynamic_resolution.gd",
@@ -350,8 +360,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 24568,
-      "sha256": "07984a3f0899daa32a1f395fb44ed464b0eefcf19975df5e09fcd7b6355d9441"
+      "bytes": 24473,
+      "sha256": "5c8841db2b47baea9e0605575d0d0f98a410bd5f6ec7450894436d7c83253ade"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -425,8 +435,8 @@
     },
     {
       "path": "project.godot",
-      "bytes": 453,
-      "sha256": "c6524c5e171f6825912532bbcf1052f59c7da6edeecb029c983cbfc8253ac92e"
+      "bytes": 512,
+      "sha256": "9987eb463a6562b8313f54cddda94c420a2419f237c87cfe5d15b8d1f5e46bbf"
     },
     {
       "path": "schemas/ability.schema.json",
@@ -540,8 +550,8 @@
     },
     {
       "path": "tests/run_all.gd",
-      "bytes": 3531,
-      "sha256": "3ada2a875192184559d99377f61b9762da8598b264e387adcefdb508c8be3356"
+      "bytes": 3280,
+      "sha256": "7aa293181567aa13b2a149f0b8defcb7ef8986393ef1159bfb02e90fccd85d97"
     },
     {
       "path": "tests/run_all.gd.uid",
@@ -590,8 +600,8 @@
     },
     {
       "path": "tests/unit/test_bootstrap.gd",
-      "bytes": 1960,
-      "sha256": "163fc94791c861dcd47f162e3c33ea896be7bb5a56a961e1e3e84b6449ad9a3e"
+      "bytes": 1635,
+      "sha256": "b5a54e623cc3ca016e719cfd6cfc39c69f7502f7366167424cb0007ee02e516d"
     },
     {
       "path": "tests/unit/test_bootstrap.gd.uid",
@@ -679,6 +689,11 @@
       "sha256": "5a265d8cf97e6fcca2eb1b040ed323d680214caf5c854e68c7e875fb4e7f7c9b"
     },
     {
+      "path": "tests/unit/test_signature_verifier.gd",
+      "bytes": 4525,
+      "sha256": "3f330c1a26b272f8f90601ae24de55d7ae6d5e178ba522b4792c3cfd47205f59"
+    },
+    {
       "path": "tests/unit/test_thermal_logger.gd",
       "bytes": 5081,
       "sha256": "5d1b990e58ee4301599b5787831361b8b91abc75c947e7f979ecef597fd02615"
@@ -690,8 +705,8 @@
     },
     {
       "path": "tools/ci/build_file_index.py",
-      "bytes": 3177,
-      "sha256": "86b0a489d03d9dc3930db92fc5c992af17bbb774bf036ba178bc4a58099c9dc4"
+      "bytes": 2477,
+      "sha256": "6fec01fff654e230ee8e05c43d723cb676fdccfa19a8c9dd5ac5fae9a28dacad"
     },
     {
       "path": "tools/ci/check_schemas.py",

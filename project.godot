@@ -6,6 +6,10 @@ config/name="Project Gale"
 config/description="Aventura VR de mundo abierto, libre y centrada en mods."
 run/main_scene="res://game/scenes/main.tscn"
 
+[autoload]
+
+Bootstrap="*res://game/autoload/bootstrap.gd"
+
 [rendering]
 
 # Renderer provisional: gl_compatibility hasta que S2 decida en el visor (ADR-011).

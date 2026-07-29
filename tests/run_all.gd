@@ -1,13 +1,4 @@
 ## Runner de tests unitarios.
-##
-##     godot --headless --path . --script tests/run_all.gd
-##     godot --headless --path . --script tests/run_all.gd -- semver
-##
-## El argumento posterior a `--` filtra por subcadena de la ruta del test.
-## Salida 0 si todo pasa, 1 si algo falla o si el filtro no encontró nada.
-##
-## R3: antes de correr tests, verifica que todos los .gd del proyecto compilen.
-## R2: un test con 0 assertions se considera FALLA.
 extends SceneTree
 
 const UNIT_DIR := "res://tests/unit"
@@ -64,14 +55,16 @@ func _initialize() -> void:
 	print("%d archivos, %d pasaron, %d fallaron" % [ran, total_passed, total_failed])
 	quit(1 if total_failed > 0 else 0)
 
-## R3: intenta cargar todos los .gd del proyecto y cuenta los que fallan.
 func _precheck_compilation() -> int:
+	# Verifica que todos los .gd se carguen. Godot headless no devuelve null
+	# para scripts con errores de parseo (devuelve GDScript invalido), asi que
+	# este check detecta archivos faltantes o corruptos, no errores de sintaxis.
 	var errors: int = 0
-	var gd_files: Array = _discover_all_gd("res://")
+	var gd_files: Array[String] = _discover_all_gd("res://")
 	for path: String in gd_files:
 		var script: Variant = load(path)
 		if script == null:
-			printerr("PRE-CHECK: no compila %s" % path)
+			printerr("PRE-CHECK: no se pudo cargar %s" % path)
 			errors += 1
 	return errors
 

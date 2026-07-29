@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-"""Regenera FILE_INDEX.json.
-
-El índice declara tamaño y SHA-256 de cada archivo versionado del repositorio,
-para que una copia descargada pueda verificarse sin git. Debe regenerarse en
-cada cambio de contenido; el CI lo recalcula y falla si difiere del commit.
-
-    python tools/ci/build_file_index.py            # escribe FILE_INDEX.json
-    python tools/ci/build_file_index.py --check    # sólo verifica, salida 1 si difiere
-"""
+"""Regenera FILE_INDEX.json."""
 
 import argparse
 import hashlib
@@ -20,11 +12,9 @@ INDEX = ROOT / "FILE_INDEX.json"
 PROJECT = "Proyecto Gale"
 DOCUMENTATION_VERSION = "0.2"
 
-# Directorios que nunca entran al índice.
-SKIP_DIRS = {".git", ".godot", ".import", "exports", "__pycache__", ".venv", "node_modules", ".llamacode"}
-# Archivos que nunca entran al índice.
+SKIP_DIRS = {".git", ".godot", ".import", "exports", "__pycache__", ".venv",
+             "node_modules", ".llamacode", ".playwright-mcp"}
 SKIP_FILES = {"FILE_INDEX.json", ".DS_Store"}
-# Extensiones de artefactos de build y binarios que no se versionan.
 SKIP_SUFFIXES = {".pyc", ".apk", ".aab", ".keystore", ".jks", ".import", ".exe", ".zip"}
 
 
@@ -56,7 +46,6 @@ def build(generated_at: str) -> dict:
             "bytes": path.stat().st_size,
             "sha256": sha256_of(path),
         })
-    # Orden byte a byte de la ruta: estable entre plataformas.
     entries.sort(key=lambda e: e["path"].encode("utf-8"))
     return {
         "project": PROJECT,
@@ -68,8 +57,8 @@ def build(generated_at: str) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--check", action="store_true", help="no escribe; falla si el índice está desactualizado")
-    parser.add_argument("--date", default=None, help="fecha ISO a registrar; por defecto conserva la del índice actual")
+    parser.add_argument("--check", action="store_true")
+    parser.add_argument("--date", default=None)
     args = parser.parse_args()
 
     previous = json.loads(INDEX.read_text(encoding="utf-8")) if INDEX.exists() else {}
@@ -83,7 +72,8 @@ def main() -> int:
         print("FILE_INDEX.json desactualizado: correr tools/ci/build_file_index.py", file=sys.stderr)
         return 1
 
-    INDEX.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    INDEX.write_text(json.dumps(index, indent=2, ensure_ascii=False) + "\n",
+                     encoding="utf-8", newline="\n")
     print("FILE_INDEX.json: %d archivos" % len(index["files"]))
     return 0
 
