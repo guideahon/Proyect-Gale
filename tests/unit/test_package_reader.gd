@@ -19,15 +19,15 @@ func _get_reader() -> Object:
 
 ## Construye un ZIP minimo con las entradas dadas usando Python.
 func _build_zip(path: String, entries: Array[String]) -> void:
-	# Escribir un archivo temporal con la lista de entradas.
-	var list_path: String = path + ".list"
+	var abs_path: String = ProjectSettings.globalize_path(path)
+	var list_path: String = abs_path + ".list"
 	var f: FileAccess = FileAccess.open(list_path, FileAccess.WRITE)
 	if f:
 		for entry: String in entries:
 			f.store_line(entry)
 		f.close()
-	# Llamar a Python para crear el ZIP.
 	var py_script: String = "res://tests/data/_make_zip.py"
+	var abs_py: String = ProjectSettings.globalize_path(py_script)
 	var pf: FileAccess = FileAccess.open(py_script, FileAccess.WRITE)
 	if pf:
 		pf.store_line("import zipfile, sys")
@@ -39,7 +39,7 @@ func _build_zip(path: String, entries: Array[String]) -> void:
 		pf.store_line("        z.writestr(e, 'test')")
 		pf.close()
 	var output: Array = []
-	OS.execute("python", [py_script, path, list_path], output, true)
+	OS.execute("python", [abs_py, abs_path, list_path], output, true)
 	DirAccess.remove_absolute(list_path)
 	DirAccess.remove_absolute(py_script)
 
@@ -47,6 +47,7 @@ func _test_valid_package() -> void:
 	var reader: Object = _get_reader()
 	var tmp: String = "res://tests/data/valid_package.gmod"
 	_build_zip(tmp, ["manifest.json", "content.pck", "icon.webp", "README.md"])
+	check_ok(FileAccess.file_exists(tmp), "ZIP creado correctamente")
 	var result: Variant = reader.validate(tmp)
 	check_ok(result == null, "paquete valido pasa")
 	DirAccess.remove_absolute(tmp)

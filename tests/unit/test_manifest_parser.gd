@@ -27,45 +27,41 @@ func _test_valid_sample_mod_manifest() -> void:
 	var deps: Array = manifest.dependencies
 	check_ok(deps.size() > 0, "al menos una dependencia")
 
-func _test_invalid_json() -> void:
-	var mp: Object = _get_parser()
-	var tmp: String = "res://tests/data/bad_manifest.json"
+func _write_temp(path: String, content: String) -> String:
+	var tmp: String = "user://test_tmp_" + path.get_file()
 	var f: FileAccess = FileAccess.open(tmp, FileAccess.WRITE)
 	if f:
-		f.store_string("{invalid json}")
+		f.store_string(content)
 		f.close()
+	return tmp
+
+func _test_invalid_json() -> void:
+	var mp: Object = _get_parser()
+	var tmp: String = _write_temp("bad_manifest.json", "{invalid json}")
 	var result: Variant = mp.parse(tmp)
 	check_ok(result is Object, "JSON invalido devuelve un objeto de error")
+	DirAccess.remove_absolute(tmp)
 
 func _test_missing_required_field() -> void:
 	var mp: Object = _get_parser()
-	var tmp: String = "res://tests/data/incomplete_manifest.json"
-	var f: FileAccess = FileAccess.open(tmp, FileAccess.WRITE)
-	if f:
-		f.store_string("{\"format_version\": 1}")
-		f.close()
+	var tmp: String = _write_temp("incomplete_manifest.json", "{\"format_version\": 1}")
 	var result: Variant = mp.parse(tmp)
 	check_ok(result is Object, "manifiesto incompleto devuelve error")
+	DirAccess.remove_absolute(tmp)
 
 func _test_bad_id_format() -> void:
 	var mp: Object = _get_parser()
-	var tmp: String = "res://tests/data/bad_id_manifest.json"
-	var f: FileAccess = FileAccess.open(tmp, FileAccess.WRITE)
-	if f:
-		f.store_string("{\"format_version\":1,\"id\":\"sin_namespace\",\"name\":\"T\",\"author\":\"T\",\"version\":\"1.0.0\",\"game_version\":\">=0.1.0\",\"mod_api\":\"^1.0\",\"type\":\"content\",\"license\":\"MIT\"}")
-		f.close()
+	var tmp: String = _write_temp("bad_id_manifest.json", "{\"format_version\":1,\"id\":\"sin_namespace\",\"name\":\"T\",\"author\":\"T\",\"version\":\"1.0.0\",\"game_version\":\">=0.1.0\",\"mod_api\":\"^1.0\",\"type\":\"content\",\"license\":\"MIT\"}")
 	var result: Variant = mp.parse(tmp)
 	check_ok(result is Object, "ID sin namespace devuelve error")
+	DirAccess.remove_absolute(tmp)
 
 func _test_bad_type() -> void:
 	var mp: Object = _get_parser()
-	var tmp: String = "res://tests/data/bad_type_manifest.json"
-	var f: FileAccess = FileAccess.open(tmp, FileAccess.WRITE)
-	if f:
-		f.store_string("{\"format_version\":1,\"id\":\"test.mod\",\"name\":\"T\",\"author\":\"T\",\"version\":\"1.0.0\",\"game_version\":\">=0.1.0\",\"mod_api\":\"^1.0\",\"type\":\"invalid_type\",\"license\":\"MIT\"}")
-		f.close()
+	var tmp: String = _write_temp("bad_type_manifest.json", "{\"format_version\":1,\"id\":\"test.mod\",\"name\":\"T\",\"author\":\"T\",\"version\":\"1.0.0\",\"game_version\":\">=0.1.0\",\"mod_api\":\"^1.0\",\"type\":\"invalid_type\",\"license\":\"MIT\"}")
 	var result: Variant = mp.parse(tmp)
 	check_ok(result is Object, "type invalido devuelve error")
+	DirAccess.remove_absolute(tmp)
 
 func _test_get_id_on_valid() -> void:
 	var mp: Object = _get_parser()

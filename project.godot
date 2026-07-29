@@ -4,13 +4,13 @@ config_version=5
 
 config/name="Project Gale"
 config/description="Aventura VR de mundo abierto, libre y centrada en mods."
-run/main_scene=""
+run/main_scene="res://game/scenes/main.tscn"
 
 [rendering]
 
-renderer/rendering_method=1
-quality/vram_texture_compression/enable_etc2=true
-quality/vram_texture_compression/enable_astc=true
+# Renderer provisional: gl_compatibility hasta que S2 decida en el visor (ADR-011).
+renderer/rendering_method="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 
 [editor]
 

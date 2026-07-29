@@ -61,12 +61,12 @@ Criterio de salida: build reproducible que arranca en Quest.
 - [x] **T0.3 — Archivos de licencia.** `LICENSE`, `LICENSE-CODE` (MIT), `LICENSE-ASSETS`, `LICENSE-DOCS` (CC BY 4.0), `THIRD_PARTY.md`, `CREDITS.md` según `docs/17`. **Test:** los seis existen y `THIRD_PARTY.md` tiene la tabla con las columnas exigidas por `docs/12`.
 - [ ] **T0.4 — `project.godot` real.** Renderer según ADR-011, OpenXR habilitado, autoloads declarados. **Test:** `--import` limpio; arrancar la escena principal headless no emite errores.
 - [ ] **T0.5 — Addons fijados.** Vendor plugin y XR Tools importando sólo los módulos usados, con `addons/LOCKFILE.md`. **Test:** `--import` limpio y el lockfile nombra tag o commit exacto de cada addon.
-- [x] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` 4/4 — instancia Bootstrap como Node vía `Engine.get_main_loop().root.add_child()`, verifica que no crashea en headless y que OpenXR no está inicializado.
-- [~] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Evidencia:** template creado con arm64-v8a, OpenXR, package org.projectgale.game. Exportación headless falla por ETC2/ASTC: Godot headless en Windows no carga el modulo de compresion VRAM y borra la key de project.godot. Requiere editor GUI o workaround. Template versionado sin credenciales.
+- [x] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` 5/5 — incluye test de autoload declarado en project.godot (R5).
+- [x] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Test:** exportación headless produce APK de 28.4 MB (`exports/gale.apk`). Key correcta: `textures/vram_compression/import_etc2_astc=true`. Template versionado sin credenciales.
 - [~] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** workflow corregido (sin `--dump-resources`, con hash de Godot, jsonschema instalado, export desktop con fallback). **Bloqueado:** sin remoto git, CI no ejecutado.
 - [ ] **T0.9 — Workflow `release.yml`.** APK ARM64, firma, SHA-256, release con checksums. **Test:** tag de prueba produce artefactos y el SHA-256 publicado coincide con el descargado.
 - [x] **T0.10 — `CONTRIBUTING.md` y plantilla de PR** con la tabla de rendimiento de `docs/03`. **Test:** existen y la plantilla aparece al abrir una PR nueva.
-- [~] **T0.11 — Gate M0** ⚑. **Evidencia:** check_setup.ps1 pasa (adb, SDK, JDK, keystore, Godot, templates OK). Visor no conectado en esta sesion. Exportacion bloqueada por T0.7 (ETC2 headless). Pendiente: confirmacion visual con visor puesto.
+- [~] **T0.11 — Gate M0** ⚑. **Evidencia:** APK generado (28.4 MB). check_setup.ps1 pasa. Visor no conectado en esta sesion. Pendiente: confirmacion visual con visor puesto (requiere persona con Quest).
 
 ---
 

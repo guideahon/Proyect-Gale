@@ -155,8 +155,8 @@
     },
     {
       "path": "core/mods/package_reader.gd",
-      "bytes": 3690,
-      "sha256": "ba3d0498424473d6c7f5ae0701e02088fc43eafd9a78d3372429d04dd79ae758"
+      "bytes": 2350,
+      "sha256": "41370e39a8cb71441d02e9261ccabf82106f4d926af8c736912310eef51814b0"
     },
     {
       "path": "core/mods/package_reader.gd.uid",
@@ -350,8 +350,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 24818,
-      "sha256": "aa07201bab3e724eea300eda0b0db7c2e9ca6f90a5a4ac4fe4bc15713fc4d238"
+      "bytes": 24568,
+      "sha256": "07984a3f0899daa32a1f395fb44ed464b0eefcf19975df5e09fcd7b6355d9441"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -425,8 +425,8 @@
     },
     {
       "path": "project.godot",
-      "bytes": 377,
-      "sha256": "a6bbdd4945b2908cb6e6667824d5667b8b209f129f1de3f87ec4518529dbc55d"
+      "bytes": 453,
+      "sha256": "c6524c5e171f6825912532bbcf1052f59c7da6edeecb029c983cbfc8253ac92e"
     },
     {
       "path": "schemas/ability.schema.json",
@@ -524,6 +524,11 @@
       "sha256": "7fd8941a95336b1ff0544e4c7a6cd81a89006f6962c9d1fdd95712291812c3fa"
     },
     {
+      "path": "tests/data/_dbg_zip.py",
+      "bytes": 143,
+      "sha256": "7c0b1c3c81db52474fe647a02f913ad8b5342bbd2d1f32d213ebd2b8e3e9c98d"
+    },
+    {
       "path": "tests/data/bad_id_manifest.json",
       "bytes": 158,
       "sha256": "b2d44cc0880cc8ccc0ad088b006705ed29b08bdccf398e2ce9a9a46c19c033d4"
@@ -560,8 +565,8 @@
     },
     {
       "path": "tests/run_all.gd",
-      "bytes": 2040,
-      "sha256": "cc4aacc404c5b5f530120297fb730018d51b2c8ce7ddc86b9a00e4de1a3060d7"
+      "bytes": 3531,
+      "sha256": "3ada2a875192184559d99377f61b9762da8598b264e387adcefdb508c8be3356"
     },
     {
       "path": "tests/run_all.gd.uid",
@@ -610,8 +615,8 @@
     },
     {
       "path": "tests/unit/test_bootstrap.gd",
-      "bytes": 2275,
-      "sha256": "1bb2b61a58043aec80b349494e03c8ee54aa923b7ecabb1bdfbd46595425d15d"
+      "bytes": 1960,
+      "sha256": "163fc94791c861dcd47f162e3c33ea896be7bb5a56a961e1e3e84b6449ad9a3e"
     },
     {
       "path": "tests/unit/test_bootstrap.gd.uid",
@@ -650,8 +655,8 @@
     },
     {
       "path": "tests/unit/test_manifest_parser.gd",
-      "bytes": 3300,
-      "sha256": "2348a8bc87a332aa1756f827502f453f3a4a6cf5d3e29fd593a23cb482e527da"
+      "bytes": 3261,
+      "sha256": "ec07c6aa81fa3f6a8f530cf6789977455329e8529e9e184dc05602676f3ad09c"
     },
     {
       "path": "tests/unit/test_manifest_parser.gd.uid",
@@ -660,8 +665,8 @@
     },
     {
       "path": "tests/unit/test_package_reader.gd",
-      "bytes": 4787,
-      "sha256": "a279e5f167257493aab59589f0d62098d0e7940fd6ea183080fdd170b008e41f"
+      "bytes": 4888,
+      "sha256": "d965be9c54dde3e2101b2f9f963588ef0dbfb00547a9edd80ae9e33a19318ce6"
     },
     {
       "path": "tests/unit/test_package_reader.gd.uid",
@@ -727,31 +732,6 @@
       "path": "tools/deploy/deploy_quest.ps1",
       "bytes": 5322,
       "sha256": "bf9e229a6c2483bdaea49ae91f56836d2da51f7550f5e71e012dbd234e30fefd"
-    },
-    {
-      "path": "tools/deploy/project.godot",
-      "bytes": 143,
-      "sha256": "cb8e5964bd5f5326dfba68523001a384532c7898fc8218afe20d5ee6fb58e7b4"
-    },
-    {
-      "path": "tools/enable_etc2.gd.uid",
-      "bytes": 20,
-      "sha256": "76dc46635fde2c176809451bf761076d3fb6eabf916d9fb5d80ccb3f4e4592b8"
-    },
-    {
-      "path": "tools/etcp.gd.uid",
-      "bytes": 20,
-      "sha256": "be83fce8776bc1087be3c3a71340b0f02c11e37fba5a59590668bc07b9e30630"
-    },
-    {
-      "path": "tools/export_android.gd.uid",
-      "bytes": 19,
-      "sha256": "db14ecd406cc9b1faa1cc691f90243b9521cfdb1104c61bd8fd17a7f9fd188b3"
-    },
-    {
-      "path": "tools/quit.gd.uid",
-      "bytes": 20,
-      "sha256": "816e5893abd913db6100bb1df570a92c488d3b7e6b8e719be876462bc7f59b42"
     }
   ]
 }
