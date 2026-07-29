@@ -33,7 +33,9 @@ python tools/ci/check_schemas.py
 python tools/ci/build_file_index.py --check
 ```
 
-Estado actual verificado: import limpio, 206/206 tests, 16 schemas + 6 ejemplos + 1 template + 33 casos, índice al día.
+Estado actual verificado: import limpio, 373/373 assertions en 14 archivos, 16 schemas + 6 ejemplos + 1 template + 33 casos, índice al día.
+
+Antes de exportar a Android hace falta el entorno completo, que se audita con `pwsh tools/deploy/check_setup.ps1`: incluye el addon de OpenXR (`tools/deploy/fetch_addons.ps1`, no versionado) y el build template de Gradle.
 
 ---
 
@@ -59,8 +61,8 @@ Criterio de salida: build reproducible que arranca en Quest.
 - [x] **T0.1 — `.gitignore`.** Excluir motor, `.godot/`, APK, keystores y artefactos. **Test:** `git status --short` no lista binarios.
 - [x] **T0.2 — `.gitattributes` con LFS.** GLB, BLEND, audio, texturas fuente, APK y capturas por LFS; JSON, GDScript, Markdown y schemas **no**. Además `eol=lf` en todo el árbol: sin eso, Windows convierte a CRLF al clonar y los SHA-256 de `FILE_INDEX.json` dejan de coincidir. **Test:** `git check-attr filter -- assets/source/models/tree.glb` → `lfs`; `git check-attr filter -- core/mods/semver.gd` → `unspecified`; `git check-attr eol -- core/mods/semver.gd` → `lf`. Verificado.
 - [x] **T0.3 — Archivos de licencia.** `LICENSE`, `LICENSE-CODE` (MIT), `LICENSE-ASSETS`, `LICENSE-DOCS` (CC BY 4.0), `THIRD_PARTY.md`, `CREDITS.md` según `docs/17`. **Test:** los seis existen y `THIRD_PARTY.md` tiene la tabla con las columnas exigidas por `docs/12`.
-- [ ] **T0.4 — `project.godot` real.** Renderer según ADR-011, OpenXR habilitado, autoloads declarados. **Test:** `--import` limpio; arrancar la escena principal headless no emite errores.
-- [ ] **T0.5 — Addons fijados.** Vendor plugin y XR Tools importando sólo los módulos usados, con `addons/LOCKFILE.md`. **Test:** `--import` limpio y el lockfile nombra tag o commit exacto de cada addon.
+- [~] **T0.4 — `project.godot` real.** OpenXR habilitado (`[xr] openxr/enabled=true`, `shaders/enabled=true`), autoloads `Bootstrap` y `UpdateService` declarados, `renderer/rendering_method="mobile"`, icono y versión. **Test:** `--import` limpio y batería verde. **Pendiente:** el renderer es provisional hasta que ADR-011 se cierre midiendo S2 en el visor. Dos veces quedó un valor inválido (`=1`, `"vulkan_mobile"`) sin que nada avisara: falta un test que valide `project.godot` contra los tres valores admitidos y la presencia de `[xr]`.
+- [x] **T0.5 — Addons fijados.** godot_openxr_vendors 5.1.0-stable, fijado por release y SHA-256 en `addons/LOCKFILE.md`. Los binarios (82 MB) **no** se versionan: los baja `tools/deploy/fetch_addons.ps1` verificando el hash, igual que los export templates. **Test:** borrar `addons/godotopenxrvendors`, correr el fetcher (`SHA-256 verificado: 6a838dbd…`, 81.8 MB instalados), `--import` limpio y batería verde. XR Tools entra en M4.
 - [x] **T0.6 — `bootstrap.gd` y `main.tscn`.** Inicializa XR; si OpenXR falla, sale con error legible en lugar de crashear. **Test:** `tests/unit/test_bootstrap.gd` 5/5 — incluye test de autoload declarado en project.godot (R5).
 - [x] **T0.7 — Preset de exportación Android ARM64** y `export_presets.template.cfg` sin credenciales. **Test:** exportación headless produce APK de 28.4 MB (`exports/gale.apk`). Key correcta: `textures/vram_compression/import_etc2_astc=true`. Template versionado sin credenciales.
 - [~] **T0.8 — Workflow `pr.yml`.** Import headless, tests, `check_schemas.py`, `build_file_index.py --check`, recursos faltantes, export desktop, reporte. **Test:** workflow corregido (sin `--dump-resources`, con hash de Godot, jsonschema instalado, export desktop con fallback). **Bloqueado:** sin remoto git, CI no ejecutado.

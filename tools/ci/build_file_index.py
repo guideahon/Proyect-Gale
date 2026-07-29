@@ -18,7 +18,13 @@ SKIP_DIRS = {".git", ".godot", ".import", "exports", "__pycache__", ".venv",
              # que se obtienen del release fijado en addons/LOCKFILE.md.
              "android", "addons"}
 SKIP_FILES = {"FILE_INDEX.json", ".DS_Store"}
-SKIP_SUFFIXES = {".pyc", ".apk", ".aab", ".keystore", ".jks", ".import", ".exe", ".zip"}
+SKIP_SUFFIXES = {".pyc", ".apk", ".aab", ".keystore", ".jks", ".import", ".exe", ".zip",
+                 # `.uid` los genera Godot al importar, después del commit. Se
+                 # versionan (recomendación del motor: mantiene estables las
+                 # referencias), pero no entran al índice: si entraran, el índice
+                 # dependería de si el editor ya corrió y quedaría desactualizado
+                 # solo, como pasó cinco veces.
+                 ".uid"}
 
 
 def iter_files():

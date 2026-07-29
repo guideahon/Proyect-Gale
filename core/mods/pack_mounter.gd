@@ -1,15 +1,46 @@
-## PackMounter — extrae .gmod a user://mod_cache/, verifica hash, monta PCK, revierte si falla.
+## PackMounter — extrae .gmod a user://mod_cache/, verifica y monta el PCK.
+##
+## Orden obligatorio de `docs/24` §5: estructura del contenedor y lista blanca
+## de ADR-012 → firma e integridad → recién entonces copiar y montar. Montar
+## primero y validar después sería inútil: al montar, el contenido ya está
+## disponible para el motor.
 extends RefCounted
 
 const CACHE_DIR := "user://mod_cache"
+const PackageReader := preload("res://core/mods/package_reader.gd")
+const SignatureVerifier := preload("res://core/mods/signature_verifier.gd")
 
 class MountResult:
 	var ok: bool = false
 	var message: String = ""
 	var pack_path: String = ""
 
+## `expected_hash` es el SHA-256 del PCK. Vacío sólo se acepta cuando el
+## paquete trae firma verificable, que ya cubre la integridad de cada archivo.
 static func mount(gmod_path: String, expected_hash: String) -> MountResult:
 	var result := MountResult.new()
+
+	# 1) Estructura del contenedor y lista blanca de extensiones (ADR-012).
+	var pkg_err: Variant = PackageReader.validate(gmod_path)
+	if pkg_err != null:
+		result.message = "paquete rechazado: %s" % pkg_err.reason
+		return result
+
+	# 2) Firma e integridad. Un paquete sin signature.json es legítimo
+	#    (docs/24 §6), pero entonces el hash del PCK es obligatorio.
+	var sig := SignatureVerifier.verify(gmod_path)
+	if not sig.ok:
+		if sig.step == 3 and expected_hash.is_empty():
+			result.message = "paquete sin firma: hace falta el SHA-256 esperado del PCK"
+			return result
+		if sig.step != 3:
+			result.message = "verificación fallida en paso %d: %s" % [sig.step, sig.message]
+			return result
+
+	return _extract_and_mount(gmod_path, expected_hash, result)
+
+
+static func _extract_and_mount(gmod_path: String, expected_hash: String, result: MountResult) -> MountResult:
 	var cache_dir := DirAccess.open(CACHE_DIR)
 	if cache_dir == null:
 		var err := DirAccess.make_dir_recursive_absolute(CACHE_DIR)
@@ -74,11 +105,15 @@ static func mount(gmod_path: String, expected_hash: String) -> MountResult:
 	result.message = "montado OK"
 	return result
 
-static func unmount(pack_path: String) -> bool:
-	# Godot 4 no tiene unmount nativo; solo borramos el archivo.
-	# El PCK queda cargado hasta que se cierre el proyecto.
-	DirAccess.remove_absolute(pack_path)
-	return true
+## Borra el PCK del caché. **No desmonta**: Godot 4 no expone unmount, así que
+## el contenido ya montado sigue disponible hasta reiniciar. Por eso `docs/08`
+## dice que los mods se activan y desactivan al reiniciar; el modo seguro
+## (T3.12) depende de no volver a montarlo en el próximo arranque, no de sacarlo
+## en caliente. Devuelve si el archivo se pudo borrar.
+static func discard_cached_pack(pack_path: String) -> bool:
+	if not FileAccess.file_exists(pack_path):
+		return false
+	return DirAccess.remove_absolute(pack_path) == OK
 
 static func _hash(data: PackedByteArray) -> String:
 	var ctx := HashingContext.new()
@@ -86,10 +121,15 @@ static func _hash(data: PackedByteArray) -> String:
 	ctx.update(data)
 	return ctx.finish().hex_encode()
 
+## Nombre de archivo para el caché. Se deriva del hash del path completo, no de
+## sanear el nombre: al descartar caracteres, `mi-mod` y `mimod` colapsaban en
+## el mismo archivo y un paquete sobrescribía al otro en silencio.
 static func _safe_name(path: String) -> String:
-	var name: String = path.get_file().get_basename()
-	var out: String = ""
-	for c: String in name:
-		if c.is_valid_identifier() or c.is_valid_int():
-			out += c
-	return out if out.length() > 0 else "mod"
+	var base: String = path.get_file().get_basename().to_lower()
+	var clean: String = ""
+	for c: String in base:
+		var ok := (c >= "a" and c <= "z") or (c >= "0" and c <= "9") or c == "_"
+		clean += c if ok else "_"
+	if clean.is_empty():
+		clean = "mod"
+	return "%s_%s" % [clean, _hash(path.to_utf8_buffer()).substr(0, 12)]

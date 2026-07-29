@@ -15,17 +15,17 @@ UpdateService="*res://core/updater/update_service.gd"
 
 [rendering]
 
-# Godot 4 acepta "forward_plus", "mobile" o "gl_compatibility". "vulkan_mobile"
-# no existe: con un valor inválido el motor usa el default en silencio.
-# "mobile" es Vulkan Mobile, lo que pide el vendor plugin en Quest 3.
-# ADR-011 sigue abierta: la elección final sale de medir S2 en el visor.
+; Godot 4 acepta "forward_plus", "mobile" o "gl_compatibility". "vulkan_mobile"
+; no existe: con un valor inválido el motor usa el default en silencio.
+; "mobile" es Vulkan Mobile, lo que pide el vendor plugin en Quest 3.
+; ADR-011 sigue abierta: la elección final sale de medir S2 en el visor.
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 
 [xr]
 
-# Sin esto el runtime no arranca OpenXR y bootstrap aborta, aunque el vendor
-# plugin esté instalado y el preset declare xr_mode.
+; Sin esto el runtime no arranca OpenXR y bootstrap aborta, aunque el vendor
+; plugin esté instalado y el preset declare xr_mode.
 openxr/enabled=true
 shaders/enabled=true
 openxr/extensions/hand_tracking=false

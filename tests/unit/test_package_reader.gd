@@ -19,6 +19,7 @@ func _get_reader() -> Object:
 
 ## Construye un ZIP minimo con las entradas dadas usando Python.
 func _build_zip(path: String, entries: Array[String]) -> void:
+	DirAccess.make_dir_recursive_absolute("user://test_pkg")
 	var abs_path: String = ProjectSettings.globalize_path(path)
 	var list_path: String = abs_path + ".list"
 	var f: FileAccess = FileAccess.open(list_path, FileAccess.WRITE)
@@ -26,7 +27,7 @@ func _build_zip(path: String, entries: Array[String]) -> void:
 		for entry: String in entries:
 			f.store_line(entry)
 		f.close()
-	var py_script: String = "res://tests/data/_make_zip.py"
+	var py_script: String = "user://test_pkg/_make_zip.py"
 	var abs_py: String = ProjectSettings.globalize_path(py_script)
 	var pf: FileAccess = FileAccess.open(py_script, FileAccess.WRITE)
 	if pf:
@@ -45,7 +46,7 @@ func _build_zip(path: String, entries: Array[String]) -> void:
 
 func _test_valid_package() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/valid_package.gmod"
+	var tmp: String = "user://test_pkg/valid_package.gmod"
 	_build_zip(tmp, ["manifest.json", "content.pck", "icon.webp", "README.md"])
 	check_ok(FileAccess.file_exists(tmp), "ZIP creado correctamente")
 	var result: Variant = reader.validate(tmp)
@@ -54,7 +55,7 @@ func _test_valid_package() -> void:
 
 func _test_missing_manifest() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/no_manifest.gmod"
+	var tmp: String = "user://test_pkg/no_manifest.gmod"
 	_build_zip(tmp, ["content.pck", "icon.webp"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "paquete sin manifest falla")
@@ -62,7 +63,7 @@ func _test_missing_manifest() -> void:
 
 func _test_path_traversal() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/traversal.gmod"
+	var tmp: String = "user://test_pkg/traversal.gmod"
 	_build_zip(tmp, ["manifest.json", "../evil.txt"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "path traversal rechazado")
@@ -70,7 +71,7 @@ func _test_path_traversal() -> void:
 
 func _test_hidden_segment() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/hidden.gmod"
+	var tmp: String = "user://test_pkg/hidden.gmod"
 	_build_zip(tmp, ["manifest.json", ".hidden/file.txt"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "segmento oculto rechazado")
@@ -78,7 +79,7 @@ func _test_hidden_segment() -> void:
 
 func _test_absolute_path() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/absolute.gmod"
+	var tmp: String = "user://test_pkg/absolute.gmod"
 	_build_zip(tmp, ["manifest.json", "etc/passwd"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "ruta absoluta rechazada")
@@ -86,7 +87,7 @@ func _test_absolute_path() -> void:
 
 func _test_duplicate_entry() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/duplicate.gmod"
+	var tmp: String = "user://test_pkg/duplicate.gmod"
 	_build_zip(tmp, ["manifest.json", "content.pck", "content.pck"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "entrada duplicada rechazada")
@@ -94,7 +95,7 @@ func _test_duplicate_entry() -> void:
 
 func _test_case_duplicate() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/case_dup.gmod"
+	var tmp: String = "user://test_pkg/case_dup.gmod"
 	_build_zip(tmp, ["manifest.json", "Content.pck", "content.PCK"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "duplicado case-insensitive rechazado")
@@ -102,7 +103,7 @@ func _test_case_duplicate() -> void:
 
 func _test_disallowed_extension_gd() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/bad_ext_gd.gmod"
+	var tmp: String = "user://test_pkg/bad_ext_gd.gmod"
 	_build_zip(tmp, ["manifest.json", "evil.gd"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "extension .gd rechazada")
@@ -110,7 +111,7 @@ func _test_disallowed_extension_gd() -> void:
 
 func _test_disallowed_extension_gdshader() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/bad_ext_shader.gmod"
+	var tmp: String = "user://test_pkg/bad_ext_shader.gmod"
 	_build_zip(tmp, ["manifest.json", "evil.gdshader"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "extension .gdshader rechazada")
@@ -118,7 +119,7 @@ func _test_disallowed_extension_gdshader() -> void:
 
 func _test_case_insensitive_duplicate() -> void:
 	var reader: Object = _get_reader()
-	var tmp: String = "res://tests/data/case_dup2.gmod"
+	var tmp: String = "user://test_pkg/case_dup2.gmod"
 	_build_zip(tmp, ["manifest.json", "Readme.md", "README.MD"])
 	var result: Variant = reader.validate(tmp)
 	check_ok(result != null, "duplicado case-insensitive 2 rechazado")
