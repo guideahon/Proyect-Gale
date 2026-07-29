@@ -1,12 +1,6 @@
 <#
 .SYNOPSIS
     Audita el entorno necesario para exportar e instalar en un Quest.
-
-.DESCRIPTION
-    No modifica nada. Informa qué está listo y qué falta, con la acción
-    concreta para cada faltante. Salida 0 si todo está, 1 si falta algo.
-
-    Uso:  pwsh tools/deploy/check_setup.ps1
 #>
 
 $ErrorActionPreference = "Continue"
@@ -23,40 +17,47 @@ function Report($ok, $label, $detail, $fix) {
     }
 }
 
-Write-Host "`nEntorno de despliegue — Proyecto Gale`n"
+Write-Host "`nDeploy environment - Project Gale`n"
 
-# --- Herramientas de host -------------------------------------------------
+# --- Host tools -----------------------------------------------------------
 $adb = (Get-Command adb -ErrorAction SilentlyContinue).Source
-Report ($null -ne $adb) "adb" ($adb ?? "no está en PATH") `
-    "instalar Android platform-tools y agregarlo al PATH"
+$adb_detail = if ($adb) { $adb } else { "not in PATH" }
+Report ($null -ne $adb) "adb" $adb_detail `
+    "install Android platform-tools and add to PATH"
 
-$sdk = $env:ANDROID_HOME ?? $env:ANDROID_SDK_ROOT
-Report ($null -ne $sdk -and (Test-Path $sdk)) "Android SDK" ($sdk ?? "sin ANDROID_HOME") `
-    "instalar el SDK y exportar ANDROID_HOME"
+$sdk = if ($env:ANDROID_HOME) { $env:ANDROID_HOME } elseif ($env:ANDROID_SDK_ROOT) { $env:ANDROID_SDK_ROOT } else { $null }
+$sdk_detail = if ($sdk) { $sdk } else { "no ANDROID_HOME" }
+$sdk_ok = ($null -ne $sdk) -and (Test-Path $sdk)
+Report $sdk_ok "Android SDK" $sdk_detail `
+    "install SDK and set ANDROID_HOME"
 
 $java = (Get-Command java -ErrorAction SilentlyContinue).Source
-Report ($null -ne $java) "JDK" ($java ?? "no está en PATH") `
-    "instalar JDK 17 (Godot 4.x exporta Android con 17)"
+$java_detail = if ($java) { $java } else { "not in PATH" }
+Report ($null -ne $java) "JDK" $java_detail `
+    "install JDK 17 (Godot 4.x Android export)"
 
 $keystore = "$env:USERPROFILE\.android\debug.keystore"
 Report (Test-Path $keystore) "debug keystore" $keystore `
-    "generar con: keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore debug.keystore -storepass android -dname 'CN=Android Debug,O=Android,C=US' -validity 9999 -deststoretype pkcs12"
+    "generate with keytool -keyalg RSA -genkeypair -alias androiddebugkey ..."
 
 # --- Godot ----------------------------------------------------------------
 $godot = Get-ChildItem $root -Filter "Godot_v*_console.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
-Report ($null -ne $godot) "binario de Godot" (($godot.Name) ?? "no encontrado en la raíz") `
-    "descargar Godot 4.7.1 stable a la raíz del repositorio"
+$godot_name = if ($godot) { $godot.Name } else { "not found in root" }
+Report ($null -ne $godot) "Godot binary" $godot_name `
+    "download Godot 4.7.1 stable to repo root"
 
 $templates = "$env:APPDATA\Godot\export_templates"
 $hasTemplates = (Test-Path $templates) -and ((Get-ChildItem $templates -ErrorAction SilentlyContinue).Count -gt 0)
-Report $hasTemplates "export templates" ($(if ($hasTemplates) { (Get-ChildItem $templates -Name) -join ", " } else { "ninguno instalado" })) `
-    "Godot > Editor > Administrar plantillas de exportación > Descargar. Es la tarea S1.b del checklist"
+$tmpl_detail = if ($hasTemplates) { (Get-ChildItem $templates -Name) -join ", " } else { "none installed" }
+Report $hasTemplates "export templates" $tmpl_detail `
+    "Godot Editor - Manage Export Templates - Download (task S1.b)"
 
 $presets = Join-Path $root "export_presets.cfg"
-Report (Test-Path $presets) "preset de exportación" ($(if (Test-Path $presets) { "export_presets.cfg presente" } else { "sin export_presets.cfg" })) `
-    "crear el preset Android ARM64 en el editor. Es la tarea T0.7 del checklist"
+$preset_detail = if (Test-Path $presets) { "export_presets.cfg present" } else { "no export_presets.cfg" }
+Report (Test-Path $presets) "export preset" $preset_detail `
+    "create Android ARM64 preset in editor (task T0.7)"
 
-# --- Dispositivo ----------------------------------------------------------
+# --- Device ---------------------------------------------------------------
 if ($adb) {
     $devices = @(& adb devices | Select-Object -Skip 1 | Where-Object { $_ -match "\S" })
     $online = @($devices | Where-Object { $_ -match "\sdevice\b" })
@@ -64,21 +65,21 @@ if ($adb) {
 
     if ($online.Count -gt 0) {
         $model = (& adb shell getprop ro.product.model 2>$null)
-        Report $true "visor conectado" "$($online.Count) dispositivo(s): $model" ""
+        Report $true "headset connected" ("{0} device(s): {1}" -f $online.Count, $model) ""
     } elseif ($unauth.Count -gt 0) {
-        Report $false "visor conectado" "conectado pero sin autorizar" `
-            "poné el visor y aceptá 'Permitir depuración por USB'"
+        Report $false "headset connected" "connected but not authorized" `
+            "accept USB debugging prompt on headset"
     } else {
-        Report $false "visor conectado" "ninguno" `
-            "activá modo desarrollador en la app Meta Horizon, conectá por USB y aceptá el diálogo del visor"
+        Report $false "headset connected" "none" `
+            "enable developer mode in Meta Horizon app, connect USB"
     }
 }
 
-# --- Resumen --------------------------------------------------------------
+# --- Summary --------------------------------------------------------------
 Write-Host ""
 if ($missing.Count -eq 0) {
-    Write-Host "Todo listo. Siguiente: pwsh tools/deploy/deploy_quest.ps1" -ForegroundColor Green
+    Write-Host "All good. Next: pwsh tools/deploy/deploy_quest.ps1" -ForegroundColor Green
     exit 0
 }
-Write-Host ("Faltan {0}: {1}" -f $missing.Count, ($missing -join ", ")) -ForegroundColor Yellow
+Write-Host ("Missing {0}: {1}" -f $missing.Count, ($missing -join ", ")) -ForegroundColor Yellow
 exit 1

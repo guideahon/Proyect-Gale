@@ -9,7 +9,6 @@ extends SceneTree
 
 const UNIT_DIR := "res://tests/unit"
 
-
 func _initialize() -> void:
 	var filter := ""
 	var user_args := OS.get_cmdline_user_args()
@@ -47,7 +46,6 @@ func _initialize() -> void:
 		return
 	print("%d archivos, %d pasaron, %d fallaron" % [ran, total_passed, total_failed])
 	quit(1 if total_failed > 0 else 0)
-
 
 func _discover(dir_path: String) -> Array:
 	var out: Array = []

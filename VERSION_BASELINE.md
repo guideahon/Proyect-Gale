@@ -3,6 +3,7 @@
 Fecha: 2026-07-28
 
 - Godot Engine: 4.7.1 stable, build oficial `a13da4feb`. Verificado: importa el proyecto y ejecuta scripts headless en Windows.
+- Export templates: `Godot_v4.7.1-stable_export_templates.tpz`, SHA-256 `86409db6200b6f8fd3230989c2d2002851f3dd18acf11d7bdbafddf5a0dd0f72`.
 - Renderer Quest baseline: Compatibility.
 - OpenXR: integrado en Godot.
 - Vendor plugin: fijar release compatible en el primer prototipo.
