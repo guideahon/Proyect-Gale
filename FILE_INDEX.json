@@ -15,8 +15,8 @@
     },
     {
       "path": ".github/workflows/pr.yml",
-      "bytes": 2990,
-      "sha256": "2be98b9aa377f3c26d998bb41852d22c041e75741d271fa1dd4bbc187cc3d277"
+      "bytes": 3343,
+      "sha256": "daf74e525ee6edb006fb158a2ab72fed0f87757aeb1801bc452e99261e3f1be5"
     },
     {
       "path": ".gitignore",
@@ -360,13 +360,13 @@
     },
     {
       "path": "export_presets.cfg",
-      "bytes": 1265,
-      "sha256": "7305cf05710d7a7dcef67a5091fa21a918bb26a309823ae8a6990f31ed12535e"
+      "bytes": 1268,
+      "sha256": "3a39c80c8397cd24e22fa095d2380fc66f5c3a520575e02a108a61b97e077355"
     },
     {
       "path": "export_presets.template.cfg",
-      "bytes": 1230,
-      "sha256": "c83706eb4f41b16b2cd3af921fb581ffccd30c288edcbed0b6dde1c68af9109a"
+      "bytes": 1268,
+      "sha256": "3a39c80c8397cd24e22fa095d2380fc66f5c3a520575e02a108a61b97e077355"
     },
     {
       "path": "game/autoload/bootstrap.gd",

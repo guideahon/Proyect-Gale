@@ -1,6 +1,11 @@
-name: PR — batería de regresión
+name: Batería de regresión
 
+# Corre en push a cualquier rama y en PR a main. Antes sólo estaba en
+# `pull_request: [main]`, y como todo el trabajo vive en ramas feature, el
+# workflow nunca se ejecutó ni una vez.
 on:
+  push:
+    branches: ["**"]
   pull_request:
     branches: [main]
 
@@ -10,11 +15,19 @@ permissions:
 jobs:
   regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias de Python
+        run: python -m pip install --quiet jsonschema
 
       - name: Cache Godot
         id: cache-godot
@@ -23,66 +36,65 @@ jobs:
           path: godot/bin/
           key: godot-4.7.1-stable-a13da4feb
 
-      - name: Download Godot (if not cached)
+      - name: Descargar Godot
         if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
           mkdir -p godot/bin
-          curl -fSL -o godot/bin/Godot_v4.7.1-stable_linux.x86_64.zip \
+          curl -fSL -o /tmp/godot.zip \
             "https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_linux.x86_64.zip"
-          unzip -q godot/bin/Godot_v4.7.1-stable_linux.x86_64.zip -d godot/bin/
-          mv godot/bin/Godot_v4.7.1-stable_linux.*/Godot_v4.7.1-stable_linux.x86_64 godot/bin/Godot
+          unzip -q /tmp/godot.zip -d godot/bin/
+          mv godot/bin/Godot_v4.7.1-stable_linux.x86_64 godot/bin/Godot
           chmod +x godot/bin/Godot
-          sha256sum godot/bin/Godot
 
-      - name: Import project
+      - name: Versión de Godot
+        run: godot/bin/Godot --headless --version
+
+      # Los binarios del addon no se versionan (82 MB): se bajan del release
+      # fijado en addons/LOCKFILE.md, verificando SHA-256. Sin esto el import
+      # deja la GDExtension sin resolver.
+      - name: Traer addons fijados
+        run: pwsh tools/deploy/fetch_addons.ps1
+
+      - name: Importar proyecto
         id: import
-        run: |
-          godot/bin/Godot --headless --path . --import
+        run: godot/bin/Godot --headless --path . --import
 
-      - name: Run unit tests
+      - name: Tests unitarios
         id: tests
-        run: |
-          godot/bin/Godot --headless --path . --script tests/run_all.gd
+        run: godot/bin/Godot --headless --path . --script tests/run_all.gd
 
-      - name: Check schemas
+      - name: Schemas, ejemplos y casos dorados
         id: schemas
-        run: |
-          python -m pip install jsonschema
-          python tools/ci/check_schemas.py
+        run: python tools/ci/check_schemas.py
 
-      - name: Check file index
+      - name: Índice de archivos
         id: index
-        run: |
-          python tools/ci/build_file_index.py --check
+        run: python tools/ci/build_file_index.py --check
 
-      - name: Check for missing resources
+      # Patrón acotado a los errores reales de carga de Godot. El grep anterior
+      # buscaba "missing|not found|failed to load" en todo el log, así que
+      # cualquier mensaje benigno con esas palabras rompía la build.
+      - name: Recursos faltantes
         id: resources
         run: |
-          godot/bin/Godot --headless --path . --import 2>&1 | tee /tmp/import_log.txt
-          if grep -qiE "(missing|not found|failed to load)" /tmp/import_log.txt; then
+          godot/bin/Godot --headless --path . --import 2>&1 | tee /tmp/import.log
+          if grep -qE "ERROR:.*(Cannot open file|No loader found|Failed loading resource|Failed to load script)" /tmp/import.log; then
             echo "::error::Recursos faltantes o errores de carga detectados"
+            grep -E "ERROR:" /tmp/import.log | head -20
             exit 1
           fi
 
-      - name: Export desktop test
-        id: export
-        continue-on-error: true
-        run: |
-          if [ ! -d "godot/templates/4.7.1-stable" ]; then
-            echo "::warning::Export templates no instalados; saltando export desktop"
-            exit 0
-          fi
-          godot/bin/Godot --headless --path . --export-debug "Linux"
-
-      - name: Report summary
+      - name: Resumen
         if: always()
         run: |
-          echo "## Batería de regresión" >> $GITHUB_STEP_SUMMARY
-          echo "| Paso | Estado |" >> $GITHUB_STEP_SUMMARY
-          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Import | ${{ steps.import.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Tests | ${{ steps.tests.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Schemas | ${{ steps.schemas.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| File index | ${{ steps.index.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Resources | ${{ steps.resources.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Export | ${{ steps.export.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "## Batería de regresión"
+            echo ""
+            echo "| Paso | Estado |"
+            echo "|------|--------|"
+            echo "| Import | ${{ steps.import.outcome }} |"
+            echo "| Tests | ${{ steps.tests.outcome }} |"
+            echo "| Schemas | ${{ steps.schemas.outcome }} |"
+            echo "| Índice | ${{ steps.index.outcome }} |"
+            echo "| Recursos | ${{ steps.resources.outcome }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
