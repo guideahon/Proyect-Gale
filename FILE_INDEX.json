@@ -164,6 +164,11 @@
       "sha256": "f8c4b7de87464a58d63c0cad0e6f06f30e0c4b926f1cc3afeeb72aae0b0fc22c"
     },
     {
+      "path": "core/mods/pack_mounter.gd",
+      "bytes": 2910,
+      "sha256": "27a6990db3085607bd3a24807244ba8a1d4568445beb4e64b56d6ecdb29e5824"
+    },
+    {
       "path": "core/mods/package_reader.gd",
       "bytes": 2350,
       "sha256": "41370e39a8cb71441d02e9261ccabf82106f4d926af8c736912310eef51814b0"
@@ -172,6 +177,11 @@
       "path": "core/mods/package_reader.gd.uid",
       "bytes": 20,
       "sha256": "6ba436791fdf7650adc54567b403c62f5a669ae2c2d66d68f347ccb0ba925b27"
+    },
+    {
+      "path": "core/mods/registry_base.gd",
+      "bytes": 1354,
+      "sha256": "8becb76380652922914f626130d341edd79af4f3f1e76dc40f305b730c7711ea"
     },
     {
       "path": "core/mods/schema_validator.gd",
@@ -390,8 +400,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 25705,
-      "sha256": "f218fe3aebd7ba94c2af9fa3f0ba02b7533eaf27049176b0b3e15a29a10e098a"
+      "bytes": 25793,
+      "sha256": "748bb3d7771022518afa9196e65b1bc90517adf20ae7a9527953ca2032f8a201"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -704,6 +714,11 @@
       "sha256": "331e84d5c4f081efdc3d8d89a894db99db7eac86f3b161cdd912d3f897a0bea9"
     },
     {
+      "path": "tests/unit/test_pack_mounter.gd",
+      "bytes": 1125,
+      "sha256": "3941e5ed6d9328798299d972b8fc64fb152d4ec56f9b95cb87a2698087382266"
+    },
+    {
       "path": "tests/unit/test_package_reader.gd",
       "bytes": 4888,
       "sha256": "d965be9c54dde3e2101b2f9f963588ef0dbfb00547a9edd80ae9e33a19318ce6"
@@ -722,6 +737,11 @@
       "path": "tests/unit/test_profile_manager.gd.uid",
       "bytes": 20,
       "sha256": "b24312fc701b1454b0ccc62a55c9c77ecfe9cad1e0ea21798fb141e819218894"
+    },
+    {
+      "path": "tests/unit/test_registry_base.gd",
+      "bytes": 2587,
+      "sha256": "53e057c992aa89349dadefabbb544e2565e1aa10ea2795996158f27a13a2d595"
     },
     {
       "path": "tests/unit/test_schema_validator.gd",
