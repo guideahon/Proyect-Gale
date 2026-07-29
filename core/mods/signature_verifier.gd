@@ -58,18 +58,17 @@ static func verify(path: String) -> VerifyResult:
 			zip.close()
 			return VerifyResult.new(false, 8, "firma o clave publica vacia")
 		var key := CryptoKey.new()
-		var key_err: Error = key.load_from_string(public_key_pem)
+		var key_err: Error = key.load_from_string(public_key_pem, true)
 		if key_err != OK:
 			zip.close()
 			return VerifyResult.new(false, 8, "no se pudo cargar la clave publica (err %d)" % key_err)
 		var sig_bytes: PackedByteArray = Marshalls.base64_to_raw(signature_b64)
-		var ctx := HashingContext.new()
-		ctx.start(HashingContext.HASH_SHA256)
-		ctx.update(payload_hash.to_utf8_buffer())
-		var digest: PackedByteArray = ctx.finish()
+		# docs/24 §4: la firma cubre los 32 bytes raw de payload_sha256.
+		# Crypto.verify() recibe el digest FINAL y NO lo vuelve a hashear; el
+		# firmante debe usar Prehashed por el mismo motivo.
 		var crypto := Crypto.new()
 		var verify_ok: bool = crypto.verify(
-			HashingContext.HASH_SHA256, digest, sig_bytes, key)
+			HashingContext.HASH_SHA256, _hex_to_bytes(payload_hash), sig_bytes, key)
 		if not verify_ok:
 			zip.close()
 			return VerifyResult.new(false, 8, "firma RSA invalida")
@@ -77,10 +76,7 @@ static func verify(path: String) -> VerifyResult:
 	return VerifyResult.new(true, 0, "firma verificada")
 
 static func _read_zip_file(zip: ZIPReader, path: String) -> PackedByteArray:
-	zip.file_open(path)
-	var data: PackedByteArray = zip.file_get(zip.file_size())
-	zip.file_close()
-	return data
+	return zip.read_file(path)
 
 static func _hash_zip_file(zip: ZIPReader, path: String) -> String:
 	var data: PackedByteArray = _read_zip_file(zip, path)
@@ -91,6 +87,15 @@ static func _hash_bytes(data: PackedByteArray) -> String:
 	ctx.start(HashingContext.HASH_SHA256)
 	ctx.update(data)
 	return ctx.finish().hex_encode()
+
+static func _hex_to_bytes(hex: String) -> PackedByteArray:
+	# `int("0xff")` devuelve 0 en GDScript: la conversión de String a int no
+	# interpreta el prefijo hexadecimal. Hay que usar `hex_to_int()`, o el
+	# digest sale todo ceros y ninguna firma valida.
+	var out: PackedByteArray = []
+	for i in range(0, hex.length(), 2):
+		out.append(("0x" + hex.substr(i, 2)).hex_to_int())
+	return out
 
 static func _sha256_string(text: String) -> String:
 	return _hash_bytes(text.to_utf8_buffer())
@@ -108,8 +113,11 @@ static func _build_canonical_payload(sig_files: Array) -> String:
 	return payload
 
 static func _files_match(zip_files: PackedStringArray, sig_files: Array) -> bool:
+	# docs/24 §3: el payload cubre todos los archivos EXCEPTO signature.json.
 	var zip_set: Dictionary = {}
 	for f: String in zip_files:
+		if f == "signature.json":
+			continue
 		zip_set[f] = true
 	if zip_set.size() != sig_files.size():
 		return false

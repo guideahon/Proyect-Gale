@@ -195,8 +195,8 @@
     },
     {
       "path": "core/mods/signature_verifier.gd",
-      "bytes": 4446,
-      "sha256": "490a6706653ee4ccd6165ad92628fc8d4f50c97f9e207fe33a345a281108f778"
+      "bytes": 4927,
+      "sha256": "ebbde5f2daa667f290235e53255465b4292d579db2799bc0b5bf6d9185b2d0eb"
     },
     {
       "path": "core/mods/signature_verifier.gd.uid",
@@ -569,6 +569,26 @@
       "sha256": "7fd8941a95336b1ff0544e4c7a6cd81a89006f6962c9d1fdd95712291812c3fa"
     },
     {
+      "path": "tests/data/e2e_extra.gmod",
+      "bytes": 1778,
+      "sha256": "844e4f6757c7cd6ddbb1a6c9f4d7c7d7dab2d26b945a6a6063840f35aedcbf7f"
+    },
+    {
+      "path": "tests/data/e2e_none.gmod",
+      "bytes": 749,
+      "sha256": "354e7686535df6a46bbb7b056782154f33d6fdb0eecabd240247e2001e9590dc"
+    },
+    {
+      "path": "tests/data/e2e_tampered.gmod",
+      "bytes": 1674,
+      "sha256": "dfd6b6a08bc332ee3bbe620efd3543b79b5952cce88b565c58356ea4572439fb"
+    },
+    {
+      "path": "tests/data/e2e_valid.gmod",
+      "bytes": 1674,
+      "sha256": "a75707c2b36af2e3e2e9c8fc7aac75653722cb6c0c4bb6c2c31eb7d1ee9e116a"
+    },
+    {
       "path": "tests/data/schema_cases.json",
       "bytes": 14665,
       "sha256": "643ec1d99aa03a32cc69ae1d0eb299eb93c078997df6a388827f5f927ceab9e1"
@@ -725,8 +745,8 @@
     },
     {
       "path": "tests/unit/test_signature_verifier.gd",
-      "bytes": 4525,
-      "sha256": "3f330c1a26b272f8f90601ae24de55d7ae6d5e178ba522b4792c3cfd47205f59"
+      "bytes": 5803,
+      "sha256": "b6c4c335b5ac593dda79fe5329b72f5dd9841ef913894482e95dc6bdd7772615"
     },
     {
       "path": "tests/unit/test_signature_verifier.gd.uid",
@@ -772,6 +792,11 @@
       "path": "tools/deploy/deploy_quest.ps1",
       "bytes": 5732,
       "sha256": "9982ae1e5e0cd7208052c823b7936048c3a82527a1f888e873f0478881c77757"
+    },
+    {
+      "path": "tools/generate_test_zips.py",
+      "bytes": 3829,
+      "sha256": "0107a45a915142160028de61a6975359f439fe49b5dc110e37511d96577e8d27"
     }
   ]
 }

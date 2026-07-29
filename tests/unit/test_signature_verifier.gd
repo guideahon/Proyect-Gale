@@ -2,13 +2,16 @@
 extends "res://tests/framework/test_case.gd"
 
 func run() -> void:
-	# Limpiar config de key_store para tests aislados.
 	DirAccess.remove_absolute("user://mod_config.json")
 	_test_canonical_payload_format()
 	_test_hash_bytes()
-	_test_files_match_exact()
+	_test_files_match_excludes_signature()
 	_test_files_match_extra_rejected()
 	_test_files_match_missing_rejected()
+	_test_e2e_valid_signed_package()
+	_test_e2e_tampered_byte_rejected_at_step6()
+	_test_e2e_extra_file_rejected_at_step2()
+	_test_e2e_integrity_only_passes()
 	_test_key_store_new_key()
 	_test_key_store_key_changed()
 	_test_key_store_official_mismatch()
@@ -17,12 +20,9 @@ func run() -> void:
 func _test_canonical_payload_format() -> void:
 	var verifier: Script = load("res://core/mods/signature_verifier.gd")
 	var files: Array = []
-	var f1: Dictionary = {"path": "content.pck", "sha256": "aaa"}
-	var f2: Dictionary = {"path": "manifest.json", "sha256": "bbb"}
-	files.append(f1)
-	files.append(f2)
+	files.append({"path": "content.pck", "sha256": "aaa"})
+	files.append({"path": "manifest.json", "sha256": "bbb"})
 	var payload: String = verifier._build_canonical_payload(files)
-	# Ordenado por ruta: content.pck < manifest.json
 	var expected: String = "aaa  content.pck\nbbb  manifest.json\n"
 	check(payload, expected, "payload canonico ordenado correctamente")
 
@@ -32,15 +32,14 @@ func _test_hash_bytes() -> void:
 	check_ok(hash.length() == 64, "SHA-256 produce 64 caracteres hex")
 	check_ok(hash != "0".repeat(64), "hash no es todo ceros")
 
-func _test_files_match_exact() -> void:
+func _test_files_match_excludes_signature() -> void:
 	var verifier: Script = load("res://core/mods/signature_verifier.gd")
 	var zip_files: PackedStringArray = ["manifest.json", "content.pck", "signature.json"]
 	var sig_files: Array = []
 	sig_files.append({"path": "manifest.json", "sha256": "a"})
 	sig_files.append({"path": "content.pck", "sha256": "b"})
-	sig_files.append({"path": "signature.json", "sha256": "c"})
 	var match: bool = verifier._files_match(zip_files, sig_files)
-	check_ok(match, "coincidencia exacta")
+	check_ok(match, "signature.json excluido de la comparacion (E3)")
 
 func _test_files_match_extra_rejected() -> void:
 	var verifier: Script = load("res://core/mods/signature_verifier.gd")
@@ -48,18 +47,44 @@ func _test_files_match_extra_rejected() -> void:
 	var sig_files: Array = []
 	sig_files.append({"path": "manifest.json", "sha256": "a"})
 	sig_files.append({"path": "content.pck", "sha256": "b"})
-	sig_files.append({"path": "signature.json", "sha256": "c"})
 	var match: bool = verifier._files_match(zip_files, sig_files)
 	check_ok(not match, "rechaza archivo extra no listado")
 
 func _test_files_match_missing_rejected() -> void:
 	var verifier: Script = load("res://core/mods/signature_verifier.gd")
-	var zip_files: PackedStringArray = ["manifest.json", "content.pck", "signature.json"]
+	var zip_files: PackedStringArray = ["manifest.json", "signature.json"]
 	var sig_files: Array = []
 	sig_files.append({"path": "manifest.json", "sha256": "a"})
 	sig_files.append({"path": "content.pck", "sha256": "b"})
 	var match: bool = verifier._files_match(zip_files, sig_files)
 	check_ok(not match, "rechaza archivo faltante en la lista")
+
+func _test_e2e_valid_signed_package() -> void:
+	var verifier: Script = load("res://core/mods/signature_verifier.gd")
+	var result: Variant = verifier.verify("res://tests/data/e2e_valid.gmod")
+	check_ok(result.ok, "paquete firmado valido pasa entero")
+	check(result.step, 0, "sin fallos")
+
+func _test_e2e_tampered_byte_rejected_at_step6() -> void:
+	var verifier: Script = load("res://core/mods/signature_verifier.gd")
+	var result: Variant = verifier.verify("res://tests/data/e2e_tampered.gmod")
+	check_ok(not result.ok, "paquete alterado rechazado")
+	check(result.step, 6, "rechazo en paso 6 (integridad), no en 8 (firma)")
+
+func _test_e2e_extra_file_rejected_at_step2() -> void:
+	# docs/24 §5: el orden de rechazo es estructura primero (paso 2),
+	# luego firma (paso 5). package_reader rechaza .gd por lista blanca
+	# antes de que signature_verifier llegue a comparar archivos.
+	var verifier: Script = load("res://core/mods/signature_verifier.gd")
+	var result: Variant = verifier.verify("res://tests/data/e2e_extra.gmod")
+	check_ok(not result.ok, "paquete con archivo extra rechazado")
+	check(result.step, 2, "rechazo en paso 2 (estructura), antes de paso 5 (firma)")
+
+func _test_e2e_integrity_only_passes() -> void:
+	var verifier: Script = load("res://core/mods/signature_verifier.gd")
+	var result: Variant = verifier.verify("res://tests/data/e2e_none.gmod")
+	check_ok(result.ok, "paquete con algorithm=none pasa (integridad solo)")
+	check(result.step, 0, "sin fallos")
 
 func _test_key_store_new_key() -> void:
 	var ks: Script = load("res://core/mods/key_store.gd")
@@ -84,7 +109,5 @@ func _test_key_store_official_mismatch() -> void:
 
 func _test_key_store_official_rejected() -> void:
 	var ks: Script = load("res://core/mods/key_store.gd")
-	# official.base ya tiene clave registrada (del test anterior).
-	# Una clave distinta debe dar OFFICIAL_MISMATCH.
 	var result: Dictionary = ks.verify_trust("official.base", "another_key", "Nobody", "key3")
 	check(result.state, 3, "rechaza clave distinta para official.*")
