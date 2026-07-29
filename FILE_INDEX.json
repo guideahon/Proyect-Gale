@@ -524,31 +524,6 @@
       "sha256": "7fd8941a95336b1ff0544e4c7a6cd81a89006f6962c9d1fdd95712291812c3fa"
     },
     {
-      "path": "tests/data/_dbg_zip.py",
-      "bytes": 143,
-      "sha256": "7c0b1c3c81db52474fe647a02f913ad8b5342bbd2d1f32d213ebd2b8e3e9c98d"
-    },
-    {
-      "path": "tests/data/bad_id_manifest.json",
-      "bytes": 158,
-      "sha256": "b2d44cc0880cc8ccc0ad088b006705ed29b08bdccf398e2ce9a9a46c19c033d4"
-    },
-    {
-      "path": "tests/data/bad_manifest.json",
-      "bytes": 14,
-      "sha256": "1c63c98d0ddf96d686c29a7a32c7f542e11ddb5919affc6d2aa99aca08f71a78"
-    },
-    {
-      "path": "tests/data/bad_type_manifest.json",
-      "bytes": 158,
-      "sha256": "1d79bf8e819da4db7a3ec47b997d587aa2b1010540f0a4711445236f61b9a9e7"
-    },
-    {
-      "path": "tests/data/incomplete_manifest.json",
-      "bytes": 21,
-      "sha256": "4443663f7c60c0221d137957836a4955e312d2432a0fadc2564f270767a0059e"
-    },
-    {
       "path": "tests/data/schema_cases.json",
       "bytes": 14665,
       "sha256": "643ec1d99aa03a32cc69ae1d0eb299eb93c078997df6a388827f5f927ceab9e1"
