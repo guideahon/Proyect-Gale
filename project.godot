@@ -28,6 +28,7 @@ textures/vram_compression/import_etc2_astc=true
 # plugin esté instalado y el preset declare xr_mode.
 openxr/enabled=true
 shaders/enabled=true
+openxr/extensions/hand_tracking=false
 
 [editor]
 

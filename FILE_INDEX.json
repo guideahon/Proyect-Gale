@@ -440,8 +440,8 @@
     },
     {
       "path": "export_presets.cfg",
-      "bytes": 1230,
-      "sha256": "c83706eb4f41b16b2cd3af921fb581ffccd30c288edcbed0b6dde1c68af9109a"
+      "bytes": 1265,
+      "sha256": "7305cf05710d7a7dcef67a5091fa21a918bb26a309823ae8a6990f31ed12535e"
     },
     {
       "path": "export_presets.template.cfg",
@@ -470,8 +470,8 @@
     },
     {
       "path": "project.godot",
-      "bytes": 1000,
-      "sha256": "f5cd574fb831174e8f8fc48bde251208ad9756a66c8fec4d2f77ed3f973c5710"
+      "bytes": 1038,
+      "sha256": "e63240a825d05e2ef13b1e5f579e47e628e751f284d44d9763f3f1c282431cf5"
     },
     {
       "path": "schemas/ability.schema.json",
