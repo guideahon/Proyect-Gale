@@ -549,11 +549,6 @@
       "sha256": "643ec1d99aa03a32cc69ae1d0eb299eb93c078997df6a388827f5f927ceab9e1"
     },
     {
-      "path": "tests/empty.tscn",
-      "bytes": 100,
-      "sha256": "1e1ea87a662191a856bbb39d2bc2a773b44993a9d29b7c7740fc8737c84e5e4e"
-    },
-    {
       "path": "tests/framework/test_case.gd",
       "bytes": 2119,
       "sha256": "bc5ebcb6e73aab1cca0ee4dd73926c72810da962c38bd123262cef58cb9514dc"
@@ -734,11 +729,6 @@
       "sha256": "bf9e229a6c2483bdaea49ae91f56836d2da51f7550f5e71e012dbd234e30fefd"
     },
     {
-      "path": "tools/deploy/prepare_export.bat",
-      "bytes": 610,
-      "sha256": "17ca20a20cd229de4ebc74195f5450b30d4ef1abdcfbfc6e1fff9e7f76e45e11"
-    },
-    {
       "path": "tools/deploy/project.godot",
       "bytes": 143,
       "sha256": "cb8e5964bd5f5326dfba68523001a384532c7898fc8218afe20d5ee6fb58e7b4"
@@ -754,19 +744,9 @@
       "sha256": "be83fce8776bc1087be3c3a71340b0f02c11e37fba5a59590668bc07b9e30630"
     },
     {
-      "path": "tools/export_android.gd",
-      "bytes": 433,
-      "sha256": "bba4671b00db854a1921bac1728426f025b9e75619c4333dbe33c143cad864c7"
-    },
-    {
       "path": "tools/export_android.gd.uid",
       "bytes": 19,
       "sha256": "db14ecd406cc9b1faa1cc691f90243b9521cfdb1104c61bd8fd17a7f9fd188b3"
-    },
-    {
-      "path": "tools/quit.gd",
-      "bytes": 40,
-      "sha256": "d08cd776b8885704777111b71f5196cf656188b13bd313689dc60a44a01df613"
     },
     {
       "path": "tools/quit.gd.uid",
