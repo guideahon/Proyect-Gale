@@ -100,8 +100,8 @@
     },
     {
       "path": "benchmarks/runner.gd",
-      "bytes": 5026,
-      "sha256": "8efebbb58eedabd3e0667f3cff7c869c63cae288b336f068b644d2e2a13f6f28"
+      "bytes": 2629,
+      "sha256": "6f189f4f4511aebdc5aadcc4183d7831e4fa0e8409a3ca8319ae18913665d47c"
     },
     {
       "path": "benchmarks/runner.gd.uid",
@@ -112,6 +112,11 @@
       "path": "benchmarks/runner_entry.gd",
       "bytes": 3041,
       "sha256": "ef62857583e9dac3049bd3153d47d4b1604539d976fdc4ba11a289d67bc6bf23"
+    },
+    {
+      "path": "core/mods/schema_validator.gd",
+      "bytes": 9088,
+      "sha256": "e78363b506a568f8f95883e5df1243f6ae6db3ccbd3e5e86b26c08365619858d"
     },
     {
       "path": "core/mods/semver.gd",
@@ -287,6 +292,11 @@
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
       "bytes": 24213,
       "sha256": "554b3a756a0ffaf96e0d6e376168f68fe80ad8ea4b1f2fd65ed7f9ded4373dc9"
+    },
+    {
+      "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
+      "bytes": 6955,
+      "sha256": "938015a4e1a943a15ed4c1ef76c86d4753e35bd2fe31ada4c99dd07c013278fd"
     },
     {
       "path": "examples/sample_mod/README.md",
@@ -544,6 +554,11 @@
       "sha256": "3392622df6c00e742711a63f8226d7b236b253bf83f2e1cdb4298f6797ca1820"
     },
     {
+      "path": "tests/unit/test_schema_validator.gd",
+      "bytes": 4087,
+      "sha256": "5205579bb08b959f9a52b98725ad1914cb4e1c96ff669714f91251270b948603"
+    },
+    {
       "path": "tests/unit/test_semver.gd",
       "bytes": 7531,
       "sha256": "c3596ff2e93dc146bdfab8b372b0c0b5a64530a5d72ab40be67d9e0ef8685002"
@@ -572,6 +587,16 @@
       "path": "tools/ci/check_schemas.py",
       "bytes": 4970,
       "sha256": "54e4767293d263f20cdabbbd1f82cc1a2c9892074a2778dd0b0b3b004a770c97"
+    },
+    {
+      "path": "tools/deploy/check_setup.ps1",
+      "bytes": 3971,
+      "sha256": "a6a13d94459b0063dbe41b2c0c6bd0f1eb394159a641398d7f92a0b0caf98768"
+    },
+    {
+      "path": "tools/deploy/deploy_quest.ps1",
+      "bytes": 5322,
+      "sha256": "bf9e229a6c2483bdaea49ae91f56836d2da51f7550f5e71e012dbd234e30fefd"
     }
   ]
 }
