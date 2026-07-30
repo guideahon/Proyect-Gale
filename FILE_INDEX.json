@@ -1,7 +1,7 @@
 {
   "project": "Proyecto Gale",
   "documentation_version": "0.2",
-  "generated_at": "2026-07-29",
+  "generated_at": "2026-07-30",
   "files": [
     {
       "path": ".gitattributes",
@@ -20,8 +20,8 @@
     },
     {
       "path": ".github/workflows/release.yml",
-      "bytes": 1920,
-      "sha256": "cf09892b0a73286cfb4f5a632b3a8867b4b45b6ba3318bc76cff96ff3cfcf784"
+      "bytes": 4877,
+      "sha256": "12924b898d4f572d0d1d2f95984f08a5eef3751303ecd3e291a11597809b423d"
     },
     {
       "path": ".gitignore",
@@ -179,9 +179,19 @@
       "sha256": "2977f363ef45a750d59faec71c2542ee8517fc7d3dc3966b87f49f06fd115e79"
     },
     {
+      "path": "core/mods/mod_error.gd.uid",
+      "bytes": 19,
+      "sha256": "1816e58090c82bb4dbf6ce3ab93428469dc32df7601f97e14692f00a8fe31d07"
+    },
+    {
       "path": "core/mods/override_engine.gd",
-      "bytes": 1809,
-      "sha256": "4bfc7fc1f54c021fa057c0e23f962183ef3dd7c3f7546b771027bd3bbf19c340"
+      "bytes": 4511,
+      "sha256": "783a0244a0aae5a35fbdf47073c20cc5c042d2e926cf0db9b50d6ffc7d31cc07"
+    },
+    {
+      "path": "core/mods/override_engine.gd.uid",
+      "bytes": 20,
+      "sha256": "304d2b0c005b121d250874b5f816d53d5cb09b5560db1e42e150b2b3d091eb7d"
     },
     {
       "path": "core/mods/pack_mounter.gd",
@@ -215,8 +225,13 @@
     },
     {
       "path": "core/mods/safe_mode.gd",
-      "bytes": 1196,
-      "sha256": "cbce68f9b0f2346dd8961b3b4e6b150c6dc57d8eae7442948ee398171c5d03bf"
+      "bytes": 1793,
+      "sha256": "7b112bffc73d53bcdd665eb68b4296a5e182b9c98b03a25fe11062131d097da8"
+    },
+    {
+      "path": "core/mods/safe_mode.gd.uid",
+      "bytes": 19,
+      "sha256": "bbc740c37eb7cfb6681a2c7fa0b42fc6f38b4c51d4cd4d3ffede695b083438dc"
     },
     {
       "path": "core/mods/schema_validator.gd",
@@ -435,8 +450,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 26364,
-      "sha256": "5d1e4c8ee70ba733e3762c696615f69a1c3051a5429a823c222c5b5a4cf99eba"
+      "bytes": 28107,
+      "sha256": "ef1e0508864dfa5177a297e6a3bf2d0f9ab53365e340b51fbbded140f9174095"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -750,13 +765,23 @@
     },
     {
       "path": "tests/unit/test_mod_error.gd",
-      "bytes": 2826,
-      "sha256": "c087f1af689ec7207a3ecf01787005180d3ca118264e5ed0f24dfdbff1b5d2fe"
+      "bytes": 1218,
+      "sha256": "546fec23291b5a45676062b63dacd4c8a1fe01ccd88ca96c272405a0b6359f62"
+    },
+    {
+      "path": "tests/unit/test_mod_error.gd.uid",
+      "bytes": 20,
+      "sha256": "8fbd6a497c2e290a48fcc1645921703a0f16411bbc3b818c6d86c4541d36fc2e"
     },
     {
       "path": "tests/unit/test_override_engine.gd",
-      "bytes": 3006,
-      "sha256": "1ef301918c1dadc56d88ce276f92d8653cea2998639df405b031db5b29932d8b"
+      "bytes": 4970,
+      "sha256": "29155cf0e0665d91451d77b0921b74d88577642a405434c3c891289e665eae7c"
+    },
+    {
+      "path": "tests/unit/test_override_engine.gd.uid",
+      "bytes": 20,
+      "sha256": "72672b16e2bf7ac59ff525aa0858dc296033b41f3a7ef7fa75ddf65dc9649509"
     },
     {
       "path": "tests/unit/test_pack_mounter.gd",
@@ -807,6 +832,11 @@
       "path": "tests/unit/test_registry_base.gd.uid",
       "bytes": 18,
       "sha256": "a5aee2df8aeaf84c753910f92408e0f6f0d29983c347a25b1cf942f8dc2cfb13"
+    },
+    {
+      "path": "tests/unit/test_safe_mode.gd",
+      "bytes": 2882,
+      "sha256": "26feab54272c26dc82f9746b74a43942d1c82085bb6f8dd188f89fbfaccef18c"
     },
     {
       "path": "tests/unit/test_schema_validator.gd",

@@ -18,8 +18,18 @@ static func record_success() -> void:
 static func is_active() -> bool:
 	return _load_count() >= MAX_FAILURES
 
-static func should_load_mod(mod_id: String) -> bool:
-	if is_active() and not mod_id.begins_with("official."):
+## En modo seguro se carga sólo contenido oficial. `official_verified` tiene que
+## venir de la verificación de firma contra la clave anclada (docs/24 §7): el
+## nombre no alcanza como prueba de procedencia, porque cualquiera puede llamar
+## a su paquete `official.loquesea`. Quien llama es responsable de pasar el
+## resultado de `signature_verifier` + `key_store`, no una suposición.
+static func should_load_mod(mod_id: String, official_verified: bool = false) -> bool:
+	if not is_active():
+		return true
+	if not mod_id.begins_with("official."):
+		return false
+	if not official_verified:
+		push_warning("SafeMode: '%s' dice ser oficial pero su firma no se verificó contra la clave anclada" % mod_id)
 		return false
 	return true
 

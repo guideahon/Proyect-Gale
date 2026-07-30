@@ -1,15 +1,14 @@
-## Tests de mod_error.gd y safe_mode.gd.
+## Tests de `mod_error.gd`.
+##
+## Las pruebas de modo seguro viven en `test_safe_mode.gd`: un archivo por
+## módulo, así un cambio en safe_mode no falla en un test que dice ser de otra
+## cosa.
 extends "res://tests/framework/test_case.gd"
 
 func run() -> void:
 	_test_report_and_get()
 	_test_severity_levels()
 	_test_clear()
-	_test_safe_mode_inactive()
-	_test_safe_mode_activates_after_3_failures()
-	_test_safe_mode_blocks_non_official()
-	_test_safe_mode_allows_official()
-	_test_safe_mode_resets_on_success()
 
 func _test_report_and_get() -> void:
 	var me: Script = load("res://core/mods/mod_error.gd")
@@ -35,49 +34,3 @@ func _test_clear() -> void:
 	me.report("test.mod", me.Severity.ERROR, "err")
 	me.clear()
 	check(me.count(), 0, "limpiado")
-
-func _test_safe_mode_inactive() -> void:
-	var sm: Script = load("res://core/mods/safe_mode.gd")
-	sm.record_success()
-	check_ok(not sm.is_active(), "modo seguro inactivo al inicio")
-	check_ok(sm.should_load_mod("test.any_mod"), "carga cualquier mod")
-
-func _test_safe_mode_activates_after_3_failures() -> void:
-	var sm: Script = load("res://core/mods/safe_mode.gd")
-	sm.record_success()
-	sm.record_failure()
-	check_ok(not sm.is_active(), "1 fallo: no activo")
-	sm.record_failure()
-	check_ok(not sm.is_active(), "2 fallos: no activo")
-	sm.record_failure()
-	check_ok(sm.is_active(), "3 fallos: modo seguro activo")
-	sm.record_success()
-
-func _test_safe_mode_blocks_non_official() -> void:
-	var sm: Script = load("res://core/mods/safe_mode.gd")
-	sm.record_success()
-	sm.record_failure()
-	sm.record_failure()
-	sm.record_failure()
-	check_ok(sm.is_active(), "modo seguro activo")
-	check_ok(not sm.should_load_mod("test.third_party"), "bloquea mod no oficial")
-	sm.record_success()
-
-func _test_safe_mode_allows_official() -> void:
-	var sm: Script = load("res://core/mods/safe_mode.gd")
-	sm.record_success()
-	sm.record_failure()
-	sm.record_failure()
-	sm.record_failure()
-	check_ok(sm.should_load_mod("official.base"), "permite mod oficial en modo seguro")
-	sm.record_success()
-
-func _test_safe_mode_resets_on_success() -> void:
-	var sm: Script = load("res://core/mods/safe_mode.gd")
-	sm.record_success()
-	sm.record_failure()
-	sm.record_failure()
-	sm.record_failure()
-	check_ok(sm.is_active(), "modo seguro activo")
-	sm.record_success()
-	check_ok(not sm.is_active(), "reset tras exito")

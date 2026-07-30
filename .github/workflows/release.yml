@@ -1,64 +1,120 @@
 name: Release APK
 
+# NO VERIFICADO todavía: probarlo exige publicar un release, que es una acción
+# hacia afuera. Por eso además del tag hay `workflow_dispatch`, para que un
+# humano lo corra a mano cuando quiera comprobarlo.
+#
+# La versión anterior de este archivo no podía funcionar: usaba flags que no
+# existen (`--export-template "Android"`, `--export-id 0`), apuntaba al binario
+# dentro del directorio de templates después de borrarlo, no instalaba el build
+# template de Gradle —sin el cual el vendor plugin no inyecta el manifest VR— y
+# no firmaba nada, pese a que T0.9 lo exige.
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
   contents: write
 
+env:
+  GODOT_VERSION: 4.7.1-stable
+  TPZ_SHA256: 86409db6200b6f8fd3230989c2d2002851f3dd18acf11d7bdbafddf5a0dd0f72
+
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache Godot export template
-        uses: actions/cache@v4
-        with:
-          path: ~/.local/share/godot/export_templates
-          key: godot-4.7.1-templates
-
-      - name: Install Godot 4.7.1
-        run: |
-          mkdir -p ~/.local/share/godot/export_templates
-          GODOT_URL="https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_linux.x86_64.zip"
-          curl -L "$GODOT_URL" -o godot.zip
-          unzip godot.zip -d godot_bin
-          chmod +x godot_bin/Godot_v4.7.1-stable_linux.x86_64
-          godot_bin/Godot_v4.7.1-stable_linux.x86_64 --headless --export-template "Android"
-          rm -rf godot.zip godot_bin
-
-      - name: Install Java (Gradle build)
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: "17"
 
-      - name: Build APK (Gradle)
+      - name: Descargar Godot
         run: |
-          GODOT_BIN="$HOME/.local/share/godot/export_templates/Android/Godot_v4.7.1-stable_linux.x86_64"
+          curl -fSL -o /tmp/godot.zip \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          mv "/tmp/godot/Godot_v${GODOT_VERSION}_linux.x86_64" /usr/local/bin/godot
+          chmod +x /usr/local/bin/godot
+          godot --headless --version
+
+      # Los templates completos, verificados contra el hash de VERSION_BASELINE.
+      # De acá sale android_source.zip, que es el build template de Gradle.
+      - name: Instalar export templates
+        run: |
+          curl -fSL -o /tmp/templates.tpz \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz"
+          echo "${TPZ_SHA256}  /tmp/templates.tpz" | sha256sum -c -
+          TPL_DIR="$HOME/.local/share/godot/export_templates/${GODOT_VERSION/-/.}"
+          mkdir -p "$TPL_DIR"
+          unzip -q -j /tmp/templates.tpz 'templates/*' -d "$TPL_DIR"
+          ls "$TPL_DIR" | head
+
+      - name: Instalar build template de Gradle
+        run: |
+          mkdir -p android/build
+          unzip -q -o "$HOME/.local/share/godot/export_templates/${GODOT_VERSION/-/.}/android_source.zip" -d android/build
+          echo "${GODOT_VERSION/-/.}" > android/.build_version
+          : > android/build/.gdignore
+          : > android/.gdignore
+
+      # El addon no se versiona: se baja del release fijado en
+      # addons/LOCKFILE.md verificando SHA-256. Sin él el manifest sale sin las
+      # entradas de Meta y la app arranca como panel 2D.
+      - name: Traer addons fijados
+        run: pwsh tools/deploy/fetch_addons.ps1
+
+      # El keystore llega como secreto en base64 y nunca se versiona. Si falta,
+      # el workflow FALLA: publicar un APK sin firmar sería peor que no publicar.
+      - name: Preparar keystore de release
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "::error::Falta el secreto ANDROID_KEYSTORE_BASE64. Agregalo en Settings > Secrets and variables > Actions. Un release sin firmar no se publica."
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > /tmp/release.keystore
+          test -s /tmp/release.keystore
+
+      - name: Importar proyecto
+        run: godot --headless --path . --import
+
+      - name: Exportar APK firmado
+        env:
+          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: /tmp/release.keystore
+          GODOT_ANDROID_KEYSTORE_RELEASE_USER: ${{ secrets.ANDROID_KEYSTORE_USER }}
+          GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
           mkdir -p exports
-          "$GODOT_BIN" --headless --export-id 0 --export-release
+          godot --headless --path . --export-release "Quest" "$PWD/exports/gale.apk"
+          test -s exports/gale.apk
 
-      - name: Compute SHA-256
+      - name: SHA-256 y tamaño
+        id: artifact
         run: |
-          sha256sum exports/gale.apk > exports/gale.apk.sha256
-          cat exports/gale.apk.sha256
+          sha256sum exports/gale.apk | tee exports/gale.apk.sha256
+          echo "sha=$(cut -d' ' -f1 exports/gale.apk.sha256)" >> "$GITHUB_OUTPUT"
+          echo "size=$(du -h exports/gale.apk | cut -f1)" >> "$GITHUB_OUTPUT"
 
-      - name: Get tag name
-        id: tag
-        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
+      # Los datos van por outputs, no por $(...) dentro del YAML: ahí no se
+      # evalúan y el release quedaba con el texto literal del comando.
+      - name: Publicar release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             exports/gale.apk
             exports/gale.apk.sha256
           body: |
-            **APK ARM64** — build Gradle
-            - Tamaño: $(du -h exports/gale.apk | cut -f1)
-            - SHA-256: $(cat exports/gale.apk.sha256 | cut -d' ' -f1)
+            **APK ARM64**, build Gradle, firmado.
+
+            - Tamaño: ${{ steps.artifact.outputs.size }}
+            - SHA-256: `${{ steps.artifact.outputs.sha }}`
+            - Godot: ${{ env.GODOT_VERSION }}
+            - Vendor plugin: ver `addons/LOCKFILE.md`
           draft: false
