@@ -74,9 +74,19 @@
       "sha256": "fe2e6b242630288679e7372f64f71979811b980fc7951f7e865a2681e4d0d25b"
     },
     {
+      "path": "addons/LOCKFILE.md",
+      "bytes": 792,
+      "sha256": "ee2bf89cb59d9d1ee2d6ea077f93bee084fd8b442e92f6f8ff4ec96b2d0919e3"
+    },
+    {
       "path": "benchmarks/benchmark_empty.gd",
       "bytes": 212,
       "sha256": "f6b24213db92eadc50c22c36bc9a9c6f7feb890e693f36d96d8429ceaad66ed3"
+    },
+    {
+      "path": "benchmarks/benchmark_empty.gd.uid",
+      "bytes": 19,
+      "sha256": "994853013e5708ffddcd5d05089511eba3a02d8b047f490fb30a3cefa374cd33"
     },
     {
       "path": "benchmarks/benchmark_empty.tscn",
@@ -89,9 +99,19 @@
       "sha256": "06de4434b3fde29a6c57c84f634471d547e656fbcffe8c3cc0e680928dcf6e2a"
     },
     {
+      "path": "benchmarks/calibration_entry.gd.uid",
+      "bytes": 20,
+      "sha256": "e9ed110adce42261acae0e5d61ab1e7fa6223b5bfdd560c7c7ab7ac75c699fcf"
+    },
+    {
       "path": "benchmarks/calibration_scene.gd",
       "bytes": 2792,
       "sha256": "8e5366faa7298040de31a613240bb098fc2ae20f7677a27a20455fbe8cb5ff79"
+    },
+    {
+      "path": "benchmarks/calibration_scene.gd.uid",
+      "bytes": 20,
+      "sha256": "cabc358856a648206f2520e2e258b7fe2dbc6301df293fe2bc1451e3ee9d0b33"
     },
     {
       "path": "benchmarks/calibration_scene.tscn",
@@ -104,9 +124,19 @@
       "sha256": "66323c8da297e19696343375bf65d5caa72138b3c4c5d46ab522f1f5b9e1e462"
     },
     {
+      "path": "benchmarks/runner.gd.uid",
+      "bytes": 20,
+      "sha256": "9f8886ab963d8dbe32f87a8b59237a7ae428fd076728e1ec6fed9354cdd79063"
+    },
+    {
       "path": "benchmarks/runner_entry.gd",
       "bytes": 3041,
       "sha256": "ef62857583e9dac3049bd3153d47d4b1604539d976fdc4ba11a289d67bc6bf23"
+    },
+    {
+      "path": "benchmarks/runner_entry.gd.uid",
+      "bytes": 20,
+      "sha256": "e29e57796739ad9ccc91e8ec43d481c8b60a60366dae5441e405d3ae150d0806"
     },
     {
       "path": "core/mods/dependency_resolver.gd",
@@ -114,9 +144,19 @@
       "sha256": "3fdc2156de77ad27500113ba8fec8d2059229d72db12cc9e0772dbad11e3a45f"
     },
     {
+      "path": "core/mods/dependency_resolver.gd.uid",
+      "bytes": 19,
+      "sha256": "f9718e57830ffdb5d0c44b58f451cd1f84a1d681d5d1fa2fa9eb78c7c905c506"
+    },
+    {
       "path": "core/mods/key_store.gd",
       "bytes": 3145,
       "sha256": "7cc6b209482bca220d508b58a71d5c83ae900c588771e9bfcb466ba31ae90885"
+    },
+    {
+      "path": "core/mods/key_store.gd.uid",
+      "bytes": 20,
+      "sha256": "5b3058d01be21a5f8cc75906caf391af47b7c6aeb50058ceb6c7ee80789bab93"
     },
     {
       "path": "core/mods/manifest_parser.gd",
@@ -124,9 +164,19 @@
       "sha256": "346508af0c43211238162416aae4305b6815bf54d3972fa8d69ea7fbfe215d0b"
     },
     {
+      "path": "core/mods/manifest_parser.gd.uid",
+      "bytes": 20,
+      "sha256": "f8c4b7de87464a58d63c0cad0e6f06f30e0c4b926f1cc3afeeb72aae0b0fc22c"
+    },
+    {
       "path": "core/mods/pack_mounter.gd",
       "bytes": 5002,
       "sha256": "e285bd2767d2faa55ecc1e982d488159f3650738d13f54cecada01e1206bf61a"
+    },
+    {
+      "path": "core/mods/pack_mounter.gd.uid",
+      "bytes": 20,
+      "sha256": "8ae232b651e9c7d2e2b5e05a993a302208310c15403c1ef9afd00f166691ad91"
     },
     {
       "path": "core/mods/package_reader.gd",
@@ -134,9 +184,19 @@
       "sha256": "41370e39a8cb71441d02e9261ccabf82106f4d926af8c736912310eef51814b0"
     },
     {
+      "path": "core/mods/package_reader.gd.uid",
+      "bytes": 20,
+      "sha256": "6ba436791fdf7650adc54567b403c62f5a669ae2c2d66d68f347ccb0ba925b27"
+    },
+    {
       "path": "core/mods/registry_base.gd",
       "bytes": 2069,
       "sha256": "bdb579b616f3ad551528735cc4f9a40d58d9832ca76833a803781c64e9140b4a"
+    },
+    {
+      "path": "core/mods/registry_base.gd.uid",
+      "bytes": 20,
+      "sha256": "9fd48319c8b1012269ea51f934462a58c1c33ef9b605ee73f4490bb305149595"
     },
     {
       "path": "core/mods/schema_validator.gd",
@@ -144,9 +204,19 @@
       "sha256": "39b89bbbe57651e3b3df50dc8b54f3b9f72190827f598121024913b9dec9ab50"
     },
     {
+      "path": "core/mods/schema_validator.gd.uid",
+      "bytes": 19,
+      "sha256": "fa51bbae8d4c95d674dc53b29ffba8d37faeb8ad1fc24e53e876890607f502ad"
+    },
+    {
       "path": "core/mods/semver.gd",
       "bytes": 15782,
       "sha256": "537a45199bb5157edd04b29838a7dd451c09ebb54ee2e65149016c8b3b246160"
+    },
+    {
+      "path": "core/mods/semver.gd.uid",
+      "bytes": 20,
+      "sha256": "123dc34e4203ec4dd5d18e8b9011c746a823e81f74d37fcdc7629ae3179801b4"
     },
     {
       "path": "core/mods/signature_verifier.gd",
@@ -154,9 +224,19 @@
       "sha256": "ebbde5f2daa667f290235e53255465b4292d579db2799bc0b5bf6d9185b2d0eb"
     },
     {
+      "path": "core/mods/signature_verifier.gd.uid",
+      "bytes": 19,
+      "sha256": "afba252d2b655a355037cd52bd1663570916ae4f36e1cd87cf153c68ec5fa54f"
+    },
+    {
       "path": "core/perf/dynamic_resolution.gd",
       "bytes": 3305,
       "sha256": "9536e28aad11db22721ffa2f9deb1c653196fb9fe2899dcfbce55e666399247f"
+    },
+    {
+      "path": "core/perf/dynamic_resolution.gd.uid",
+      "bytes": 19,
+      "sha256": "4fb467c8ebd7201bdb001b4a3e933a239b0e657c3dff21038327244cfb2c2ac2"
     },
     {
       "path": "core/perf/frame_probe.gd",
@@ -164,9 +244,19 @@
       "sha256": "48c8b3c07dbd7606b0cbe6de40f342e55314f3dbbf2f56754252268e71f776a3"
     },
     {
+      "path": "core/perf/frame_probe.gd.uid",
+      "bytes": 19,
+      "sha256": "318f90775744464235d38a15b3cf62d6cffabe36f7cacfddc645c6b63cea46fb"
+    },
+    {
       "path": "core/perf/profile_manager.gd",
       "bytes": 3005,
       "sha256": "061fdeac93883fd9dc0934970e61dc1d70bc2b554e1d85b761d9193e12942b6b"
+    },
+    {
+      "path": "core/perf/profile_manager.gd.uid",
+      "bytes": 20,
+      "sha256": "7151cf1547447273283f3163c3f7ce34b833732990076a7d04f072fcfc2eba16"
     },
     {
       "path": "core/perf/thermal_logger.gd",
@@ -174,14 +264,29 @@
       "sha256": "db208890e2a4b47a08c60ef3fc001c16c620846ce5af0e134c8a940c02cc4a31"
     },
     {
+      "path": "core/perf/thermal_logger.gd.uid",
+      "bytes": 20,
+      "sha256": "f97d684b7959a5753598439ffe3befc522bc9e8f331693b21ef1993d7519957b"
+    },
+    {
       "path": "core/updater/update_checker.gd",
       "bytes": 3241,
       "sha256": "383e294ab9c19321ba110e033165af274dd23c5cc57335dcb3a43cf7a6b7e518"
     },
     {
+      "path": "core/updater/update_checker.gd.uid",
+      "bytes": 19,
+      "sha256": "e57826ce4fe3ce04f3af7989011653713627d16b162392e95751cd6641721518"
+    },
+    {
       "path": "core/updater/update_service.gd",
       "bytes": 3255,
       "sha256": "a6d5d24e3f33a59157e1f87e3f6d2949a38b57a233770c02c17f1e906f88a5e9"
+    },
+    {
+      "path": "core/updater/update_service.gd.uid",
+      "bytes": 20,
+      "sha256": "28c7476e06b8655ac898db2bc43ba6a385112ee23eacf08436b02abe63b2f0b2"
     },
     {
       "path": "docs/00_README.md",
@@ -359,11 +464,6 @@
       "sha256": "bebd9e3ec982e67abb91d33ac3fbaf6ff8ea626b71c5becf0c60c994699b46c0"
     },
     {
-      "path": "export_presets.cfg",
-      "bytes": 1268,
-      "sha256": "3a39c80c8397cd24e22fa095d2380fc66f5c3a520575e02a108a61b97e077355"
-    },
-    {
       "path": "export_presets.template.cfg",
       "bytes": 1268,
       "sha256": "3a39c80c8397cd24e22fa095d2380fc66f5c3a520575e02a108a61b97e077355"
@@ -372,6 +472,11 @@
       "path": "game/autoload/bootstrap.gd",
       "bytes": 2047,
       "sha256": "b8516aad6f34b3eacf72eb30960d1162cae9ec7948eefadb06f381130f574dd5"
+    },
+    {
+      "path": "game/autoload/bootstrap.gd.uid",
+      "bytes": 20,
+      "sha256": "882f6590d98e6848028bf6b7e401fb26cf3847acc0158330574db88c9ad7558d"
     },
     {
       "path": "game/scenes/main.tscn",
@@ -519,14 +624,29 @@
       "sha256": "bc5ebcb6e73aab1cca0ee4dd73926c72810da962c38bd123262cef58cb9514dc"
     },
     {
+      "path": "tests/framework/test_case.gd.uid",
+      "bytes": 19,
+      "sha256": "8b3e099656fe680ad3f39abc22e5c1827a2bd8e96cbac59687eb5795422c2bf0"
+    },
+    {
       "path": "tests/run_all.gd",
       "bytes": 4310,
       "sha256": "02bc6a83cfc5d39cd6e749510a1a700ebb383ae862484b6beb14bbfb5ec8b4f3"
     },
     {
+      "path": "tests/run_all.gd.uid",
+      "bytes": 20,
+      "sha256": "ed848d4f415ff0539fbdc6f359654e1b9539a048e06ffd3e265a621c39982ac0"
+    },
+    {
       "path": "tests/spike_s6/check_pckpacker.gd",
       "bytes": 177,
       "sha256": "1a14127032921556cb68847ec3942f541645e1c5216ea19b992c722a77d50f74"
+    },
+    {
+      "path": "tests/spike_s6/check_pckpacker.gd.uid",
+      "bytes": 20,
+      "sha256": "6935e4434873bc92250b7205bcf6aac45bb816adf6102720d956f8cfa3a516b3"
     },
     {
       "path": "tests/spike_s6/create_malicious_pck.py",
@@ -539,6 +659,11 @@
       "sha256": "3b7bf1cdb5e2ef95e9b7de593b21d1d841d53b6124eba55f23d5112487fd4cc6"
     },
     {
+      "path": "tests/spike_s6/malicious.gd.uid",
+      "bytes": 20,
+      "sha256": "cd45d3705e9bf012a18baa00f21cf16337ea47766569b987bc050b45353e1726"
+    },
+    {
       "path": "tests/spike_s6/malicious_scene.tscn",
       "bytes": 155,
       "sha256": "4734ee37da44ed632d12786b68ae8b5e4604b43d59987e279babe386c02fa500"
@@ -549,9 +674,19 @@
       "sha256": "332c0c6d79f6b830f9dbac8ad817166eb9d4a8db9b8002dc5fff5795e6ea1000"
     },
     {
+      "path": "tests/spike_s6/test_sandbox.gd.uid",
+      "bytes": 19,
+      "sha256": "d9ed9b447b85a922fcae212c0f0ee18d6526125cb148c077148319744d0cda87"
+    },
+    {
       "path": "tests/unit/test_bootstrap.gd",
       "bytes": 1635,
       "sha256": "b5a54e623cc3ca016e719cfd6cfc39c69f7502f7366167424cb0007ee02e516d"
+    },
+    {
+      "path": "tests/unit/test_bootstrap.gd.uid",
+      "bytes": 19,
+      "sha256": "d2a6feb1a03112bb8a990099443f1ecb2e6ed6b2f5bd69adae6a25bcce7cab9f"
     },
     {
       "path": "tests/unit/test_dependency_resolver.gd",
@@ -559,9 +694,19 @@
       "sha256": "0bbd555d07ba849f7be8e5b3dd927eaecbc30b951966385a6549de1b4e1b3dcd"
     },
     {
+      "path": "tests/unit/test_dependency_resolver.gd.uid",
+      "bytes": 20,
+      "sha256": "f44a784bc242ca1c3cff90e78c853d1b9e4eeb776f0650d6fd92c478f155123d"
+    },
+    {
       "path": "tests/unit/test_dynamic_resolution.gd",
       "bytes": 3531,
       "sha256": "1d7689b7881db2eb0e3d7f184110b7ed8f6e1da4061925621b4142ded4404f20"
+    },
+    {
+      "path": "tests/unit/test_dynamic_resolution.gd.uid",
+      "bytes": 20,
+      "sha256": "6905e3220e2ca5415bb8306a2000d6ca89acf02de99b5bd726d13d7766125ac1"
     },
     {
       "path": "tests/unit/test_frame_probe.gd",
@@ -569,9 +714,19 @@
       "sha256": "fae6c7ec21d20b17fc3f3e6e79f948e6315c063835c06245f141eb8fb9ccea8f"
     },
     {
+      "path": "tests/unit/test_frame_probe.gd.uid",
+      "bytes": 19,
+      "sha256": "abbbfa5187a0869d013ea6cf2099973b6190c37cab3f09647bcc8f665b9cb91a"
+    },
+    {
       "path": "tests/unit/test_manifest_parser.gd",
       "bytes": 3261,
       "sha256": "ec07c6aa81fa3f6a8f530cf6789977455329e8529e9e184dc05602676f3ad09c"
+    },
+    {
+      "path": "tests/unit/test_manifest_parser.gd.uid",
+      "bytes": 20,
+      "sha256": "331e84d5c4f081efdc3d8d89a894db99db7eac86f3b161cdd912d3f897a0bea9"
     },
     {
       "path": "tests/unit/test_pack_mounter.gd",
@@ -579,9 +734,19 @@
       "sha256": "a4cb38d859085d16b7567b9e7a80360b33c78df3f32c10f18d04d223e71cfc28"
     },
     {
+      "path": "tests/unit/test_pack_mounter.gd.uid",
+      "bytes": 19,
+      "sha256": "0118f5555ded407fbad62f63f45e38e4cded9d780ba8fe3629ff777f2bb8e796"
+    },
+    {
       "path": "tests/unit/test_package_reader.gd",
       "bytes": 4935,
       "sha256": "8d14f32ffc5da4810e5949558330c0a0eb68f7e2305325451384631a0b47d6f8"
+    },
+    {
+      "path": "tests/unit/test_package_reader.gd.uid",
+      "bytes": 20,
+      "sha256": "dba81115825420c32cb3045c15481ccf207bdd182b62d3b48d87859c41b0c692"
     },
     {
       "path": "tests/unit/test_profile_manager.gd",
@@ -589,9 +754,19 @@
       "sha256": "3392622df6c00e742711a63f8226d7b236b253bf83f2e1cdb4298f6797ca1820"
     },
     {
+      "path": "tests/unit/test_profile_manager.gd.uid",
+      "bytes": 20,
+      "sha256": "b24312fc701b1454b0ccc62a55c9c77ecfe9cad1e0ea21798fb141e819218894"
+    },
+    {
       "path": "tests/unit/test_project_settings.gd",
       "bytes": 2910,
       "sha256": "129674626c925891648d7c782bc8ba83ccd9c46607e6f250be3670d034c939da"
+    },
+    {
+      "path": "tests/unit/test_project_settings.gd.uid",
+      "bytes": 19,
+      "sha256": "9639a67f24b60247e3b5d6d39f08002e31470de43cee81ba3bd1d2ada483c4be"
     },
     {
       "path": "tests/unit/test_registry_base.gd",
@@ -599,9 +774,19 @@
       "sha256": "6e05555864d19b896d4ac7da033b9fe3484b1e1be00aefe6617d671b302a4d0e"
     },
     {
+      "path": "tests/unit/test_registry_base.gd.uid",
+      "bytes": 18,
+      "sha256": "a5aee2df8aeaf84c753910f92408e0f6f0d29983c347a25b1cf942f8dc2cfb13"
+    },
+    {
       "path": "tests/unit/test_schema_validator.gd",
       "bytes": 5472,
       "sha256": "2322222d9e718d384019db189d3b1c52594371641a3e395b23531350d5474550"
+    },
+    {
+      "path": "tests/unit/test_schema_validator.gd.uid",
+      "bytes": 20,
+      "sha256": "0174b3cc3dd9fe710bce85fb1f69826a2ed195fe53a0361a9bbc8fbd97b40ae6"
     },
     {
       "path": "tests/unit/test_semver.gd",
@@ -609,9 +794,19 @@
       "sha256": "c3596ff2e93dc146bdfab8b372b0c0b5a64530a5d72ab40be67d9e0ef8685002"
     },
     {
+      "path": "tests/unit/test_semver.gd.uid",
+      "bytes": 20,
+      "sha256": "5a265d8cf97e6fcca2eb1b040ed323d680214caf5c854e68c7e875fb4e7f7c9b"
+    },
+    {
       "path": "tests/unit/test_signature_verifier.gd",
       "bytes": 5803,
       "sha256": "b6c4c335b5ac593dda79fe5329b72f5dd9841ef913894482e95dc6bdd7772615"
+    },
+    {
+      "path": "tests/unit/test_signature_verifier.gd.uid",
+      "bytes": 19,
+      "sha256": "29496a8900d5c8a5472ba4ced66eef4df64adcbd4554604b9c1628238ecb6958"
     },
     {
       "path": "tests/unit/test_thermal_logger.gd",
@@ -619,14 +814,24 @@
       "sha256": "5d1b990e58ee4301599b5787831361b8b91abc75c947e7f979ecef597fd02615"
     },
     {
+      "path": "tests/unit/test_thermal_logger.gd.uid",
+      "bytes": 19,
+      "sha256": "033bcee170f8188b70b57bb97f34b60615a3a6bce756876e31063e78feae52e4"
+    },
+    {
       "path": "tests/unit/test_update_checker.gd",
       "bytes": 3185,
       "sha256": "c8af49bab1f31f113cdebd794e1bec70f592b87fb29b0c74d3b3bf09e835a2b4"
     },
     {
+      "path": "tests/unit/test_update_checker.gd.uid",
+      "bytes": 20,
+      "sha256": "d0b00d479971076c4ef13a616b04d9a86002ae34a2c79326eaaf64f63c372191"
+    },
+    {
       "path": "tools/ci/build_file_index.py",
-      "bytes": 3066,
-      "sha256": "d1f9b9ed6fec600557d9f1fa432c7b4a4b84d98c828323969fd1cf000954569e"
+      "bytes": 2980,
+      "sha256": "2ee60e3db14f305be475bd129c1bdf401ab4d84c1c90fe6f81bdf77f2c0aa4fa"
     },
     {
       "path": "tools/ci/check_schemas.py",

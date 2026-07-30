@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -12,29 +13,32 @@ INDEX = ROOT / "FILE_INDEX.json"
 PROJECT = "Proyecto Gale"
 DOCUMENTATION_VERSION = "0.2"
 
-SKIP_DIRS = {".git", ".godot", ".import", "exports", "__pycache__", ".venv",
-             "node_modules", ".llamacode", ".playwright-mcp",
-             # No versionados: plantilla Gradle de Android y addons de terceros,
-             # que se obtienen del release fijado en addons/LOCKFILE.md.
-             "android", "addons"}
-SKIP_FILES = {"FILE_INDEX.json", ".DS_Store"}
-SKIP_SUFFIXES = {".pyc", ".apk", ".aab", ".keystore", ".jks", ".import", ".exe", ".zip",
-                 # `.uid` los genera Godot al importar, después del commit. Se
-                 # versionan (recomendación del motor: mantiene estables las
-                 # referencias), pero no entran al índice: si entraran, el índice
-                 # dependería de si el editor ya corrió y quedaría desactualizado
-                 # solo, como pasó cinco veces.
-                 ".uid"}
+# El índice cubre exactamente los archivos VERSIONADOS, no lo que haya en disco.
+# Escanear el disco lo desincronizaba solo: metía archivos ignorados por git
+# (export_presets.cfg, que tiene credenciales y no se versiona) y dejaba afuera
+# los `.uid` que Godot crea al importar, después del commit. En un clon limpio
+# —o en el runner de CI— el índice nunca podía coincidir.
+SKIP_FILES = {"FILE_INDEX.json"}
+
+
+def tracked_files():
+    """Archivos versionados, según git. Es la única fuente de verdad."""
+    out = subprocess.run(
+        ["git", "-C", str(ROOT), "ls-files", "-z"],
+        capture_output=True, text=True, check=True,
+    ).stdout
+    return [p for p in out.split("\0") if p]
 
 
 def iter_files():
-    for path in ROOT.rglob("*"):
+    for rel_str in tracked_files():
+        rel = Path(rel_str)
+        if rel.name in SKIP_FILES:
+            continue
+        path = ROOT / rel
+        # Un archivo versionado pero ausente del disco significa árbol sucio;
+        # se salta y `--check` lo va a marcar como desactualizado.
         if not path.is_file():
-            continue
-        rel = path.relative_to(ROOT)
-        if any(part in SKIP_DIRS for part in rel.parts):
-            continue
-        if rel.name in SKIP_FILES or path.suffix in SKIP_SUFFIXES:
             continue
         yield rel, path
 
