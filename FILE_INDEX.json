@@ -15,8 +15,8 @@
     },
     {
       "path": ".github/workflows/pr.yml",
-      "bytes": 3343,
-      "sha256": "daf74e525ee6edb006fb158a2ab72fed0f87757aeb1801bc452e99261e3f1be5"
+      "bytes": 3673,
+      "sha256": "b8270cd87d82099b1c792001dfe178d9248c1e9fe9697fe4a508c94a7841a28b"
     },
     {
       "path": ".gitignore",

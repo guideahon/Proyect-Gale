@@ -49,11 +49,14 @@ jobs:
       - name: Versión de Godot
         run: godot/bin/Godot --headless --version
 
-      # Los binarios del addon no se versionan (82 MB): se bajan del release
-      # fijado en addons/LOCKFILE.md, verificando SHA-256. Sin esto el import
-      # deja la GDExtension sin resolver.
-      - name: Traer addons fijados
-        run: pwsh tools/deploy/fetch_addons.ps1
+      # El addon de OpenXR NO se instala en CI a propósito. Sólo hace falta para
+      # el export de Android, que acá no se hace, y cargar su GDExtension hace
+      # que Godot headless en Linux aborte al salir (exit 134, SIGABRT) DESPUÉS
+      # de completar el import; el mismo síntoma que en Windows aparece como
+      # "Pages in use exist at exit in PagedAllocator" sin matar el proceso.
+      # Se verifica que el lockfile esté, que es lo que fija la versión.
+      - name: Verificar lockfile de addons
+        run: test -f addons/LOCKFILE.md && grep -q "godot_openxr_vendors" addons/LOCKFILE.md
 
       - name: Importar proyecto
         id: import
