@@ -40,3 +40,4 @@ Thumbs.db
 # Agent tooling
 .llamacode/
 .playwright-mcp/
+addons/*.old-*

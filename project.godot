@@ -26,7 +26,13 @@ textures/vram_compression/import_etc2_astc=true
 
 ; Sin esto el runtime no arranca OpenXR y bootstrap aborta, aunque el vendor
 ; plugin esté instalado y el preset declare xr_mode.
-openxr/enabled=true
+;
+; Habilitado SÓLO en Android, con override por feature tag. Con el valor global
+; en true, cada corrida headless en Windows intenta abrir OpenXR, engancha el
+; runtime que haya instalado en la máquina (VirtualDesktopXR, SteamVR) y falla
+; con XR_ERROR_FORM_FACTOR_UNAVAILABLE: ensucia y demora toda la batería.
+openxr/enabled=false
+openxr/enabled.android=true
 shaders/enabled=true
 openxr/extensions/hand_tracking=false
 

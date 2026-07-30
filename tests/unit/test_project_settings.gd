@@ -39,9 +39,12 @@ func _test_rendering_method_valido() -> void:
 
 
 func _test_openxr_habilitado() -> void:
-	# Sin esto el runtime no arranca OpenXR y bootstrap aborta en el visor,
-	# aunque el preset de exportación declare xr_mode.
-	check(_val("xr", "openxr/enabled", false), true, "xr/openxr/enabled declarado en true")
+	# OpenXR va habilitado SÓLO en Android, con override por feature tag: con el
+	# valor global en true, cada corrida headless intenta abrir el runtime XR de
+	# la máquina y falla, ensuciando y demorando la batería. En el visor lo que
+	# manda es el override.
+	check(_val("xr", "openxr/enabled.android", false), true, "OpenXR habilitado en Android")
+	check(_val("xr", "openxr/enabled", true), false, "OpenXR NO habilitado globalmente")
 	check(_val("xr", "shaders/enabled", false), true, "xr/shaders/enabled declarado en true")
 
 

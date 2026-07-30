@@ -20,8 +20,8 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 1033,
-      "sha256": "7820b587d89312949e4f07a4f4e50f9e4571c325e00be22df8fde748fe83add0"
+      "bytes": 1048,
+      "sha256": "7b74561fee2cd89f592bd5213d2d817dbf550ba5a97dbe856d59a537cdccaad1"
     },
     {
       "path": "AGENTS.md",
@@ -390,8 +390,8 @@
     },
     {
       "path": "project.godot",
-      "bytes": 1038,
-      "sha256": "08e466f97ef66c482b1e24cf47d4abeda9ff7653017363862a73b1a53d3fcca9"
+      "bytes": 1383,
+      "sha256": "da8a8b20b3c7b2660ac7ac6b96dbc5bcbc41942c3889d2772f8c93d9cf07ab0d"
     },
     {
       "path": "schemas/ability.schema.json",
@@ -590,8 +590,8 @@
     },
     {
       "path": "tests/unit/test_project_settings.gd",
-      "bytes": 2688,
-      "sha256": "09894a7116f4e9df71d0d6362b597016b7dff73e1a3f790ff33ba65cd1b57854"
+      "bytes": 2910,
+      "sha256": "129674626c925891648d7c782bc8ba83ccd9c46607e6f250be3670d034c939da"
     },
     {
       "path": "tests/unit/test_registry_base.gd",
@@ -645,8 +645,8 @@
     },
     {
       "path": "tools/deploy/fetch_addons.ps1",
-      "bytes": 2769,
-      "sha256": "2530ea62709b54bd2650dbb73c18f0c84655f4ac294c586057fad564e4e60fce"
+      "bytes": 3918,
+      "sha256": "5874eb77cfc36d798db0430a185024787a8261e4a324a674ac4f53e1cb25273d"
     },
     {
       "path": "tools/generate_test_zips.py",
