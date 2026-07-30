@@ -1,0 +1,21 @@
+{
+  "format_version": 1,
+  "id": "official.base",
+  "name": "Project Gale — Base",
+  "author": "Project Gale",
+  "version": "0.1.0",
+  "game_version": ">=0.1.0 <1.0.0",
+  "mod_api": "^1.0",
+  "type": "content",
+  "entrypoint": "res://official_mods/official.base/register.gd",
+  "dependencies": [],
+  "optional_dependencies": [],
+  "conflicts": [],
+  "load_after": [],
+  "performance_profile": "quest_compatible",
+  "license": "MIT",
+  "content_roots": [
+    "content/"
+  ],
+  "permissions": []
+}

@@ -2,6 +2,7 @@
 extends SceneTree
 
 const UNIT_DIR := "res://tests/unit"
+const INTEGRATION_DIR := "res://tests/integration"
 
 func _initialize() -> void:
 	# R3: pre-check de compilación de todos los .gd.
@@ -17,6 +18,8 @@ func _initialize() -> void:
 		filter = user_args[0]
 
 	var files: Array = _discover(UNIT_DIR)
+	# El directorio de integración es opcional: no se avisa si no está.
+	files.append_array(_discover(INTEGRATION_DIR, false))
 	var ran: int = 0
 	var total_passed: int = 0
 	var total_failed: int = 0
@@ -107,11 +110,12 @@ func _discover_all_gd(dir_path: String) -> Array[String]:
 	dir.list_dir_end()
 	return out
 
-func _discover(dir_path: String) -> Array:
+func _discover(dir_path: String, required: bool = true) -> Array:
 	var out: Array = []
 	var dir := DirAccess.open(dir_path)
 	if dir == null:
-		printerr("no existe el directorio %s" % dir_path)
+		if required:
+			printerr("no existe el directorio %s" % dir_path)
 		return out
 	dir.list_dir_begin()
 	var entry := dir.get_next()

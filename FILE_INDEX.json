@@ -450,8 +450,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 28107,
-      "sha256": "ef1e0508864dfa5177a297e6a3bf2d0f9ab53365e340b51fbbded140f9174095"
+      "bytes": 29600,
+      "sha256": "d8cf700aa7e960c14585055de2115eb3972042c5dc4419b21d39bb2c8b7114bf"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -522,6 +522,21 @@
       "path": "icon.svg",
       "bytes": 271,
       "sha256": "2f52381657fd7f64bcfd8df82b082d6f1243e770a3cea1beeaf0eeb5c261879b"
+    },
+    {
+      "path": "official_mods/official.base/manifest.json",
+      "bytes": 498,
+      "sha256": "d4be09a4af32b296997071870d9160165252d0bcb71179f889e8371245c2ab26"
+    },
+    {
+      "path": "official_mods/official.base/register.gd",
+      "bytes": 1034,
+      "sha256": "c623bb5fa055fc5367120dd1545bc6763f11bca30e2ebe55a453a321931f2556"
+    },
+    {
+      "path": "official_mods/official.base/register.gd.uid",
+      "bytes": 20,
+      "sha256": "555750dd2d02d07bce203dacde031c494cc2ca261aa53e5e737ab4bf8aad564d"
     },
     {
       "path": "openxr_action_map.tres",
@@ -664,9 +679,19 @@
       "sha256": "8b3e099656fe680ad3f39abc22e5c1827a2bd8e96cbac59687eb5795422c2bf0"
     },
     {
+      "path": "tests/integration/test_multi_pck.gd",
+      "bytes": 3480,
+      "sha256": "211daa65e3125a0de09025db8e26be46bd4815fbce88bf4b6beb22fe621da2ee"
+    },
+    {
+      "path": "tests/integration/test_multi_pck.gd.uid",
+      "bytes": 20,
+      "sha256": "1544b9630f7ec13b61be96c019f545cd1946bf319ba2f3ac25cf9a77aede7a52"
+    },
+    {
       "path": "tests/run_all.gd",
-      "bytes": 4310,
-      "sha256": "02bc6a83cfc5d39cd6e749510a1a700ebb383ae862484b6beb14bbfb5ec8b4f3"
+      "bytes": 4526,
+      "sha256": "c7d04c405f97fc9ecdddc9b0701dd7ab483fa4f33f5b947cf61210fe3b1a3acc"
     },
     {
       "path": "tests/run_all.gd.uid",
@@ -839,6 +864,11 @@
       "sha256": "26feab54272c26dc82f9746b74a43942d1c82085bb6f8dd188f89fbfaccef18c"
     },
     {
+      "path": "tests/unit/test_safe_mode.gd.uid",
+      "bytes": 19,
+      "sha256": "978bb819742e862763216d094b7d313245fc74b38a1f73d9ef71cadeda26b14f"
+    },
+    {
       "path": "tests/unit/test_schema_validator.gd",
       "bytes": 5472,
       "sha256": "2322222d9e718d384019db189d3b1c52594371641a3e395b23531350d5474550"
@@ -897,6 +927,16 @@
       "path": "tools/ci/check_schemas.py",
       "bytes": 4970,
       "sha256": "54e4767293d263f20cdabbbd1f82cc1a2c9892074a2778dd0b0b3b004a770c97"
+    },
+    {
+      "path": "tools/ci/validate_schemas.gd",
+      "bytes": 5915,
+      "sha256": "e8e7ddbc6b5f1629fb8d11fd457fae1b2ddb16fe334315cd55c366bc98b12140"
+    },
+    {
+      "path": "tools/ci/validate_schemas.gd.uid",
+      "bytes": 19,
+      "sha256": "64f1bb30125762982d133614764e706c7b58b6d167ae4a49eeb00bfaa847b967"
     },
     {
       "path": "tools/deploy/check_setup.ps1",
