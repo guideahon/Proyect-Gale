@@ -19,6 +19,11 @@
       "sha256": "b8270cd87d82099b1c792001dfe178d9248c1e9fe9697fe4a508c94a7841a28b"
     },
     {
+      "path": ".github/workflows/release.yml",
+      "bytes": 1920,
+      "sha256": "cf09892b0a73286cfb4f5a632b3a8867b4b45b6ba3318bc76cff96ff3cfcf784"
+    },
+    {
       "path": ".gitignore",
       "bytes": 1048,
       "sha256": "7b74561fee2cd89f592bd5213d2d817dbf550ba5a97dbe856d59a537cdccaad1"
@@ -169,6 +174,16 @@
       "sha256": "f8c4b7de87464a58d63c0cad0e6f06f30e0c4b926f1cc3afeeb72aae0b0fc22c"
     },
     {
+      "path": "core/mods/mod_error.gd",
+      "bytes": 1018,
+      "sha256": "2977f363ef45a750d59faec71c2542ee8517fc7d3dc3966b87f49f06fd115e79"
+    },
+    {
+      "path": "core/mods/override_engine.gd",
+      "bytes": 1809,
+      "sha256": "4bfc7fc1f54c021fa057c0e23f962183ef3dd7c3f7546b771027bd3bbf19c340"
+    },
+    {
       "path": "core/mods/pack_mounter.gd",
       "bytes": 5002,
       "sha256": "e285bd2767d2faa55ecc1e982d488159f3650738d13f54cecada01e1206bf61a"
@@ -197,6 +212,11 @@
       "path": "core/mods/registry_base.gd.uid",
       "bytes": 20,
       "sha256": "9fd48319c8b1012269ea51f934462a58c1c33ef9b605ee73f4490bb305149595"
+    },
+    {
+      "path": "core/mods/safe_mode.gd",
+      "bytes": 1196,
+      "sha256": "cbce68f9b0f2346dd8961b3b4e6b150c6dc57d8eae7442948ee398171c5d03bf"
     },
     {
       "path": "core/mods/schema_validator.gd",
@@ -415,8 +435,8 @@
     },
     {
       "path": "docs/25_CHECKLIST_DE_EJECUCION.md",
-      "bytes": 26622,
-      "sha256": "300d4d2228494867bd52c883c4700e2e4a37f278c2dd4d9b4098513c59ac652d"
+      "bytes": 26364,
+      "sha256": "5d1e4c8ee70ba733e3762c696615f69a1c3051a5429a823c222c5b5a4cf99eba"
     },
     {
       "path": "docs/26_PRUEBAS_EN_DISPOSITIVO.md",
@@ -727,6 +747,16 @@
       "path": "tests/unit/test_manifest_parser.gd.uid",
       "bytes": 20,
       "sha256": "331e84d5c4f081efdc3d8d89a894db99db7eac86f3b161cdd912d3f897a0bea9"
+    },
+    {
+      "path": "tests/unit/test_mod_error.gd",
+      "bytes": 2826,
+      "sha256": "c087f1af689ec7207a3ecf01787005180d3ca118264e5ed0f24dfdbff1b5d2fe"
+    },
+    {
+      "path": "tests/unit/test_override_engine.gd",
+      "bytes": 3006,
+      "sha256": "1ef301918c1dadc56d88ce276f92d8653cea2998639df405b031db5b29932d8b"
     },
     {
       "path": "tests/unit/test_pack_mounter.gd",

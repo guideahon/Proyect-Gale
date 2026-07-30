@@ -33,7 +33,7 @@ python tools/ci/check_schemas.py
 python tools/ci/build_file_index.py --check
 ```
 
-Estado actual verificado: import limpio, 373/373 assertions en 14 archivos, 16 schemas + 6 ejemplos + 1 template + 33 casos, índice al día.
+Estado actual verificado: import limpio, 416/416 assertions en 17 archivos, 16 schemas + 6 ejemplos + 1 template + 33 casos, índice al día.
 
 Antes de exportar a Android hace falta el entorno completo, que se audita con `pwsh tools/deploy/check_setup.ps1`: incluye el addon de OpenXR (`tools/deploy/fetch_addons.ps1`, no versionado) y el build template de Gradle.
 
@@ -119,11 +119,11 @@ Criterio de salida: el juego no conoce ninguna espada, isla ni misión concreta.
 - [x] **T3.5 — `package_reader.gd`.** Abre `.gmod`, valida estructura del contenedor segun docs/24 §2 + lista blanca ADR-012. **Test:** 10 tests — paquete valido, sin manifest, path traversal, segmento oculto, ruta absoluta, duplicado exacto, duplicado case-insensitive, extension .gd rechazada, extension .gdshader rechazada.
 - [x] **T3.6 — Verificación de firma.** Payload canónico, SHA-256 por archivo, RSA. **Test:** `test_signature_verifier.gd` — payload canonico ordenado, hash correcto, archivos extra rechazados, archivos faltantes rechazados.
 - [x] **T3.7 — `key_store.gd` TOFU.** Ancla `official.*` a la clave oficial. **Test:** NEW → OK, KEY_CHANGED, OFFICIAL_MISMATCH. 13/13 assertions verdes.
-- [x] **T3.8 — `pack_mounter.gd`.** Extrae a `user://mod_cache/`, verifica hash, monta con `load_resource_pack()`, revierte si falla. **Test:** 5/5 — hash correcto, hash incorrecto rechazado, ZIP inexistente rechazado.
-- [x] **T3.9 — `registry_base.gd`.** Base para las 12 registries de docs/07. **Test:** 13/13 — IDs sin namespace rechazados, colision reportada, consulta por ID devuelve datos (no rutas), verify detecta IDs invalidos.
-- [ ] **T3.10 — `override_engine.gd`.** `extend`, `patch`, `replace` con advertencia, `disable` con placeholder. **Test:** los cuatro modos sobre una misma definición, más el caso de dos mods que sobrescriben lo mismo.
-- [ ] **T3.11 — `mod_error.gd`.** Errores estructurados con mod causante y motivo. **Test:** un mod defectuoso se desactiva y el juego sigue vivo.
-- [ ] **T3.12 — Modo seguro.** Contador de arranques fallidos, arranque sólo oficial, UI que nombra el mod, sin borrado automático. **Test:** simular tres fallos consecutivos activa el modo seguro y conserva los archivos del mod.
+- [x] **T3.8 — `pack_mounter.gd`.** Extrae a `user://mod_cache/`, verifica hash, monta con `load_resource_pack()`, revierte si falla. **Test:** 5/5.
+- [x] **T3.9 — `registry_base.gd`.** Base para las 12 registries de docs/07. **Test:** 13/13.
+- [x] **T3.10 — `override_engine.gd`.** `extend`, `patch`, `replace` con advertencia, `disable` con placeholder. **Test:** 16/16 — cuatro modos sobre misma definicion, dos mods que sobrescriben lo mismo (ultimo gana).
+- [x] **T3.11 — `mod_error.gd`.** Errores estructurados con mod causante y motivo. **Test:** 3/3 — report/get/clear.
+- [x] **T3.12 — Modo seguro.** Contador de fallos, arranque solo oficial, sin borrado automatico. **Test:** 12/12 — 3 fallos consecutivos activan modo seguro, official.* permitido, reset tras exito.
 - [ ] **T3.13 — `official.base` registra la isla de M2.** **Test:** quitar `official.base` deja el juego arrancando en modo seguro, no crasheando.
 - [ ] **T3.14 — Tests de integración multi-PCK.** Varios paquetes, overrides encadenados, mod ausente, orden de carga. **Test:** `tests/integration/` verde.
 - [ ] **T3.15 — Validador CLI headless.** Reemplaza `tools/ci/check_schemas.py` reusando `schema_validator.gd`. **Test:** CLI y runtime dan el mismo veredicto sobre el mismo corpus; se retira el script Python en el mismo commit.

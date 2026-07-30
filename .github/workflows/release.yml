@@ -1,0 +1,64 @@
+name: Release APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Godot export template
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/godot/export_templates
+          key: godot-4.7.1-templates
+
+      - name: Install Godot 4.7.1
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          GODOT_URL="https://github.com/godotengine/godot/releases/download/4.7.1-stable/Godot_v4.7.1-stable_linux.x86_64.zip"
+          curl -L "$GODOT_URL" -o godot.zip
+          unzip godot.zip -d godot_bin
+          chmod +x godot_bin/Godot_v4.7.1-stable_linux.x86_64
+          godot_bin/Godot_v4.7.1-stable_linux.x86_64 --headless --export-template "Android"
+          rm -rf godot.zip godot_bin
+
+      - name: Install Java (Gradle build)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Build APK (Gradle)
+        run: |
+          GODOT_BIN="$HOME/.local/share/godot/export_templates/Android/Godot_v4.7.1-stable_linux.x86_64"
+          mkdir -p exports
+          "$GODOT_BIN" --headless --export-id 0 --export-release
+
+      - name: Compute SHA-256
+        run: |
+          sha256sum exports/gale.apk > exports/gale.apk.sha256
+          cat exports/gale.apk.sha256
+
+      - name: Get tag name
+        id: tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            exports/gale.apk
+            exports/gale.apk.sha256
+          body: |
+            **APK ARM64** — build Gradle
+            - Tamaño: $(du -h exports/gale.apk | cut -f1)
+            - SHA-256: $(cat exports/gale.apk.sha256 | cut -d' ' -f1)
+          draft: false
